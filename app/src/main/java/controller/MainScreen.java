@@ -20,7 +20,7 @@ public class MainScreen extends AppCompatActivity {
 
     public void openMap(){
         Intent intent = new Intent();
-        intent.setClass(this, TestScreen.class);
+        intent.setClass(this, MapActivity.class);
         startActivity(intent);
     }
 }
