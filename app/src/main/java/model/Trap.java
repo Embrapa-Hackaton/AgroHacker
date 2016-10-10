@@ -1,6 +1,5 @@
 package model;
 
-import com.example.gabrielrf97.agrohacker.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
@@ -11,7 +10,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Date;
 
 
-public class Armadilha {
+public class Trap {
     LatLng latLng;
     Date lastChange;
     Integer duration;
@@ -19,7 +18,7 @@ public class Armadilha {
     Marker trapMarker;
     String status;
 
-    public Armadilha(GoogleMap googleMap, LatLng latLng, Date lastChange, int duration, String pheromone){
+    public Trap(GoogleMap googleMap, LatLng latLng, Date lastChange, int duration, String pheromone){
         setLatLng(latLng);
         setLastChange(lastChange);
         setDuration(duration);
