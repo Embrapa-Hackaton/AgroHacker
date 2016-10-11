@@ -4,18 +4,14 @@ package controller;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.android.internal.util.*;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -37,16 +33,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.Tile;
-import com.google.android.gms.maps.model.TileOverlay;
-import com.google.android.gms.maps.model.TileOverlayOptions;
-import com.google.android.gms.maps.model.TileProvider;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
 
 import hackathon.embrapa.agrohacker.R;
 import model.Plot;
@@ -107,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                MapActivity.this.setPoligonMarker(latLng);
+                MapActivity.this.plotController.setPoligonMarker(latLng, mGoogleMap);
             }
         });
 
@@ -120,6 +106,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 plot.setShape(polygon);
                 plot = plotController.findPlotbyShape(polygon);
+
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
+                mGoogleMap.animateCamera(update);
 
                 Log.i("Plot Id", plot.getShape().getId()+"");
                 Log.i("Plot info", plot.getIndex()+"");
@@ -136,7 +125,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         googleApiClient.connect();
 
-        initialize3Plots();
+    //    plotController.initialize3Plots(mGoogleMap);
     }
 
     //UserLocation
@@ -227,90 +216,4 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         client.disconnect();
     }
 
-
-    ArrayList<Marker> markers = new ArrayList<Marker>();
-    final static int POLYGON_MAX_NUMBERS = 4;
-    private int drawedPoligons = 0;
-
-    ArrayList<Polygon> mapPoligons = new ArrayList<Polygon>();
-    Polygon shape;
-
-    //Create Plot
-
-
-
-    //Poligon Creation
-
-    private void setPoligonMarker(LatLng latLng) {
-
-        MarkerOptions marker = new MarkerOptions()
-                .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW) )
-                .position(new LatLng(latLng.latitude,latLng.longitude));
-        markers.add(mGoogleMap.addMarker(marker));
-
-        if(markers.size() == POLYGON_MAX_NUMBERS){
-            drawPoligon();
-            markers.clear();
-        }
-    }
-
-
-     private void drawPoligon(){
-         PolygonOptions options = new PolygonOptions()
-                .fillColor(0x660000FF)
-                .strokeWidth(4)
-                .strokeColor(Color.BLUE);
-
-        for(int i = 0; i < POLYGON_MAX_NUMBERS; i++){
-            options.add(markers.get(i).getPosition());
-            markers.get(i).remove();
-        }
-         shape = mGoogleMap.addPolygon(options);
-         mapPoligons.add(shape);
-    }
-
-    private void initialize3Plots(){
-        Log.i("Entrou no method", "DAAm");
-        Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-                .clickable(true)
-                .strokeColor(Color.RED)
-                .fillColor(Color.BLUE));
-
-        Log.i("CRIOU 1", "COROLHO");
-
-        Polygon polygon2 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 10), new LatLng(2, 5), new LatLng(44, 12))
-                .strokeColor(Color.RED)
-                .clickable(true)
-                .fillColor(Color.BLUE));
-
-        Log.i("CRIOU 2", "COROLHO");
-
-        Polygon polygon3 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-                .strokeColor(Color.RED)
-                .clickable(true)
-                .fillColor(Color.BLUE));
-
-        Log.i("CRIOU 3", "COROLHO");
-
-        Log.i("drawedPoligons", drawedPoligons+"");
-        Plot plot1 = new Plot(drawedPoligons+1,polygon1,"Milho");
-        drawedPoligons+=1;
-        Plot plot2 = new Plot(drawedPoligons+1,polygon2,"Milho");
-        drawedPoligons+=1;
-        Plot plot3 = new Plot(drawedPoligons+1,polygon3,"Milho");
-        drawedPoligons+=1;
-
-        Log.i("drawedPoligons", drawedPoligons+"");
-
-        plotController.plots.add(plot1);
-        plotController.plots.add(plot2);
-        plotController.plots.add(plot3);
-
-        Log.i("Adicionou sá porra", "HUE");
-
-    }
 }
