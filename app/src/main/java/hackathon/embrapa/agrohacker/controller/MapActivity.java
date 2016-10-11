@@ -1,4 +1,4 @@
-package controller;
+package hackathon.embrapa.agrohacker.controller;
 
 
 import android.Manifest;
@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.gabrielrf97.agrohacker.R;
+import hackathon.embrapa.agrohacker.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;

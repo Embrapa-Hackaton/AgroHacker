@@ -1,6 +1,5 @@
-package model;
+package hackathon.embrapa.agrohacker.model;
 
-import com.example.gabrielrf97.agrohacker.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
