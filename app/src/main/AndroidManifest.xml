@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FormularyActivity"
+            android:label="Inspeção">
+        </activity>
     </application>
 
 </manifest>
