@@ -1,11 +1,11 @@
-package controller;
+package hackathon.embrapa.agrohacker.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.example.gabrielrf97.agrohacker.R;
+import hackathon.embrapa.agrohacker.R;
 public class MainScreen extends AppCompatActivity {
 
     Button showMap;

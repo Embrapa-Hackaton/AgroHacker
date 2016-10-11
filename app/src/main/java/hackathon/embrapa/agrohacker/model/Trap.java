@@ -1,4 +1,4 @@
-package model;
+package hackathon.embrapa.agrohacker.model;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
