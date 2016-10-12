@@ -1,4 +1,4 @@
-package controller;
+package hackathon.embrapa.agrohacker.controller;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -11,11 +11,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
-import model.Plot;
+import hackathon.embrapa.agrohacker.model.Plot;
 
 public class PlotController {
 

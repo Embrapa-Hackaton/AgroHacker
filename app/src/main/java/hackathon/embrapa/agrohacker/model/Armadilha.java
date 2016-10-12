@@ -1,4 +1,4 @@
-package model;
+package hackathon.embrapa.agrohacker.model;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -10,28 +10,28 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Date;
 
 
-public class Trap {
+public class Armadilha {
+    LatLng latLng;
     Date lastChange;
     Integer duration;
     String pheromone;
     Marker trapMarker;
-    Circle trapRange;
     String status;
 
-    public Trap(Marker trapMarker, Circle trapRange, Date lastChange, int duration, String pheromone){
-        setTrapRange(trapRange);
+    public Armadilha(GoogleMap googleMap, LatLng latLng, Date lastChange, int duration, String pheromone){
+        setLatLng(latLng);
         setLastChange(lastChange);
         setDuration(duration);
         setPheromone(pheromone);
-        setTrapMarker(trapMarker);
+        createMarker(googleMap, latLng);
     }
 
-    public Circle getTrapRange(){
-        return trapRange;
+    public LatLng getLatLng(){
+        return latLng;
     }
 
-    public void setTrapRange(Circle trapRange){
-        this.trapRange = trapRange;
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
     }
 
     public Date getLastChange() {
@@ -73,4 +73,10 @@ public class Trap {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    private void createMarker(GoogleMap mGoogleMap, LatLng latLng){
+        MarkerOptions marker = new MarkerOptions()
+                .position(new LatLng(latLng.latitude,latLng.longitude));
+       trapMarker =  mGoogleMap.addMarker(marker);
+    };
 }

@@ -1,4 +1,4 @@
-package controller;
+package hackathon.embrapa.agrohacker.controller;
 
 
 import android.Manifest;
@@ -12,14 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import hackathon.embrapa.agrohacker.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -35,7 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 
 import hackathon.embrapa.agrohacker.R;
-import model.Plot;
+import hackathon.embrapa.agrohacker.model.Plot;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
 

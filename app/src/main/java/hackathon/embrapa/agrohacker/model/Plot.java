@@ -1,4 +1,4 @@
-package model;
+package hackathon.embrapa.agrohacker.model;
 
 import android.graphics.Color;
 
