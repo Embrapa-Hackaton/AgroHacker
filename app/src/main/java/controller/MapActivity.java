@@ -43,6 +43,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     GoogleApiClient googleApiClient;
     private GoogleApiClient client;
     PlotController plotController = new PlotController();
+    TrapController trapController = new TrapController();
+    Marker userLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
         //mGoogleMap.setMyLocationEnabled(true);
 
@@ -160,8 +162,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onConnectionSuspended(int i) {
 
     }
-
-    Marker userLocationMarker;
 
     @Override
     public void onLocationChanged(Location location) {

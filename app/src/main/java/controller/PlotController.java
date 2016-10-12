@@ -27,10 +27,6 @@ public class PlotController {
 
     ArrayList<Polygon> mapPoligons = new ArrayList<Polygon>();
     Polygon shape;
-    Marker marker1;
-    Marker marker2;
-    Marker marker3;
-    Marker marker4;
 
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {

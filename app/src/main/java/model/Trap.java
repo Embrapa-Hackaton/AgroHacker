@@ -11,27 +11,27 @@ import java.util.Date;
 
 
 public class Trap {
-    LatLng latLng;
     Date lastChange;
     Integer duration;
     String pheromone;
     Marker trapMarker;
+    Circle trapRange;
     String status;
 
-    public Trap(GoogleMap googleMap, LatLng latLng, Date lastChange, int duration, String pheromone){
-        setLatLng(latLng);
+    public Trap(Marker trapMarker, Circle trapRange, Date lastChange, int duration, String pheromone){
+        setTrapRange(trapRange);
         setLastChange(lastChange);
         setDuration(duration);
         setPheromone(pheromone);
-        createMarker(googleMap, latLng);
+        setTrapMarker(trapMarker);
     }
 
-    public LatLng getLatLng(){
-        return latLng;
+    public Circle getTrapRange(){
+        return trapRange;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setTrapRange(Circle trapRange){
+        this.trapRange = trapRange;
     }
 
     public Date getLastChange() {
@@ -73,10 +73,4 @@ public class Trap {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    private void createMarker(GoogleMap mGoogleMap, LatLng latLng){
-        MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(latLng.latitude,latLng.longitude));
-       trapMarker =  mGoogleMap.addMarker(marker);
-    };
 }
