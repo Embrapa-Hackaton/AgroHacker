@@ -1,4 +1,4 @@
-package controller;
+package hackathon.embrapa.agrohacker.controller;
 
 
 import android.graphics.Color;
@@ -11,8 +11,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import model.Plot;
-import model.Trap;
+import hackathon.embrapa.agrohacker.model.Plot;
+
 
 public class TrapController {
 
