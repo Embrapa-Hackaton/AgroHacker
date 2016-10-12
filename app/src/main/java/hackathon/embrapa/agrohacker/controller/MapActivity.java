@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import hackathon.embrapa.agrohacker.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;

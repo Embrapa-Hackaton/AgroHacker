@@ -29,7 +29,7 @@
         android:supportsRtl="true"
 
         android:theme="@style/AppTheme" >
-        <activity android:name="controller.MapActivity" >
+        <activity android:name=".controller.MapActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
