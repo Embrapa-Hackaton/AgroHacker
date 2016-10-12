@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -18,8 +19,6 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -32,12 +31,17 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+
+import hackathon.embrapa.agrohacker.R;
+import hackathon.embrapa.agrohacker.model.Plot;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
 
     GoogleMap mGoogleMap;
     GoogleApiClient googleApiClient;
     private GoogleApiClient client;
+    PlotController plotController = new PlotController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +86,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        //    mGoogleMap.setMyLocationEnabled(true);
+
+        //mGoogleMap.setMyLocationEnabled(true);
+
+        mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                MapActivity.this.plotController.setPoligonMarker(latLng, mGoogleMap);
+            }
+        });
+
+        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
+            @Override
+            public void onPolygonClick(Polygon polygon) {
+
+                Plot plot = new Plot();
+
+                plot.setShape(polygon);
+                plot = plotController.findPlotbyShape(polygon);
+
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
+                mGoogleMap.animateCamera(update);
+
+                Log.i("Plot Id", plot.getShape().getId()+"");
+                Log.i("Plot info", plot.getIndex()+"");
+                Log.i("Plot info", plot.getPlatationCulture()+"");
+                Log.i("Plot info", plot.getStatus()+"");
+            }
+        });
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -91,6 +123,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .build();
 
         googleApiClient.connect();
+
+    //    plotController.initialize3Plots(mGoogleMap);
     }
 
     //UserLocation
@@ -147,9 +181,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         MarkerOptions marker = new MarkerOptions()
-                                .title("Sua localização")
-                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher))
-                                .position(new LatLng(latLng.latitude,latLng.longitude));
+                .title("Sua localização")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                .position(new LatLng(latLng.latitude,latLng.longitude));
         userLocationMarker  =  mGoogleMap.addMarker(marker);
     }
 
@@ -180,4 +214,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
 }
