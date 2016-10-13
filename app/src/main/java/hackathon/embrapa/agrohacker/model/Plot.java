@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Plot {
 
-    private Integer indexgit = 0;
+    private Integer index = 0;
     private Polygon shape;
     private String plantationStage = "";
     private Date plantationStartDate;
