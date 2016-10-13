@@ -31,6 +31,7 @@ public class PlotController {
     public Plot findPlotbyShape(Polygon shape) {
         int i;
         for (i = 0; i < plots.size(); i++) {
+            Log.i("still", "SEARCHING");
             if (plots.get(i).getShape().equals(shape))
                 break;
         }
@@ -77,23 +78,27 @@ public class PlotController {
         PolygonOptions options = new PolygonOptions()
                 .fillColor(0x660000FF)
                 .strokeWidth(4)
+                .clickable(true)
                 .strokeColor(Color.BLUE);
+
 
         for(int i = 0; i < POLYGON_MAX_NUMBERS; i++){
             options.add(markers.get(i).getPosition());
             markers.get(i).remove();
         }
+
+        drawedPoligons++;
         shape = mGoogleMap.addPolygon(options);
         mapPoligons.add(shape);
     }
-/*
+
     public void initialize3Plots(GoogleMap mGoogleMap){
         Log.i("Entrou no method", "DAAm");
         Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
+                .add(new LatLng(0, 0), new LatLng(0, -25), new LatLng(3, -50), new LatLng(0, 0))
                 .clickable(true)
                 .strokeColor(Color.RED)
-                .fillColor(Color.BLUE));
+                .fillColor(Color.GRAY));
 
         Log.i("CRIOU 1", "COROLHO");
 
@@ -109,7 +114,7 @@ public class PlotController {
                 .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
                 .strokeColor(Color.RED)
                 .clickable(true)
-                .fillColor(Color.BLUE));
+                .fillColor(Color.GREEN));
 
         Log.i("CRIOU 3", "COROLHO");
 
@@ -129,5 +134,5 @@ public class PlotController {
 
         Log.i("Adicionou sá porra", "HUE");
 
-    }*/
+    }
 }

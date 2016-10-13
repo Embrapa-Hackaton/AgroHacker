@@ -33,7 +33,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 
-import hackathon.embrapa.agrohacker.R;
+import java.util.ArrayList;
+
 import hackathon.embrapa.agrohacker.model.Plot;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
@@ -44,6 +45,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     PlotController plotController = new PlotController();
     TrapController trapController = new TrapController();
     Marker userLocationMarker;
+    Plot plot = new Plot();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,21 +102,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
 
+
             @Override
             public void onPolygonClick(Polygon polygon) {
-
-                Plot plot = new Plot();
 
                 plot.setShape(polygon);
                 plot = plotController.findPlotbyShape(polygon);
 
+                Log.i("Found plot",plot.getIndex()+"");
+
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
                 mGoogleMap.animateCamera(update);
 
-                Log.i("Plot Id", plot.getShape().getId()+"");
-                Log.i("Plot info", plot.getIndex()+"");
-                Log.i("Plot info", plot.getPlatationCulture()+"");
-                Log.i("Plot info", plot.getStatus()+"");
+                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        if (trapController.checkTrapIsInsidePlot(latLng,(ArrayList<LatLng>) plot.getShape().getPoints())) {
+                            trapController.addTrap(mGoogleMap, latLng, plot);
+                        }else {
+                            Toast.makeText(MapActivity.this, "Esse ponto não está dentro do talhão escolhido", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
 
@@ -126,7 +135,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         googleApiClient.connect();
 
-    //    plotController.initialize3Plots(mGoogleMap);
+        plotController.initialize3Plots(mGoogleMap);
     }
 
     //UserLocation
