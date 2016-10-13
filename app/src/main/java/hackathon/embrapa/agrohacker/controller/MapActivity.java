@@ -85,16 +85,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
         //mGoogleMap.setMyLocationEnabled(true);
-
+/*
         mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 MapActivity.this.plotController.setPoligonMarker(latLng, mGoogleMap);
             }
-        });
+        });*/
 
         mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
 
