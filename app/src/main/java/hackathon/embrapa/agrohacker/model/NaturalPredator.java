@@ -1,8 +1,24 @@
 package hackathon.embrapa.agrohacker.model;
 
-/**
- * Created by gabrielrf97 on 10/10/16.
- */
+import java.util.ArrayList;
 
-public class NaturalPredator extends Insect {
+public class NaturalPredator extends Insect{
+
+    private ArrayList<String> feedingPragues;
+
+
+    public NaturalPredator(String culture, String scientificName,
+                           String popularName, String group, int lifePeriod,
+                           ArrayList<String> feedingPragues) {
+        super(culture, scientificName, popularName, group, lifePeriod);
+        setFeedingPragues(feedingPragues);
+    }
+
+    public ArrayList<String> getFeedingPragues() {
+        return feedingPragues;
+    }
+
+    public void setFeedingPragues(ArrayList<String> feedingPragues) {
+        this.feedingPragues = feedingPragues;
+    }
 }
