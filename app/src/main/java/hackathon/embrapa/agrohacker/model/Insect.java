@@ -2,6 +2,7 @@ package hackathon.embrapa.agrohacker.model;
 
 public class Insect {
 
+    private Integer id;
     private String culture = "";
     private String scientificName = "";
     private Integer lifePeriod;
@@ -15,6 +16,8 @@ public class Insect {
         setLifePeriod(lifePeriod);
         setGroup(group);
     }
+
+    public Insect() {}
 
     public String getCulture() {
         return culture;
@@ -56,6 +59,7 @@ public class Insect {
         this.lifePeriod = lifePeriod;
     }
 
+    public Integer getId() { return id; }
 
-
+    public void setId(Integer id) { this.id = id; }
 }

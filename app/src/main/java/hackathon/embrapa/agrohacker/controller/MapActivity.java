@@ -109,7 +109,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 plot.setShape(polygon);
                 plot = plotController.findPlotbyShape(polygon);
 
-                Log.i("Found plot",plot.getIndex()+"");
+                Log.i("Found plot",plot.getId()+"");
 
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
                 mGoogleMap.animateCamera(update);

@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class FieldInspection {
+
+    private int id;
     private Date realization;
     private String inspectorName;
     private ArrayList<Prague> foundedPrages;
     private ArrayList<NaturalPredator> foundedPredators;
     private String status;
     private Marker marker;
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public Date getRealization() {
         return realization;

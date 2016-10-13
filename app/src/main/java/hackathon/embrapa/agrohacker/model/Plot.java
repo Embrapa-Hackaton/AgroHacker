@@ -10,13 +10,13 @@ import java.util.Date;
 
 public class Plot {
 
-    private Integer index = 0;
-    private Polygon shape;
+    private Integer id;
     private String plantationStage = "";
     private Date plantationStartDate;
     private Date harvestDate;
     private String platationCulture = "";
     private String status = "";
+    private Polygon shape;
     private ArrayList<Trap> traps = new ArrayList<Trap>();
     private ArrayList<FieldInspection> fieldInspections = new ArrayList<FieldInspection>();
 
@@ -31,8 +31,8 @@ public class Plot {
         setStatus("UKNOWN");
     }*/
 
-    public Plot(int index, Polygon shape, String platationCulture){
-        setIndex(index);
+    public Plot(int id, Polygon shape, String platationCulture){
+        setId(id);
         setShape(shape);
         setPlatationCulture(platationCulture);
         setPlantationStage("Plantação");
@@ -43,12 +43,12 @@ public class Plot {
 
     }
 
-    public int getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Polygon getShape() {
