@@ -2,6 +2,7 @@ package hackathon.embrapa.agrohacker.controller;
 
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -19,9 +20,11 @@ public class TrapController {
 
     public void addTrap(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
 
+        Log.i("Enter in da method", "tralala");
+
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW) )
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
         mGoogleMap.addMarker(marker);

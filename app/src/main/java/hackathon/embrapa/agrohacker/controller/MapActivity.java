@@ -118,6 +118,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     @Override
                     public void onMapClick(LatLng latLng) {
                         if (trapController.checkTrapIsInsidePlot(latLng,(ArrayList<LatLng>) plot.getShape().getPoints())) {
+                            Log.i("Entrou aqui", "Dafuq");
                             trapController.addTrap(mGoogleMap, latLng, plot);
                         }else {
                             Toast.makeText(MapActivity.this, "Esse ponto não está dentro do talhão escolhido", Toast.LENGTH_LONG).show();
