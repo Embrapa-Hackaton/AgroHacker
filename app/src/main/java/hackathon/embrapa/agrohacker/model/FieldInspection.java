@@ -14,6 +14,12 @@ public class FieldInspection {
     private String status;
     private Marker marker;
 
+    public FieldInspection(Date date, String inspectorName, Marker marker){
+        setRealization(date);
+        setInspectorName(inspectorName);
+        setMarker(marker);
+    }
+
     public Date getRealization() {
         return realization;
     }
@@ -34,16 +40,16 @@ public class FieldInspection {
         return foundedPrages;
     }
 
-    public void setFoundedPrages(Prague foundedPrage) {
-        this.foundedPrages.add(foundedPrage);
+    public void setFoundedPrages(ArrayList<Prague> foundedPrages) {
+        this.foundedPrages = foundedPrages;
     }
 
     public ArrayList<NaturalPredator> getFoundedPredators() {
         return foundedPredators;
     }
 
-    public void setFoundedPredators(NaturalPredator foundedPredator) {
-        this.foundedPredators.add(foundedPredator);
+    public void setFoundedPredators(ArrayList<NaturalPredator> foundedPredators) {
+        this.foundedPredators = foundedPredators;
     }
 
     public String getStatus() {

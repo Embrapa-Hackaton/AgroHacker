@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -20,20 +21,22 @@ public class TrapController {
 
     public void addTrap(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
 
-        Log.i("Enter in da method", "tralala");
+        Marker trapMarker = addTrapMarker(mGoogleMap, latLng);
+        Circle trapRange = drawCircle(mGoogleMap, latLng);
+
+     //   Trap newTrap = new Trap(marker, trapRange, duration, pherormone);
+
+     //   plot.setTrap(newTrap);
+    }
+
+    private Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
-        mGoogleMap.addMarker(marker);
-
-       Circle trapRange = drawCircle(mGoogleMap, latLng);
-
-     //   Trap newTrap = new Trap(marker, trapRange, duration, pherormone);
-
-     //   plot.setTrap(newTrap);
+        return mGoogleMap.addMarker(marker);
     }
 
     private Circle drawCircle(GoogleMap mGoogleMap, LatLng latlng){
