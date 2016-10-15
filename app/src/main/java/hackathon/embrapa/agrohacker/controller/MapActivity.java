@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
@@ -53,6 +54,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     Button createTrap;
     Button createFieldInspection;
     LocationRequest locationRequest;
+    ArrayList<LatLng> points = new ArrayList<LatLng>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,39 +161,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void createTrap(View mapView) {
-        Toast.makeText(this, "Não implementado", Toast.LENGTH_LONG).show();
+
+        points = (ArrayList<LatLng>) plot.getShape().getPoints();
+        plot.getShape().setClickable(false);
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(trapController.checkTrapIsInsidePlot(latLng, points)){
+                    Toast.makeText(MapActivity.this, "Iremos add sá merda",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MapActivity.this, "Ponto fora do poligono",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void createFieldInspection(View mapView){
         Toast.makeText(this, "Não implementado", Toast.LENGTH_LONG).show();
     }
-
-    /*public void createTrap(View mapView){
-
-        locationRequest.setInterval(200000);
-
-        createFieldInspection.setVisibility(View.INVISIBLE);
-        Toast.makeText(MapActivity.this, "Clique para adicionar uma armadilha", Toast.LENGTH_LONG);
-
-        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Toast.makeText(MapActivity.this, "Selecione um ponto dentro do talhão",
-                        Toast.LENGTH_SHORT);
-            }
-        });
-
-        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
-
-            @Override
-            public void onPolygonClick(Polygon polygon) {
-                if(polygon.equals(plot.getShape())){
-                    trapController.addTrap(mGoogleMap, );
-                }
-            }
-        });
-
-    }*/
 
     //UserLocation
 
