@@ -7,13 +7,13 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
+import hackathon.embrapa.agrohacker.adapter.PragueAdapter;
 import hackathon.embrapa.agrohacker.dao.PragueDAO;
 import hackathon.embrapa.agrohacker.model.Prague;
 
@@ -68,7 +68,7 @@ public class PragueListController extends AppCompatActivity {
         PragueDAO dao = new PragueDAO(this);
         List<Prague> pragues = dao.showPragues();
         dao.close();
-        ArrayAdapter<Prague> adapter = new ArrayAdapter<Prague> (this, android.R.layout.simple_list_item_1, pragues);
+        PragueAdapter adapter = new PragueAdapter(this, pragues);
         pragueList.setAdapter(adapter);
     }
 
