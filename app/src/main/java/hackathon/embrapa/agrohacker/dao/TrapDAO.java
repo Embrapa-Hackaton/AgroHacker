@@ -13,24 +13,10 @@ import java.util.List;
 import hackathon.embrapa.agrohacker.model.Plot;
 import hackathon.embrapa.agrohacker.model.Trap;
 
-public class TrapDAO extends SQLiteOpenHelper{
+public class TrapDAO extends DAO {
 
     public TrapDAO(Context context) {
-        super(context, "AgroHacker", null, 1);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Trap (id INTEGER PRIMARY KEY, lastChange DATE, duration INTEGER," +
-                "pheromone TEXT, status TEXT);";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXIST Trap;";
-        db.execSQL(sql);
-        onCreate(db);
+        super(context);
     }
 
     private ContentValues getTrapData(Trap trap) {

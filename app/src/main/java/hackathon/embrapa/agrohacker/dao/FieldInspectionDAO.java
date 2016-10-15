@@ -13,24 +13,10 @@ import java.util.List;
 import hackathon.embrapa.agrohacker.model.FieldInspection;
 import hackathon.embrapa.agrohacker.model.Plot;
 
-public class FieldInspectionDAO extends SQLiteOpenHelper{
+public class FieldInspectionDAO extends DAO {
 
     public FieldInspectionDAO(Context context) {
-        super(context, "AgroHacker", null, 1);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Inspection (id INTEGER PRIMARY KEY, realization DATE, inspectorName TEXT," +
-                "status TEXT);";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXIST Inspection;";
-        db.execSQL(sql);
-        onCreate(db);
+        super(context);
     }
 
     private ContentValues getInspectionData(FieldInspection inspection) {

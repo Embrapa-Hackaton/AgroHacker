@@ -12,24 +12,10 @@ import java.util.List;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
-public class PlotDAO extends SQLiteOpenHelper{
+public class PlotDAO extends DAO {
 
     public PlotDAO(Context context) {
-        super(context, "AgroHacker", null, 1);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Plot (id INTEGER PRIMARY KEY, plantationStage TEXT, plantationStartDate DATE," +
-                "harvestDate DATE, platationCulture TEXT, status TEXT);";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXIST Plot;";
-        db.execSQL(sql);
-        onCreate(db);
+        super(context);
     }
 
     private ContentValues getPlotData(Plot plot) {

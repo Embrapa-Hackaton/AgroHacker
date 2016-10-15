@@ -14,7 +14,7 @@ import hackathon.embrapa.agrohacker.model.Prague;
 public class DAO extends SQLiteOpenHelper{
 
     public DAO(Context context) {
-        super(context, "agroHacker", null, 3);
+        super(context, "agroHacker", null, 4);
     }
 
     @Override
@@ -35,7 +35,16 @@ public class DAO extends SQLiteOpenHelper{
                 sql = "CREATE TABLE Predator (id INTEGER PRIMARY KEY, culture TEXT, scientificName TEXT," +
                         "lifePeriod TEXT, popularName TEXT, groups TEXT, photoPath TEXT, atackPeriod TEXT, damageType TEXT);";
                 db.execSQL(sql);
-
+            case 3:
+                sql = "CREATE TABLE Plot (id INTEGER PRIMARY KEY, plantationStage TEXT, plantationStartDate DATE," +
+                        "harvestDate DATE, platationCulture TEXT, status TEXT);";
+                db.execSQL(sql);
+                sql = "CREATE TABLE Inspection (id INTEGER PRIMARY KEY, realization DATE, inspectorName TEXT," +
+                        "status TEXT);";
+                db.execSQL(sql);
+                sql = "CREATE TABLE Trap (id INTEGER PRIMARY KEY, lastChange DATE, duration INTEGER," +
+                        "pheromone TEXT, status TEXT);";
+                db.execSQL(sql);
         }
     }
 
