@@ -18,7 +18,7 @@
                 android:id="@+id/prague_form_photo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/person"
+                android:src="@drawable/insect"
                 android:background="#00A8EC" />
 
             <Button
