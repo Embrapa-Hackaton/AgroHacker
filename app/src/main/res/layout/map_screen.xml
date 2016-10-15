@@ -1,18 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:weightSum="1">
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:id="@+id/mapfragment"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignWithParentIfMissing="true"/>
+    <Button
+        android:text="Adicionar talhão"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="createPlot"
+        android:id="@+id/createPlot"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"/>
 
-</LinearLayout>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/mapfragment"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_weight="0.51"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:text="Add Trap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trapBt"
+        android:layout_alignBaseline="@+id/createPlot"
+        android:layout_alignBottom="@+id/createPlot"
+        android:layout_alignEnd="@+id/createPlot"
+        android:visibility="invisible"
+        android:onClick="createTrap"/>
+
+    <Button
+        android:text="Add Inspec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Inspectionbt"
+        android:layout_below="@+id/createPlot"
+        android:layout_alignEnd="@+id/concludebutton"
+        android:visibility="invisible"
+        android:onClick="createFieldInspection"/>
+
+    <Button
+        android:text="Ok"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="endAddingPlots"
+        android:id="@+id/concludebutton"
+        android:background="@color/colorPrimary"
+        android:layout_alignEnd="@+id/createPlot"
+        android:layout_above="@+id/Inspectionbt"
+        android:elevation="24dp"/>
+
+
+</RelativeLayout>

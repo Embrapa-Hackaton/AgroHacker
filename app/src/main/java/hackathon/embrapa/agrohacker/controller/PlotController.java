@@ -1,8 +1,13 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -16,16 +21,21 @@ import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
+import static hackathon.embrapa.agrohacker.R.id.createPlot;
+
 public class PlotController {
 
     ArrayList<Plot> plots = new ArrayList<Plot>();
 
     ArrayList<Marker> markers = new ArrayList<Marker>();
     final static int POLYGON_MAX_NUMBERS = 4;
-    private int drawedPoligons = 0;
+    public int drawedPoligons = 0;
+    public int drawedPerTime = 0;
 
     ArrayList<Polygon> mapPoligons = new ArrayList<Polygon>();
     Polygon shape;
+
+    boolean drawedTheLast = false;
 
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {
@@ -42,9 +52,7 @@ public class PlotController {
 
     //Poligon Creation
 
-    ArrayList<Polyline> lines = new ArrayList<Polyline>();
-
-    public void setPoligonMarker(LatLng latLng, GoogleMap mGoogleMap) {
+    public void setPoligonMarker(LatLng latLng, GoogleMap mGoogleMap, Context context) {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
@@ -55,9 +63,8 @@ public class PlotController {
 
 
         if(markers.size() == POLYGON_MAX_NUMBERS){
-            drawPoligon(mGoogleMap);
+            drawPoligon(mGoogleMap, context);
             markers.clear();
-            lines.clear();
         }
     }
 
@@ -74,7 +81,7 @@ public class PlotController {
     }*/
 
 
-    private void drawPoligon(GoogleMap mGoogleMap){
+    private void drawPoligon(GoogleMap mGoogleMap, Context context){
         PolygonOptions options = new PolygonOptions()
                 .fillColor(0x660000FF)
                 .strokeWidth(4)
@@ -88,11 +95,32 @@ public class PlotController {
         }
 
         drawedPoligons++;
+        drawedPerTime++;
+
         shape = mGoogleMap.addPolygon(options);
         mapPoligons.add(shape);
+
+        drawedTheLast = true;
+
+        if (drawedTheLast) {
+
+            Toast.makeText(context, "Talhão adicionado, clique em OK para salvar",
+                    Toast.LENGTH_LONG).show();
+
+
+            mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    //Do nothing
+                }
+            });
+        }
+        drawedTheLast = false;
+        drawedPerTime = 0;
     }
 
-    public void initialize3Plots(GoogleMap mGoogleMap){
+
+      public void initialize3Plots(GoogleMap mGoogleMap){
         Log.i("Entrou no method", "DAAm");
         Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
                 .add(new LatLng(0, 0), new LatLng(0, -25), new LatLng(3, -50), new LatLng(0, 0))
@@ -135,4 +163,5 @@ public class PlotController {
         Log.i("Adicionou sá porra", "HUE");
 
     }
+
 }

@@ -44,7 +44,7 @@ public class TrapController {
         CircleOptions circle = new CircleOptions()
                             .center(latlng)
                             .radius(250)
-                            .fillColor(Color.GRAY)
+                            .fillColor(0x660000EE)
                             .strokeWidth(4)
                             .strokeColor(Color.BLUE);
 

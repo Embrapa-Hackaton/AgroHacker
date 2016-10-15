@@ -10,6 +10,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -46,6 +48,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     TrapController trapController = new TrapController();
     Marker userLocationMarker;
     Plot plot = new Plot();
+    Button createPlot;
+    Button endingAdding;
+    Button createTrap;
+    Button createFieldInspection;
+    LocationRequest locationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } else {
             //Impossible to display maps
         }
+
+        createPlot = (Button) findViewById(R.id.createPlot);
+        endingAdding = (Button) findViewById(R.id.concludebutton);
+        createTrap = (Button) findViewById(R.id.trapBt);
+        createFieldInspection = (Button) findViewById(R.id.Inspectionbt);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -91,42 +103,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-        //mGoogleMap.setMyLocationEnabled(true);
-
-        mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                MapActivity.this.plotController.setPoligonMarker(latLng, mGoogleMap);
-            }
-        });
-
-        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
-
-
-            @Override
-            public void onPolygonClick(Polygon polygon) {
-
-                plot.setShape(polygon);
-                plot = plotController.findPlotbyShape(polygon);
-
-                Log.i("Found plot",plot.getIndex()+"");
-
-                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
-                mGoogleMap.animateCamera(update);
-
-                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        if (trapController.checkTrapIsInsidePlot(latLng,(ArrayList<LatLng>) plot.getShape().getPoints())) {
-                            Log.i("Entrou aqui", "Dafuq");
-                            trapController.addTrap(mGoogleMap, latLng, plot);
-                        }else {
-                            Toast.makeText(MapActivity.this, "Esse ponto não está dentro do talhão escolhido", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }
-        });
+        permitClickOnPolygon();
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -139,14 +116,89 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         plotController.initialize3Plots(mGoogleMap);
     }
 
+    public void createPlot(View mapView) {
+
+        createPlot.setVisibility(View.INVISIBLE);
+        endingAdding.setVisibility(View.VISIBLE);
+
+        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
+            @Override
+            public void onPolygonClick(Polygon polygon) {
+                //Do nothing
+                Toast.makeText(MapActivity.this,
+                        "Você não pode adicionar um ponto dentro de outro talhão",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(plotController.drawedPerTime == 0)
+                    plotController.setPoligonMarker(latLng, mGoogleMap, MapActivity.this);
+            }
+        });
+    }
+
+    public void endAddingPlots(View mapView){
+
+        createPlot.setVisibility(View.VISIBLE);
+        endingAdding.setVisibility(View.INVISIBLE);
+
+        permitClickOnPolygon();
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                //Do nothing
+            }
+        });
+
+    }
+
+    public void createTrap(View mapView) {
+        Toast.makeText(this, "Não implementado", Toast.LENGTH_LONG).show();
+    }
+
+    public void createFieldInspection(View mapView){
+        Toast.makeText(this, "Não implementado", Toast.LENGTH_LONG).show();
+    }
+
+    /*public void createTrap(View mapView){
+
+        locationRequest.setInterval(200000);
+
+        createFieldInspection.setVisibility(View.INVISIBLE);
+        Toast.makeText(MapActivity.this, "Clique para adicionar uma armadilha", Toast.LENGTH_LONG);
+
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Toast.makeText(MapActivity.this, "Selecione um ponto dentro do talhão",
+                        Toast.LENGTH_SHORT);
+            }
+        });
+
+        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
+            @Override
+            public void onPolygonClick(Polygon polygon) {
+                if(polygon.equals(plot.getShape())){
+                    trapController.addTrap(mGoogleMap, );
+                }
+            }
+        });
+
+    }*/
+
     //UserLocation
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-
-    LocationRequest locationRequest;
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -223,6 +275,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public void permitClickOnPolygon(){
+
+        mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+
+
+            @Override
+            public void onPolygonClick(Polygon polygon) {
+
+                createPlot.setVisibility(View.INVISIBLE);
+                createFieldInspection.setVisibility(View.VISIBLE);
+                createTrap.setVisibility(View.VISIBLE);
+
+                plot.setShape(polygon);
+                plot = plotController.findPlotbyShape(polygon);
+
+                Log.i("Found plot", plot.getIndex() + "");
+
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
+                mGoogleMap.animateCamera(update);
+
+                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        if (trapController.checkTrapIsInsidePlot(latLng,
+                                (ArrayList<LatLng>) plot.getShape().getPoints())) {
+
+                            trapController.addTrap(mGoogleMap, latLng, plot);
+                        } else {
+
+                            Toast.makeText(MapActivity.this,
+                                    "Esse ponto não está dentro do talhão escolhido",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
 }
