@@ -26,6 +26,16 @@ public class PragueFormController extends AppCompatActivity{
         setContentView(R.layout.activity_prague_form);
 
         helper = new PragueFormHelper(this);
+
+        receivePragueData();
+    }
+
+    private void receivePragueData() {
+        Intent intent = getIntent();
+        Prague prague = (Prague) intent.getSerializableExtra("pragueKey");
+        if (prague != null) {
+            helper.fillForm(prague);
+        }
     }
 
     @Override

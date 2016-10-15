@@ -1,6 +1,8 @@
 package hackathon.embrapa.agrohacker.model;
 
-public class Insect {
+import java.io.Serializable;
+
+public class Insect implements Serializable {
 
     private Integer id;
     private String culture = "";

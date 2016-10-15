@@ -37,4 +37,15 @@ public class PragueFormHelper {
         prague.setGroup(groupField.getText().toString());
         return prague;
     }
+
+    public void fillForm(Prague prague) {
+        popularNameField.setText(prague.getPopularName());
+        scientificNameField.setText(prague.getScientificName());
+        cultureField.setText(prague.getCulture());
+        atackPeriodField.setText(prague.getAtackPeriod());
+        lifePeriodField.setText(prague.getLifePeriod());
+        damageTypeField.setText(prague.getDamageType());
+        groupField.setText(prague.getGroup());
+        this.prague = prague;
+    }
 }

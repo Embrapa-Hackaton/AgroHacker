@@ -28,9 +28,23 @@ public class PragueListController extends AppCompatActivity {
 
         pragueList = (ListView) findViewById(R.id.prague_list);
 
+        clickShowPrague();
+
         newPragueButton();
 
         registerForContextMenu(pragueList);
+    }
+
+    private void clickShowPrague() {
+        pragueList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
+                Prague prague = (Prague) pragueList.getItemAtPosition(position);
+                Intent intentGoToForm = new Intent(PragueListController.this, PragueFormController.class); //mudar isso
+                intentGoToForm.putExtra("pragueKey", prague);
+                startActivity(intentGoToForm);
+            }
+        });
     }
 
     private void newPragueButton() {
