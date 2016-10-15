@@ -14,7 +14,7 @@ import hackathon.embrapa.agrohacker.model.Prague;
 public class PragueDAO extends SQLiteOpenHelper{
 
     public PragueDAO(Context context) {
-        super(context, "agroHacker", null, 1);
+        super(context, "agroHacker", null, 2);
     }
 
     @Override
@@ -26,9 +26,12 @@ public class PragueDAO extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXIST Prague;";
-        db.execSQL(sql);
-        onCreate(db);
+        String sql = "";
+        switch (oldVersion) {
+            case 1:
+                sql = "ALTER TABLE Prague ADD COLUMN photoPath TEXT";
+                db.execSQL(sql);
+        }
     }
 
     private ContentValues getPragueData(Prague prague) {
@@ -38,6 +41,7 @@ public class PragueDAO extends SQLiteOpenHelper{
         data.put("lifePeriod", prague.getLifePeriod());
         data.put("popularName", prague.getPopularName());
         data.put("groups", prague.getGroup());
+        data.put("photoPath", prague.getPhotoPath());
         data.put("atackPeriod", prague.getAtackPeriod());
         data.put("damageType", prague.getDamageType());
         return data;
@@ -62,6 +66,7 @@ public class PragueDAO extends SQLiteOpenHelper{
             prague.setLifePeriod(line.getString(line.getColumnIndex("lifePeriod")));
             prague.setPopularName(line.getString(line.getColumnIndex("popularName")));
             prague.setGroup(line.getString(line.getColumnIndex("groups")));
+            prague.setPhotoPath(line.getString(line.getColumnIndex("photoPath")));
             prague.setAtackPeriod(line.getString(line.getColumnIndex("atackPeriod")));
             prague.setDamageType(line.getString(line.getColumnIndex("damageType")));
             pragues.add(prague);

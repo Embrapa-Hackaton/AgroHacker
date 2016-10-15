@@ -1,6 +1,9 @@
 package hackathon.embrapa.agrohacker.helper;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.controller.PragueFormController;
@@ -14,6 +17,7 @@ public class PragueFormHelper {
     private final EditText lifePeriodField;
     private final EditText damageTypeField;
     private final EditText groupField;
+    private final ImageView photoField;
     private Prague prague;
 
     public PragueFormHelper(PragueFormController activity) {
@@ -24,6 +28,7 @@ public class PragueFormHelper {
         lifePeriodField = (EditText) activity.findViewById(R.id.life_period_form);
         damageTypeField = (EditText) activity.findViewById(R.id.damage_type_form);
         groupField = (EditText) activity.findViewById(R.id.group_form);
+        photoField = (ImageView) activity.findViewById(R.id.prague_form_photo);
         prague = new Prague();
     }
 
@@ -35,6 +40,7 @@ public class PragueFormHelper {
         prague.setLifePeriod(lifePeriodField.getText().toString());
         prague.setDamageType(damageTypeField.getText().toString());
         prague.setGroup(groupField.getText().toString());
+        prague.setPhotoPath((String) photoField.getTag());
         return prague;
     }
 
@@ -46,6 +52,19 @@ public class PragueFormHelper {
         lifePeriodField.setText(prague.getLifePeriod());
         damageTypeField.setText(prague.getDamageType());
         groupField.setText(prague.getGroup());
+        imageLoading(prague.getPhotoPath());
         this.prague = prague;
     }
+
+    public void imageLoading(String photoPath) {
+        if (photoPath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            photoField.setImageBitmap(bitmapReduzido);
+            photoField.setScaleType(ImageView.ScaleType.FIT_XY);
+            photoField.setTag(photoPath);
+        }
+    }
+
+
 }

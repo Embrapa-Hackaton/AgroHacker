@@ -9,10 +9,10 @@ public class Prague extends Insect {
     private String damageType = "";
     private ArrayList<String> pesticides;
 
-    public Prague(String culture, String scientificName, String popularName, String group, String lifePeriod,
+    public Prague(String culture, String scientificName, String popularName, String groups, String lifePeriod,
                   String atackPeriod,ArrayList<String> naturalPredators,
                   String damageType, ArrayList<String> pesticides){
-        super(culture, scientificName, popularName, group,lifePeriod);
+        super(culture, scientificName, popularName, groups,lifePeriod);
         setAtackPeriod(atackPeriod);
         setNaturalPredators(naturalPredators);
         setDamageType(damageType);

@@ -9,14 +9,16 @@ public class Insect implements Serializable {
     private String scientificName = "";
     private String lifePeriod;
     private String popularName = "";
-    private String group = "";
+    private String groups = "";
+    private String photoPath = "";
 
-    public Insect(String culture, String scientificName, String popularName, String group, String lifePeriod){
+
+    public Insect(String culture, String scientificName, String popularName, String groups, String lifePeriod){
         setCulture(culture);
         setScientificName(scientificName);
         setPopularName(popularName);
         setLifePeriod(lifePeriod);
-        setGroup(group);
+        setGroup(groups);
     }
 
     public Insect() {}
@@ -30,11 +32,11 @@ public class Insect implements Serializable {
     }
 
     public String getGroup() {
-        return group;
+        return groups;
     }
 
     public void setGroup(String group) {
-        this.group = group;
+        this.groups = group;
     }
 
     public String getPopularName() {
@@ -64,4 +66,8 @@ public class Insect implements Serializable {
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
+
+    public String getPhotoPath() { return photoPath; }
+
+    public void setPhotoPath(String photoPath) { this.photoPath = photoPath; }
 }
