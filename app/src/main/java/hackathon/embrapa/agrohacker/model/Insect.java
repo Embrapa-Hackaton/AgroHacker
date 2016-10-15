@@ -5,11 +5,11 @@ public class Insect {
     private Integer id;
     private String culture = "";
     private String scientificName = "";
-    private Integer lifePeriod;
+    private String lifePeriod;
     private String popularName = "";
     private String group = "";
 
-    public Insect(String culture, String scientificName, String popularName, String group, int lifePeriod){
+    public Insect(String culture, String scientificName, String popularName, String group, String lifePeriod){
         setCulture(culture);
         setScientificName(scientificName);
         setPopularName(popularName);
@@ -51,11 +51,11 @@ public class Insect {
         this.scientificName = scientificName;
     }
 
-    public Integer getLifePeriod() {
+    public String getLifePeriod() {
         return lifePeriod;
     }
 
-    public void setLifePeriod(Integer lifePeriod) {
+    public void setLifePeriod(String lifePeriod) {
         this.lifePeriod = lifePeriod;
     }
 

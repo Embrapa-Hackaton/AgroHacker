@@ -1,4 +1,4 @@
-package hackathon.embrapa.agrohacker;
+package hackathon.embrapa.agrohacker.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +7,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class FormularyActivity extends AppCompatActivity {
+import hackathon.embrapa.agrohacker.R;
+
+public class InspectionFormController extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulary);
+        setContentView(R.layout.activity_inspection_form);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class FormularyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulary_ok:
-                Toast.makeText(FormularyActivity.this, "Botão clicado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InspectionFormController.this, "Botão clicado!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

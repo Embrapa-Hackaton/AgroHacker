@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -10,6 +11,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -60,6 +64,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_map, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_map_inspect:
+                Intent intentGoToInspectForm = new Intent(MapActivity.this, InspectionFormController.class);
+                startActivity(intentGoToInspectForm);
+                break;
+            case R.id.menu_map_talhao:
+                break;
+            case R.id.menu_map_trap:
+                break;
+            case R.id.menu_prague:
+                Intent intentGoToPragueList = new Intent(MapActivity.this, PragueListController.class);
+                startActivity(intentGoToPragueList);
+                break;
+            case R.id.menu_predator:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Checking services

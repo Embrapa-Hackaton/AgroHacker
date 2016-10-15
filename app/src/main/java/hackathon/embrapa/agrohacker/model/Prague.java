@@ -9,7 +9,7 @@ public class Prague extends Insect {
     private String damageType = "";
     private ArrayList<String> pesticides;
 
-    public Prague(String culture, String scientificName, String popularName, String group, int lifePeriod,
+    public Prague(String culture, String scientificName, String popularName, String group, String lifePeriod,
                   String atackPeriod,ArrayList<String> naturalPredators,
                   String damageType, ArrayList<String> pesticides){
         super(culture, scientificName, popularName, group,lifePeriod);
@@ -18,6 +18,8 @@ public class Prague extends Insect {
         setDamageType(damageType);
         setPesticides(pesticides);
     }
+
+    public Prague(){}
 
 
     public String getAtackPeriod() {
@@ -50,5 +52,10 @@ public class Prague extends Insect {
 
     public void setPesticides(ArrayList<String> pesticides) {
         this.pesticides = pesticides;
+    }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getPopularName();
     }
 }

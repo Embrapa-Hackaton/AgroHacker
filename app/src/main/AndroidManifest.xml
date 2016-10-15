@@ -36,9 +36,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FormularyActivity"
+            android:name=".controller.InspectionFormController"
             android:label="Inspeção">
         </activity>
+        <activity
+            android:name=".controller.PragueFormController"
+            android:label="Praga">
+        </activity>
+        <activity
+            android:name=".controller.PragueListController"
+            android:label="Pragas">
+        </activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <meta-data android:name = "com.google.android.maps.v2.API_KEY"
                    android:value="AIzaSyCv0OMV_YK6MMRUDacOJ9kd05OuYOw2Av0"/>

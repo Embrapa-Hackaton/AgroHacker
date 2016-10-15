@@ -6,10 +6,10 @@
     tools:context="hackathon.embrapa.agrohacker.MapActivity">
 
     <group android:id="@+id/group_menu_map">
-        <item android:id="@+id/menu1"
-            android:title="menu1" />
-        <item android:id="@+id/menu2"
-            android:title="menu2" />
+        <item android:id="@+id/menu_prague"
+            android:title="Pragas" />
+        <item android:id="@+id/menu_predator"
+            android:title="Predadores" />
     </group>
 
     <item
