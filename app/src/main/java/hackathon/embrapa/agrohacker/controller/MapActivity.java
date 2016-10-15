@@ -89,6 +89,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intentGoToPragueList);
                 break;
             case R.id.menu_predator:
+                Intent intentGoToPredatorList = new Intent(MapActivity.this, PredatorListController.class);
+                startActivity(intentGoToPredatorList);
                 break;
         }
         return super.onOptionsItemSelected(item);

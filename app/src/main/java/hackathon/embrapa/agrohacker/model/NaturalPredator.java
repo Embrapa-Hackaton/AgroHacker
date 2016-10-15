@@ -14,6 +14,8 @@ public class NaturalPredator extends Insect{
         setFeedingPragues(feedingPragues);
     }
 
+    public NaturalPredator(){}
+
     public ArrayList<String> getFeedingPragues() {
         return feedingPragues;
     }

@@ -16,38 +16,38 @@ import android.widget.Toast;
 import java.io.File;
 
 import hackathon.embrapa.agrohacker.R;
-import hackathon.embrapa.agrohacker.dao.PragueDAO;
-import hackathon.embrapa.agrohacker.helper.PragueFormHelper;
-import hackathon.embrapa.agrohacker.model.Prague;
+import hackathon.embrapa.agrohacker.dao.NaturalPredatorDAO;
+import hackathon.embrapa.agrohacker.helper.PredatorFormHelper;
+import hackathon.embrapa.agrohacker.model.NaturalPredator;
 
-public class PragueFormController extends AppCompatActivity{
+public class PredatorFormController extends AppCompatActivity{
 
     public static final int CAMERA_CODE = 567;
-    private PragueFormHelper helper;
+    private PredatorFormHelper helper;
     private String photoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prague_form);
+        setContentView(R.layout.activity_predator_form);
 
-        helper = new PragueFormHelper(this);
+        helper = new PredatorFormHelper(this);
 
-        receivePragueData();
+        receivePredatorData();
 
-        takePraguePhoto();
+        takePredatorPhoto();
     }
 
-    private void receivePragueData() {
+    private void receivePredatorData() {
         Intent intent = getIntent();
-        Prague prague = (Prague) intent.getSerializableExtra("pragueKey");
-        if (prague != null) {
-            helper.fillForm(prague);
+        NaturalPredator predator = (NaturalPredator) intent.getSerializableExtra("predatorKey");
+        if (predator != null) {
+            helper.fillForm(predator);
         }
     }
 
-    private void takePraguePhoto() {
-        Button buttonPhoto = (Button) findViewById(R.id.button_form_photo);
+    private void takePredatorPhoto() {
+        Button buttonPhoto = (Button) findViewById(R.id.button_predator_form_photo);
         buttonPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,8 +55,8 @@ public class PragueFormController extends AppCompatActivity{
                 photoPath = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
                 File photoFile = new File(photoPath);
 
-                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(PragueFormController.this,
-                        PragueFormController.this.getApplicationContext().getPackageName() + ".provider", photoFile));
+                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(PredatorFormController.this,
+                        PredatorFormController.this.getApplicationContext().getPackageName() + ".provider", photoFile));
 
                 startActivityForResult(intentCamera, CAMERA_CODE);
             }
@@ -83,17 +83,17 @@ public class PragueFormController extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulary_ok:
-                Prague prague = helper.getAllPrague();
-                PragueDAO dao = new PragueDAO(this);
+                NaturalPredator predator = helper.getAllPredator();
+                NaturalPredatorDAO dao = new NaturalPredatorDAO(this);
 
-                if(prague.getId() != null) {
-                    dao.updatePrague(prague);
+                if(predator.getId() != null) {
+                    dao.updatePredator(predator);
                 } else {
-                    dao.insertPrague(prague);
+                    dao.insertPredator(predator);
                 }
 
                 dao.close();
-                Toast.makeText(PragueFormController.this, "Aluno " + prague.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PredatorFormController.this, "Aluno " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

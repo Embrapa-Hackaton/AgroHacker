@@ -14,6 +14,7 @@ import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.adapter.PragueAdapter;
+import hackathon.embrapa.agrohacker.dao.DAO;
 import hackathon.embrapa.agrohacker.dao.PragueDAO;
 import hackathon.embrapa.agrohacker.model.Prague;
 
