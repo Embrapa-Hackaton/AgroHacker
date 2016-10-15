@@ -36,12 +36,12 @@
 
 
         <EditText android:hint="Nome Popular"
-            android:id="@+id/popular_predator_name_form"
+            android:id="@+id/predator_popular_name_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Nome Científico"
-            android:id="@+id/scientific_predator_name_form"
+            android:id="@+id/predator_scientific_name_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Período de vida"
-            android:id="@+id/life_period_predator_form"
+            android:id="@+id/predator_life_period_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

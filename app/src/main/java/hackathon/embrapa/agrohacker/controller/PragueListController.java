@@ -4,17 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.adapter.PragueAdapter;
-import hackathon.embrapa.agrohacker.dao.DAO;
 import hackathon.embrapa.agrohacker.dao.PragueDAO;
 import hackathon.embrapa.agrohacker.model.Prague;
 
@@ -93,6 +95,19 @@ public class PragueListController extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_list, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
 }

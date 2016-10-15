@@ -21,10 +21,10 @@ public class PredatorFormHelper {
     private NaturalPredator predator;
 
     public PredatorFormHelper(PredatorFormController activity) {
-        popularNameField = (EditText) activity.findViewById(R.id.popular_predator_name_form);
-        scientificNameField = (EditText) activity.findViewById(R.id.scientific_predator_name_form);
+        popularNameField = (EditText) activity.findViewById(R.id.predator_popular_name_form);
+        scientificNameField = (EditText) activity.findViewById(R.id.predator_scientific_name_form);
         cultureField = (EditText) activity.findViewById(R.id.predator_culture_form);
-        lifePeriodField = (EditText) activity.findViewById(R.id.life_period_predator_form);
+        lifePeriodField = (EditText) activity.findViewById(R.id.predator_life_period_form);
         groupField = (EditText) activity.findViewById(R.id.predator_group_form);
         photoField = (ImageView) activity.findViewById(R.id.predator_form_photo);
         predator = new NaturalPredator();

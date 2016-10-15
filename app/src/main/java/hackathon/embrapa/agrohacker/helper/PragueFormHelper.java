@@ -21,13 +21,13 @@ public class PragueFormHelper {
     private Prague prague;
 
     public PragueFormHelper(PragueFormController activity) {
-        popularNameField = (EditText) activity.findViewById(R.id.popular_name_form);
-        scientificNameField = (EditText) activity.findViewById(R.id.scientific_name_form);
-        cultureField = (EditText) activity.findViewById(R.id.culture_form);
-        atackPeriodField = (EditText) activity.findViewById(R.id.atack_period_form);
-        lifePeriodField = (EditText) activity.findViewById(R.id.life_period_form);
-        damageTypeField = (EditText) activity.findViewById(R.id.damage_type_form);
-        groupField = (EditText) activity.findViewById(R.id.group_form);
+        popularNameField = (EditText) activity.findViewById(R.id.prague_popular_name_form);
+        scientificNameField = (EditText) activity.findViewById(R.id.prague_scientific_name_form);
+        cultureField = (EditText) activity.findViewById(R.id.prague_culture_form);
+        atackPeriodField = (EditText) activity.findViewById(R.id.prague_atack_period_form);
+        lifePeriodField = (EditText) activity.findViewById(R.id.prague_life_period_form);
+        damageTypeField = (EditText) activity.findViewById(R.id.prague_damage_type_form);
+        groupField = (EditText) activity.findViewById(R.id.prague_group_form);
         photoField = (ImageView) activity.findViewById(R.id.prague_form_photo);
         prague = new Prague();
     }

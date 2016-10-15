@@ -47,7 +47,7 @@ public class PragueFormController extends AppCompatActivity{
     }
 
     private void takePraguePhoto() {
-        Button buttonPhoto = (Button) findViewById(R.id.button_form_photo);
+        Button buttonPhoto = (Button) findViewById(R.id.button_prague_form_photo);
         buttonPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

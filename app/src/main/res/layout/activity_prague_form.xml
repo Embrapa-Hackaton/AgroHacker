@@ -22,7 +22,7 @@
                 android:background="#00A8EC" />
 
             <Button
-                android:id="@+id/button_form_photo"
+                android:id="@+id/button_prague_form_photo"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/camera_background"
@@ -36,37 +36,37 @@
 
 
         <EditText android:hint="Nome Popular"
-            android:id="@+id/popular_name_form"
+            android:id="@+id/prague_popular_name_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Nome Científico"
-            android:id="@+id/scientific_name_form"
+            android:id="@+id/prague_scientific_name_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Cultura"
-            android:id="@+id/culture_form"
+            android:id="@+id/prague_culture_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Período de ataque"
-            android:id="@+id/atack_period_form"
+            android:id="@+id/prague_atack_period_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Período de vida"
-            android:id="@+id/life_period_form"
+            android:id="@+id/prague_life_period_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Tipo de dano"
-            android:id="@+id/damage_type_form"
+            android:id="@+id/prague_damage_type_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText android:hint="Grupo"
-            android:id="@+id/group_form"
+            android:id="@+id/prague_group_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
