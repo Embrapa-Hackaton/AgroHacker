@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/toolbar_list"
+        android:id="@+id/include_prague_toolbar_list" />
+
     <ListView
         android:id="@+id/prague_list"
         android:layout_width="match_parent"

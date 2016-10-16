@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,11 +32,20 @@ public class PredatorFormController extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predator_form);
 
+        toolbar();
+
         helper = new PredatorFormHelper(this);
 
         receivePredatorData();
 
         takePredatorPhoto();
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_predator_toolbar_form);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.predator_form);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void receivePredatorData() {

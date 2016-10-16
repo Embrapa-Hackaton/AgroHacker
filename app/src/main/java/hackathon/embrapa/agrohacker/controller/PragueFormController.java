@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,11 +32,20 @@ public class PragueFormController extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prague_form);
 
+        toolbar();
+
         helper = new PragueFormHelper(this);
 
         receivePragueData();
 
         takePraguePhoto();
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_prague_toolbar_form);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.prague_form);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void receivePragueData() {

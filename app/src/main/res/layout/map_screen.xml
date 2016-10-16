@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout
+    android:id="@+id/activity_map"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".controller.MapActivity">
 
-        <fragment
+        <include android:id="@+id/include_toolbar"
+                layout="@layout/toolbar_main" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:id="@+id/mapfragment"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignWithParentIfMissing="true"/>
+            android:orientation="vertical"
+            android:layout_below="@+id/include_toolbar"
+            android:layout_above="@+id/include_toolbar_bottom">
 
-</LinearLayout>
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:id="@+id/mapfragment"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignWithParentIfMissing="true"/>
+
+        </LinearLayout>
+
+
+        <include
+            android:id="@+id/include_toolbar_bottom"
+            layout="@layout/toolbar_bottom" />
+
+</RelativeLayout>

@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,8 @@ public class PredatorListController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_predator);
 
+        toolbar();
+
         predatorList = (ListView) findViewById(R.id.predator_list);
 
         clickShowPredator();
@@ -35,6 +38,13 @@ public class PredatorListController extends AppCompatActivity {
         newPredatorButton();
 
         registerForContextMenu(predatorList);
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_predator_toolbar_list);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.predator_list);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void clickShowPredator() {

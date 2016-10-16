@@ -8,8 +8,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,8 +56,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.map_screen);
+
+        toolbar();
+        bottomToolbar();
+
         if (googleServicesAvailabe()) {
             Toast.makeText(this, "Connecting application", Toast.LENGTH_LONG).show();
             initializeMap();
@@ -64,6 +69,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setSubtitle(R.string.app_subtitle);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
+    }
+
+    private void bottomToolbar() {
+        Toolbar mToolbarBottom = (Toolbar) findViewById(R.id.include_toolbar_bottom);
+        mToolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = null;
+
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_map_inspect:
+                        intent = new Intent(MapActivity.this, InspectionFormController.class);
+                        break;
+                    case R.id.menu_map_talhao:
+                        break;
+                    case R.id.menu_map_trap:
+                        break;
+                }
+
+                startActivity(intent);
+                return true;
+            }
+        });
+        mToolbarBottom.inflateMenu(R.menu.menu_bottom);
     }
 
     @Override
@@ -76,14 +113,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_map_inspect:
-                Intent intentGoToInspectForm = new Intent(MapActivity.this, InspectionFormController.class);
-                startActivity(intentGoToInspectForm);
-                break;
-            case R.id.menu_map_talhao:
-                break;
-            case R.id.menu_map_trap:
-                break;
             case R.id.menu_prague:
                 Intent intentGoToPragueList = new Intent(MapActivity.this, PragueListController.class);
                 startActivity(intentGoToPragueList);

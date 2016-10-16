@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,8 @@ public class PragueListController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_prague);
 
+        toolbar();
+
         pragueList = (ListView) findViewById(R.id.prague_list);
 
         clickShowPrague();
@@ -36,6 +39,13 @@ public class PragueListController extends AppCompatActivity {
         newPragueButton();
 
         registerForContextMenu(pragueList);
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_prague_toolbar_list);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.prague_list);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void clickShowPrague() {
