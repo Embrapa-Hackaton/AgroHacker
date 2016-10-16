@@ -80,6 +80,7 @@ public class PlotController {
 
 
     private void drawPoligon(GoogleMap mGoogleMap, Context context){
+
         PolygonOptions options = new PolygonOptions()
                 .fillColor(0x660000FF)
                 .strokeWidth(4)
@@ -97,6 +98,16 @@ public class PlotController {
 
         shape = mGoogleMap.addPolygon(options);
         mapPoligons.add(shape);
+
+        LatLng center = findPolygonCenter((ArrayList<LatLng>) shape.getPoints());
+        MarkerOptions marker = new MarkerOptions()
+                .draggable(true)
+                .title("Talhao")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .position(new LatLng(center.latitude,center.longitude));
+
+        mGoogleMap.addMarker(marker);
+
 
         drawedTheLast = true;
 
@@ -160,6 +171,39 @@ public class PlotController {
 
         Log.i("Adicionou sá porra", "HUE");
 
+    }
+
+    public MarkerOptions addPlotMarker(LatLng latLng){
+
+        Log.i("Era pra adicionar", "wtf");
+
+        MarkerOptions marker = new MarkerOptions()
+                .draggable(true)
+                .title("Talhao")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .position(new LatLng(latLng.latitude,latLng.longitude));
+
+        return marker;
+    }
+
+    public LatLng findPolygonCenter(ArrayList<LatLng> points) {
+
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        for (int i = 0; i < points.size(); i+=2) {
+            latitude += points.get(i).latitude;
+            longitude += points.get(i).longitude;
+        }
+
+        int totalPoints = points.size()/2;
+
+        latitude = latitude/totalPoints;
+        longitude = longitude/totalPoints;
+
+        LatLng center =  new LatLng(latitude, longitude);
+
+        return center;
     }
 
 }

@@ -11,11 +11,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -41,6 +43,7 @@ import com.google.android.gms.maps.model.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
@@ -308,10 +311,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 Log.i("Found plot", plot.getId() + "");
 
-                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
-                mGoogleMap.animateCamera(update);
+         //       CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
+         //       mGoogleMap.animateCamera(update);
 
+                GoogleMap.InfoWindowAdapter infoWindow = new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
 
+                    @Override
+                    public View getInfoContents(Marker marker) {
+
+                        View mapView = getLayoutInflater().inflate(R.layout.plot_info_window, null);
+
+                        TextView tvIndex = (TextView) mapView.findViewById(R.id.tv_index);
+                        TextView tvCulture = (TextView) mapView.findViewById(R.id.tv_culture);
+
+                        LatLng ll = marker.getPosition();
+
+                        tvIndex.setText(plot.getId()+"");
+                        tvCulture.setText(plot.getPlatationCulture());
+
+                        return mapView;
+                    }
+                };
             }
         });
     }

@@ -2,6 +2,8 @@ package hackathon.embrapa.agrohacker.model;
 
 import android.graphics.Color;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polygon;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Plot {
     private String platationCulture = "";
     private String status = "";
     private Polygon shape;
+    private Marker plotMarker;
     private ArrayList<Trap> traps = new ArrayList<Trap>();
     private ArrayList<FieldInspection> fieldInspections = new ArrayList<FieldInspection>();
 
@@ -41,6 +44,14 @@ public class Plot {
 
     public Plot(){
 
+    }
+
+    public Marker getPlotMarker() {
+        return plotMarker;
+    }
+
+    public void setPlotMarker(Marker plotMarker) {
+        this.plotMarker = plotMarker;
     }
 
     public int getId() {
@@ -150,14 +161,20 @@ public class Plot {
     private void changePlotColor(){
         switch (status){
             case "URGENTE" :
+                plotMarker.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 shape.setFillColor(Color.RED);
                 shape.setStrokeWidth(6);
                 break;
             case "ALARMANTE" :
                 shape.setFillColor(Color.YELLOW);
+                plotMarker.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                 shape.setStrokeWidth(5);
                 break;
             case "TRANQUILO" :
+                plotMarker.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 shape.setFillColor(Color.GREEN);
                 shape.setStrokeWidth(4);
                 break;
