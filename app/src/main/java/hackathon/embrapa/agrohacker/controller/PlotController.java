@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
-import static hackathon.embrapa.agrohacker.R.id.createPlot;
-
 public class PlotController {
 
     ArrayList<Plot> plots = new ArrayList<Plot>();

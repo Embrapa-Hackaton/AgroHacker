@@ -8,11 +8,13 @@ public class NaturalPredator extends Insect{
 
 
     public NaturalPredator(String culture, String scientificName,
-                           String popularName, String group, int lifePeriod,
+                           String popularName, String groups, String lifePeriod,
                            ArrayList<String> feedingPragues) {
-        super(culture, scientificName, popularName, group, lifePeriod);
+        super(culture, scientificName, popularName, groups, lifePeriod);
         setFeedingPragues(feedingPragues);
     }
+
+    public NaturalPredator(){}
 
     public ArrayList<String> getFeedingPragues() {
         return feedingPragues;

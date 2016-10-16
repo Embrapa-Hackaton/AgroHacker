@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -12,6 +13,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -49,10 +53,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     TrapController trapController = new TrapController();
     Marker userLocationMarker;
     Plot plot = new Plot();
-    Button createPlot;
     Button endingAdding;
-    Button createTrap;
-    Button createFieldInspection;
     LocationRequest locationRequest;
     ArrayList<LatLng> points = new ArrayList<LatLng>();
 
@@ -68,12 +69,41 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             //Impossible to display maps
         }
 
-        createPlot = (Button) findViewById(R.id.createPlot);
         endingAdding = (Button) findViewById(R.id.concludebutton);
-        createTrap = (Button) findViewById(R.id.trapBt);
-        createFieldInspection = (Button) findViewById(R.id.Inspectionbt);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_map, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_map_talhao:
+                Log.i("entrando aqui", "hue");
+                createPlot();
+                break;
+            case R.id.menu_map_fieldInspec:
+                if(plot != null)
+                    createFieldInspection();
+                else
+                Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
+                        "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_map_trap:
+                if(plot != null)
+                    createTrap();
+                else
+                    Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
+                            "para adicionar uma trap", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Checking services
@@ -118,9 +148,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         plotController.initialize3Plots(mGoogleMap);
     }
 
-    public void createPlot(View mapView) {
+    public void createPlot() {
 
-        createPlot.setVisibility(View.INVISIBLE);
         endingAdding.setVisibility(View.VISIBLE);
 
         mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
@@ -146,7 +175,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void endAddingPlots(View mapView){
 
-        createPlot.setVisibility(View.VISIBLE);
         endingAdding.setVisibility(View.INVISIBLE);
 
         permitClickOnPolygon();
@@ -160,7 +188,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    public void createTrap(View mapView) {
+    public void createTrap() {
 
         points = (ArrayList<LatLng>) plot.getShape().getPoints();
         plot.getShape().setClickable(false);
@@ -169,17 +197,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 if(trapController.checkTrapIsInsidePlot(latLng, points)){
-                    Toast.makeText(MapActivity.this, "Iremos add sá merda",
-                            Toast.LENGTH_SHORT).show();
+                    createTrap();
                 }else{
-                    Toast.makeText(MapActivity.this, "Ponto fora do poligono",
+                    Toast.makeText(MapActivity.this, "Ponto fora do talhão",
                             Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void createFieldInspection(View mapView){
+    public void createFieldInspection(){
         Toast.makeText(this, "Não implementado", Toast.LENGTH_LONG).show();
     }
 
@@ -271,37 +298,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
 
-
             @Override
             public void onPolygonClick(Polygon polygon) {
 
-                createPlot.setVisibility(View.INVISIBLE);
-                createFieldInspection.setVisibility(View.VISIBLE);
-                createTrap.setVisibility(View.VISIBLE);
+                findViewById(R.id.menu_map_talhao).setVisibility(View.INVISIBLE);
 
                 plot.setShape(polygon);
                 plot = plotController.findPlotbyShape(polygon);
 
-                Log.i("Found plot", plot.getIndex() + "");
+                Log.i("Found plot", plot.getId() + "");
 
                 CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
                 mGoogleMap.animateCamera(update);
 
-                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        if (trapController.checkTrapIsInsidePlot(latLng,
-                                (ArrayList<LatLng>) plot.getShape().getPoints())) {
 
-                            trapController.addTrap(mGoogleMap, latLng, plot);
-                        } else {
-
-                            Toast.makeText(MapActivity.this,
-                                    "Esse ponto não está dentro do talhão escolhido",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
             }
         });
     }
