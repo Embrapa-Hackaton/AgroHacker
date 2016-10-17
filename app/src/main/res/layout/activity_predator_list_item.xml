@@ -9,7 +9,7 @@
         android:id="@+id/predator_item_foto"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/person"/>
+        android:src="@drawable/insect"/>
 
     <LinearLayout
         android:orientation="vertical"
