@@ -2,6 +2,7 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,14 @@ public class InspectionFormController extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspection_form);
+        toolbar();
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_inspection_toolbar_form);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.inspection_form);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     @Override

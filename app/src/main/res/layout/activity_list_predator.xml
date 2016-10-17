@@ -10,6 +10,7 @@
 
     <ListView
         android:id="@+id/predator_list"
+        android:layout_below="@+id/include_predator_toolbar_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>

@@ -89,14 +89,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 switch (menuItem.getItemId()) {
                     case R.id.menu_map_inspect:
                         intent = new Intent(MapActivity.this, InspectionFormController.class);
+                        startActivity(intent);
                         break;
                     case R.id.menu_map_talhao:
+                        Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_map_trap:
+                        Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                         break;
                 }
 
-                startActivity(intent);
+                //startActivity(intent);
                 return true;
             }
         });
@@ -120,6 +123,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.menu_predator:
                 Intent intentGoToPredatorList = new Intent(MapActivity.this, PredatorListController.class);
                 startActivity(intentGoToPredatorList);
+                break;
+            case R.id.menu_report:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_info:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_about:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_exit:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -7,4 +7,16 @@
     <item android:id="@+id/menu_predator"
         android:title="Predadores" />
 
+    <item android:id="@+id/menu_report"
+        android:title="Relatorio" />
+
+    <item android:id="@+id/menu_info"
+        android:title="Informaçoes" />
+
+    <item android:id="@+id/menu_about"
+        android:title="Sobre" />
+
+    <item android:id="@+id/menu_exit"
+        android:title="Sair" />
+
 </menu>

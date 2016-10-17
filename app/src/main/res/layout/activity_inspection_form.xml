@@ -10,7 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/toolbar_form"
+            android:id="@+id/include_inspection_toolbar_form" />
+
         <EditText android:hint="Nome"
+            android:layout_below="@+id/include_inspection_toolbar_form"
             android:id="@+id/formulary_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
