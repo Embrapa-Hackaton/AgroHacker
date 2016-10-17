@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -43,13 +47,14 @@ import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
     GoogleMap mGoogleMap;
     GoogleApiClient googleApiClient;
     private GoogleApiClient client;
     PlotController plotController = new PlotController();
     TrapController trapController = new TrapController();
+    ActionBarDrawerToggle toggle;
     Marker userLocationMarker;
     Plot plot = new Plot();
 
@@ -61,6 +66,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         toolbar();
         bottomToolbar();
 
+        menuDrawer();
+
         if (googleServicesAvailabe()) {
             Toast.makeText(this, "Connecting application", Toast.LENGTH_LONG).show();
             initializeMap();
@@ -69,6 +76,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void menuDrawer() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void toolbar() {
@@ -107,14 +126,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_map, menu);
-        return super.onCreateOptionsMenu(menu);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item)) return true;
+        //menu(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_prague:
                 Intent intentGoToPragueList = new Intent(MapActivity.this, PragueListController.class);
@@ -137,7 +156,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
         }
-        return super.onOptionsItemSelected(item);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+
+        return false;
     }
 
     //Checking services

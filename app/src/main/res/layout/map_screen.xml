@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/activity_map"
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".controller.MapActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/activity_map"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".controller.MapActivity">
 
         <include android:id="@+id/include_toolbar"
                 layout="@layout/toolbar_main" />
@@ -17,22 +24,36 @@
             android:layout_below="@+id/include_toolbar"
             android:layout_above="@+id/include_toolbar_bottom">
 
-                <fragment
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:name="com.google.android.gms.maps.MapFragment"
-                    android:id="@+id/mapfragment"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignWithParentIfMissing="true"/>
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/mapfragment"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignWithParentIfMissing="true" />
 
         </LinearLayout>
-
 
         <include
             android:id="@+id/include_toolbar_bottom"
             layout="@layout/toolbar_bottom" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_marginTop="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp"
+        app:menu="@menu/menu_map"
+        app:headerLayout="@layout/nav_header"
+        app:itemBackground="@drawable/pressed_gray"
+        android:layout_gravity="start">
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

@@ -6,4 +6,6 @@
     <string name="prague_list">Lista de pragas</string>
     <string name="predator_list">Lista de predadores</string>
     <string name="inspection_form">Inspeção</string>
+    <string name="open">Abrir</string>
+    <string name="close">Fechar</string>
 </resources>

@@ -2,21 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/menu_prague"
-        android:title="Pragas" />
+        android:title="Pragas"
+        android:icon="@drawable/ic_app" />
 
     <item android:id="@+id/menu_predator"
-        android:title="Predadores" />
+        android:title="Predadores"
+        android:icon="@drawable/ic_app" />
 
     <item android:id="@+id/menu_report"
-        android:title="Relatorio" />
+        android:title="Relatorio"
+        android:icon="@drawable/ic_report" />
 
     <item android:id="@+id/menu_info"
-        android:title="Informaçoes" />
+        android:title="Informaçoes"
+        android:icon="@drawable/ic_info" />
 
     <item android:id="@+id/menu_about"
-        android:title="Sobre" />
+        android:title="Sobre"
+        android:icon="@drawable/ic_about" />
 
     <item android:id="@+id/menu_exit"
-        android:title="Sair" />
+        android:title="Sair"
+        android:icon="@drawable/ic_exit" />
 
 </menu>
