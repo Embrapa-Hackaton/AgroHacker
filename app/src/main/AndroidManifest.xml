@@ -27,11 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".controller.MapActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".controller.MapActivity"
+            android:label="Mapa">
         </activity>
         <activity
             android:name=".controller.InspectionFormController"
@@ -52,6 +50,14 @@
         <activity
             android:name=".controller.PredatorListController"
             android:label="Predadores Naturais">
+        </activity>
+        <activity
+            android:name=".controller.SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"

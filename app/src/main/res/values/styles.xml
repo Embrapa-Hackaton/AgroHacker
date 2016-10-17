@@ -10,4 +10,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
