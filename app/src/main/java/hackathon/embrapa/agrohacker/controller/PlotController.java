@@ -179,7 +179,6 @@ public class PlotController {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
-                .title("Talhao")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
@@ -191,15 +190,13 @@ public class PlotController {
         double latitude = 0.0;
         double longitude = 0.0;
 
-        for (int i = 0; i < points.size(); i+=2) {
+        for (int i = 0; i < points.size(); i++) {
             latitude += points.get(i).latitude;
             longitude += points.get(i).longitude;
         }
 
-        int totalPoints = points.size()/2;
-
-        latitude = latitude/totalPoints;
-        longitude = longitude/totalPoints;
+        latitude = latitude/ points.size();
+        longitude = longitude/ points.size();
 
         LatLng center =  new LatLng(latitude, longitude);
 
