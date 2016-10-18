@@ -29,32 +29,45 @@
         android:supportsRtl="true"
 
         android:theme="@style/AppTheme" >
+
         <activity android:name=".controller.MapActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".controller.InspectionFormController"
             android:label="Inspeção">
         </activity>
+
         <activity
             android:name=".controller.PragueFormController"
             android:label="Praga">
         </activity>
+
         <activity
             android:name=".controller.PragueListController"
             android:label="Pragas">
         </activity>
+
         <activity
             android:name=".controller.PredatorFormController"
             android:label="Predator Natural">
         </activity>
+
         <activity
             android:name=".controller.PredatorListController"
             android:label="Predadores Naturais">
         </activity>
+
+        <activity
+            android:name=".controller.NotificationsActivity"
+            android:label="Notifications">
+        </activity>
+
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

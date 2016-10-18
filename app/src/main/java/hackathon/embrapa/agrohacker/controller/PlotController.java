@@ -100,13 +100,7 @@ public class PlotController {
         mapPoligons.add(shape);
 
         LatLng center = findPolygonCenter((ArrayList<LatLng>) shape.getPoints());
-        MarkerOptions marker = new MarkerOptions()
-                .draggable(true)
-                .title("Talhao")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
-                .position(new LatLng(center.latitude,center.longitude));
-
-        mGoogleMap.addMarker(marker);
+        mGoogleMap.addMarker(addPlotMarker(center));
 
 
         drawedTheLast = true;
@@ -175,11 +169,9 @@ public class PlotController {
 
     public MarkerOptions addPlotMarker(LatLng latLng){
 
-        Log.i("Era pra adicionar", "wtf");
-
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
         return marker;

@@ -94,16 +94,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.menu_map_fieldInspec:
                 if(plot != null)
                     createFieldInspection();
-                else
-                Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
-                        "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
+                            "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.menu_map_trap:
                 if(plot != null)
                     createTrap();
-                else
+                else {
                     Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
-                            "para adicionar uma trap", Toast.LENGTH_SHORT).show();
+                            "para adicionar uma Armadilha", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -178,6 +180,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void endAddingPlots(View mapView){
 
+        findViewById(R.id.menu_map_talhao).setVisibility(View.VISIBLE);
+
         endingAdding.setVisibility(View.INVISIBLE);
 
         permitClickOnPolygon();
@@ -186,6 +190,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 //Do nothing
+                plot = null;
             }
         });
 
@@ -200,7 +205,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
                 if(trapController.checkTrapIsInsidePlot(latLng, points)){
-                    createTrap();
+                    trapController.addTrap(mGoogleMap, latLng, plot);
                 }else{
                     Toast.makeText(MapActivity.this, "Ponto fora do talhão",
                             Toast.LENGTH_SHORT).show();
@@ -304,6 +309,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onPolygonClick(Polygon polygon) {
 
+                endingAdding.setVisibility(View.VISIBLE);
+
                 findViewById(R.id.menu_map_talhao).setVisibility(View.INVISIBLE);
 
                 plot.setShape(polygon);
@@ -314,28 +321,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
          //       CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getShape().getPoints().get(0), 15);
          //       mGoogleMap.animateCamera(update);
 
-                GoogleMap.InfoWindowAdapter infoWindow = new GoogleMap.InfoWindowAdapter() {
-                    @Override
-                    public View getInfoWindow(Marker marker) {
-                        return null;
-                    }
-
-                    @Override
-                    public View getInfoContents(Marker marker) {
-
-                        View mapView = getLayoutInflater().inflate(R.layout.plot_info_window, null);
-
-                        TextView tvIndex = (TextView) mapView.findViewById(R.id.tv_index);
-                        TextView tvCulture = (TextView) mapView.findViewById(R.id.tv_culture);
-
-                        LatLng ll = marker.getPosition();
-
-                        tvIndex.setText(plot.getId()+"");
-                        tvCulture.setText(plot.getPlatationCulture());
-
-                        return mapView;
-                    }
-                };
             }
         });
     }
