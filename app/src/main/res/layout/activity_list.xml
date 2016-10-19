@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar_list"
-        android:id="@+id/include_predator_toolbar_list" />
+    <include layout="@layout/activity_toolbar_main"
+        android:id="@+id/include_toolbar_list" />
 
     <ListView
-        android:id="@+id/predator_list"
-        android:layout_below="@+id/include_predator_toolbar_list"
+        android:id="@+id/list_view"
+        android:layout_below="@+id/include_toolbar_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
 
     <Button
-        android:id="@+id/new_predator_button"
+        android:id="@+id/new_item_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"

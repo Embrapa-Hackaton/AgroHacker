@@ -16,11 +16,10 @@ public class NaturalPredatorDAO extends DAO {
 
     private ContentValues getPredatorData(NaturalPredator predator) {
         ContentValues data = new ContentValues();
-        data.put("culture", predator.getCulture());
-        data.put("scientificName", predator.getScientificName());
-        data.put("lifePeriod", predator.getLifePeriod());
         data.put("popularName", predator.getPopularName());
-        data.put("groups", predator.getGroup());
+        data.put("scientificName", predator.getScientificName());
+        data.put("description", predator.getDescription());
+        data.put("importance", predator.getImportance());
         data.put("photoPath", predator.getPhotoPath());
         return data;
     }
@@ -39,11 +38,10 @@ public class NaturalPredatorDAO extends DAO {
         while(line.moveToNext()) {
             NaturalPredator predator = new NaturalPredator();
             predator.setId(line.getInt(line.getColumnIndex("id")));
-            predator.setCulture(line.getString(line.getColumnIndex("culture")));
-            predator.setScientificName(line.getString(line.getColumnIndex("scientificName")));
-            predator.setLifePeriod(line.getString(line.getColumnIndex("lifePeriod")));
             predator.setPopularName(line.getString(line.getColumnIndex("popularName")));
-            predator.setGroup(line.getString(line.getColumnIndex("groups")));
+            predator.setScientificName(line.getString(line.getColumnIndex("scientificName")));
+            predator.setDescription(line.getString(line.getColumnIndex("description")));
+            predator.setImportance(line.getString(line.getColumnIndex("importance")));
             predator.setPhotoPath(line.getString(line.getColumnIndex("photoPath")));
             predators.add(predator);
         }

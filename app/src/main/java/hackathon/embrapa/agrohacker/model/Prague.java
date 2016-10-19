@@ -4,47 +4,43 @@ import java.util.ArrayList;
 
 public class Prague extends Insect {
 
-    private String atackPeriod = "";
+    private String bioecology = "";
+    private String damage = "";
+    private String lifeCycleStage = "";
     private ArrayList<String> naturalPredators;
-    private String damageType = "";
     private ArrayList<String> pesticides;
 
-    public Prague(String culture, String scientificName, String popularName, String groups, String lifePeriod,
-                  String atackPeriod,ArrayList<String> naturalPredators,
-                  String damageType, ArrayList<String> pesticides){
-        super(culture, scientificName, popularName, groups,lifePeriod);
-        setAtackPeriod(atackPeriod);
+    public Prague(String popularName, String scientificName, String description, String damage, String bioecology,
+                  String lifeCycleStage, ArrayList<String> naturalPredators, ArrayList<String> pesticides){
+
+        super(popularName, scientificName, description);
+        setDescription(description);
+        setBioecology(bioecology);
+        setDamage(damage);
+        setLifeCycleStage(lifeCycleStage);
         setNaturalPredators(naturalPredators);
-        setDamageType(damageType);
         setPesticides(pesticides);
     }
 
     public Prague(){}
 
+    public String getBioecology() { return bioecology; }
 
-    public String getAtackPeriod() {
-        return atackPeriod;
-    }
+    public void setBioecology(String bioecology) { this.bioecology = bioecology; }
 
-    public void setAtackPeriod(String atackPeriod) {
-        this.atackPeriod = atackPeriod;
-    }
+    public String getDamage() { return damage; }
 
-    public ArrayList<String> getNaturalPredator() {
+    public void setDamage(String damage) { this.damage = damage; }
+
+    public String getLifeCycleStage() { return lifeCycleStage; }
+
+    public void setLifeCycleStage(String lifeCicleStage) { this.lifeCycleStage = lifeCicleStage; }
+
+    public ArrayList<String> getNaturalPredators() {
         return naturalPredators;
     }
 
-    public void setNaturalPredators(ArrayList<String> naturalPredators) {
-        this.naturalPredators = naturalPredators;
-    }
-
-    public String getDamageType() {
-        return damageType;
-    }
-
-    public void setDamageType(String damageType) {
-        this.damageType = damageType;
-    }
+    public void setNaturalPredators(ArrayList<String> naturalPredators) { this.naturalPredators = naturalPredators; }
 
     public ArrayList<String> getPesticides() {
         return pesticides;

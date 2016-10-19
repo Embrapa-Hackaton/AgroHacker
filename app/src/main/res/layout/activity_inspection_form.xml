@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar_form"
+        <include layout="@layout/activity_toolbar_main"
             android:id="@+id/include_inspection_toolbar_form" />
 
         <EditText android:hint="Nome"

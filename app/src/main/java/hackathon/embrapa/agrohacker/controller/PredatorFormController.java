@@ -103,7 +103,7 @@ public class PredatorFormController extends AppCompatActivity{
                 }
 
                 dao.close();
-                Toast.makeText(PredatorFormController.this, "Aluno " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PredatorFormController.this, "Predador " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

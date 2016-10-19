@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
@@ -103,7 +105,7 @@ public class PragueFormController extends AppCompatActivity{
                 }
 
                 dao.close();
-                Toast.makeText(PragueFormController.this, "Aluno " + prague.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PragueFormController.this, "Praga " + prague.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

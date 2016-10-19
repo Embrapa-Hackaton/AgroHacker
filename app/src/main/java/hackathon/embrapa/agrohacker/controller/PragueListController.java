@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -28,11 +27,11 @@ public class PragueListController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_prague);
+        setContentView(R.layout.activity_list);
 
         toolbar();
 
-        pragueList = (ListView) findViewById(R.id.prague_list);
+        pragueList = (ListView) findViewById(R.id.list_view);
 
         clickShowPrague();
 
@@ -42,7 +41,7 @@ public class PragueListController extends AppCompatActivity {
     }
 
     private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_prague_toolbar_list);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_toolbar_list);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.prague_list);
         getSupportActionBar().setIcon(R.drawable.ic_app);
@@ -53,15 +52,15 @@ public class PragueListController extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 Prague prague = (Prague) pragueList.getItemAtPosition(position);
-                Intent intentGoToForm = new Intent(PragueListController.this, PragueFormController.class); //mudar isso
-                intentGoToForm.putExtra("pragueKey", prague);
-                startActivity(intentGoToForm);
+                Intent intent = new Intent(PragueListController.this, PragueShowController.class);
+                intent.putExtra("pragueKey", prague);
+                startActivity(intent);
             }
         });
     }
 
     private void newPragueButton() {
-        Button newPrague = (Button) findViewById(R.id.new_prague_button);
+        Button newPrague = (Button) findViewById(R.id.new_item_button);
         newPrague.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +89,21 @@ public class PragueListController extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Prague prague = (Prague) pragueList.getItemAtPosition(info.position);
 
+        menuEdit(menu, prague);
         menuDelete(menu, prague);
+    }
+
+    private void menuEdit(ContextMenu menu, final Prague prague) {
+        MenuItem edit = menu.add("Editar");
+        edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intentGoToForm = new Intent(PragueListController.this, PragueFormController.class);
+                intentGoToForm.putExtra("pragueKey", prague);
+                startActivity(intentGoToForm);
+                return false;
+            }
+        });
     }
 
     private void menuDelete(ContextMenu menu, final Prague prague) {
@@ -110,7 +123,7 @@ public class PragueListController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_list, menu);
+        inflater.inflate(R.menu.menu_back, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

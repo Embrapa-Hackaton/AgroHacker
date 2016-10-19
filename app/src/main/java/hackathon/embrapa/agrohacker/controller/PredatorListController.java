@@ -27,11 +27,11 @@ public class PredatorListController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_predator);
+        setContentView(R.layout.activity_list);
 
         toolbar();
 
-        predatorList = (ListView) findViewById(R.id.predator_list);
+        predatorList = (ListView) findViewById(R.id.list_view);
 
         clickShowPredator();
 
@@ -41,7 +41,7 @@ public class PredatorListController extends AppCompatActivity {
     }
 
     private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_predator_toolbar_list);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_toolbar_list);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.predator_list);
         getSupportActionBar().setIcon(R.drawable.ic_app);
@@ -52,15 +52,15 @@ public class PredatorListController extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 NaturalPredator predator = (NaturalPredator) predatorList.getItemAtPosition(position);
-                Intent intentGoToForm = new Intent(PredatorListController.this, PredatorFormController.class); //mudar isso
-                intentGoToForm.putExtra("predatorKey", predator);
-                startActivity(intentGoToForm);
+                Intent intent = new Intent(PredatorListController.this, PredatorShowController.class);
+                intent.putExtra("predatorKey", predator);
+                startActivity(intent);
             }
         });
     }
 
     private void newPredatorButton() {
-        Button newPredator = (Button) findViewById(R.id.new_predator_button);
+        Button newPredator = (Button) findViewById(R.id.new_item_button);
         newPredator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +89,21 @@ public class PredatorListController extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final NaturalPredator predator = (NaturalPredator) predatorList.getItemAtPosition(info.position);
 
+        menuEdit(menu, predator);
         menuDelete(menu, predator);
+    }
+
+    private void menuEdit(ContextMenu menu, final NaturalPredator predator) {
+        MenuItem edit = menu.add("Editar");
+        edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intentGoToForm = new Intent(PredatorListController.this, PredatorFormController.class);
+                intentGoToForm.putExtra("predatorKey", predator);
+                startActivity(intentGoToForm);
+                return false;
+            }
+        });
     }
 
     private void menuDelete(ContextMenu menu, final NaturalPredator predator) {
@@ -109,7 +123,7 @@ public class PredatorListController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_list, menu);
+        inflater.inflate(R.menu.menu_back, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

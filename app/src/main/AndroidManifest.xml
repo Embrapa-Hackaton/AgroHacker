@@ -36,20 +36,28 @@
             android:label="Inspeção">
         </activity>
         <activity
-            android:name=".controller.PragueFormController"
-            android:label="Praga">
-        </activity>
-        <activity
             android:name=".controller.PragueListController"
             android:label="Pragas">
         </activity>
         <activity
-            android:name=".controller.PredatorFormController"
-            android:label="Predator Natural">
+            android:name=".controller.PragueFormController"
+            android:label="Praga">
+        </activity>
+        <activity
+            android:name=".controller.PragueShowController"
+            android:label="Praga">
         </activity>
         <activity
             android:name=".controller.PredatorListController"
             android:label="Predadores Naturais">
+        </activity>
+        <activity
+            android:name=".controller.PredatorFormController"
+            android:label="Predador Natural">
+        </activity>
+        <activity
+            android:name=".controller.PredatorShowController"
+            android:label="Predador Natural">
         </activity>
         <activity
             android:name=".controller.SplashScreenActivity"

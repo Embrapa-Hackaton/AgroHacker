@@ -12,22 +12,20 @@ import hackathon.embrapa.agrohacker.model.Prague;
 public class PragueFormHelper {
     private final EditText popularNameField;
     private final EditText scientificNameField;
-    private final EditText cultureField;
-    private final EditText atackPeriodField;
-    private final EditText lifePeriodField;
-    private final EditText damageTypeField;
-    private final EditText groupField;
+    private final EditText descriptionField;
+    private final EditText bioecologyField;
+    private final EditText damageField;
+    private final EditText lifeCicleField;
     private final ImageView photoField;
     private Prague prague;
 
     public PragueFormHelper(PragueFormController activity) {
         popularNameField = (EditText) activity.findViewById(R.id.prague_popular_name_form);
         scientificNameField = (EditText) activity.findViewById(R.id.prague_scientific_name_form);
-        cultureField = (EditText) activity.findViewById(R.id.prague_culture_form);
-        atackPeriodField = (EditText) activity.findViewById(R.id.prague_atack_period_form);
-        lifePeriodField = (EditText) activity.findViewById(R.id.prague_life_period_form);
-        damageTypeField = (EditText) activity.findViewById(R.id.prague_damage_type_form);
-        groupField = (EditText) activity.findViewById(R.id.prague_group_form);
+        descriptionField = (EditText) activity.findViewById(R.id.prague_description_form);
+        bioecologyField = (EditText) activity.findViewById(R.id.prague_bioecology_form);
+        damageField = (EditText) activity.findViewById(R.id.prague_damage_form);
+        lifeCicleField = (EditText) activity.findViewById(R.id.prague_life_cycle_form);
         photoField = (ImageView) activity.findViewById(R.id.prague_form_photo);
         prague = new Prague();
     }
@@ -35,11 +33,10 @@ public class PragueFormHelper {
     public Prague getAllPrague() {
         prague.setPopularName(popularNameField.getText().toString());
         prague.setScientificName(scientificNameField.getText().toString());
-        prague.setCulture(cultureField.getText().toString());
-        prague.setAtackPeriod(atackPeriodField.getText().toString());
-        prague.setLifePeriod(lifePeriodField.getText().toString());
-        prague.setDamageType(damageTypeField.getText().toString());
-        prague.setGroup(groupField.getText().toString());
+        prague.setDescription(descriptionField.getText().toString());
+        prague.setBioecology(bioecologyField.getText().toString());
+        prague.setDamage(damageField.getText().toString());
+        prague.setLifeCycleStage(lifeCicleField.getText().toString());
         prague.setPhotoPath((String) photoField.getTag());
         return prague;
     }
@@ -47,11 +44,10 @@ public class PragueFormHelper {
     public void fillForm(Prague prague) {
         popularNameField.setText(prague.getPopularName());
         scientificNameField.setText(prague.getScientificName());
-        cultureField.setText(prague.getCulture());
-        atackPeriodField.setText(prague.getAtackPeriod());
-        lifePeriodField.setText(prague.getLifePeriod());
-        damageTypeField.setText(prague.getDamageType());
-        groupField.setText(prague.getGroup());
+        descriptionField.setText(prague.getDescription());
+        bioecologyField.setText(prague.getBioecology());
+        damageField.setText(prague.getDamage());
+        lifeCicleField.setText(prague.getLifeCycleStage());
         imageLoading(prague.getPhotoPath());
         this.prague = prague;
     }

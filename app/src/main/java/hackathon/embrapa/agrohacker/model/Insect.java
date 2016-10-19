@@ -5,39 +5,23 @@ import java.io.Serializable;
 public class Insect implements Serializable {
 
     private Integer id;
-    private String culture = "";
-    private String scientificName = "";
-    private String lifePeriod;
     private String popularName = "";
-    private String groups = "";
+    private String scientificName = "";
+    private String description = "";
     private String photoPath = "";
 
 
-    public Insect(String culture, String scientificName, String popularName, String groups, String lifePeriod){
-        setCulture(culture);
-        setScientificName(scientificName);
+    public Insect(String popularName, String scientificName, String description){
         setPopularName(popularName);
-        setLifePeriod(lifePeriod);
-        setGroup(groups);
+        setScientificName(scientificName);
+        setDescription(description);
     }
 
     public Insect() {}
 
-    public String getCulture() {
-        return culture;
-    }
+    public Integer getId() { return id; }
 
-    public void setCulture(String culture) {
-        this.culture = culture;
-    }
-
-    public String getGroup() {
-        return groups;
-    }
-
-    public void setGroup(String group) {
-        this.groups = group;
-    }
+    public void setId(Integer id) { this.id = id; }
 
     public String getPopularName() {
         return popularName;
@@ -55,17 +39,9 @@ public class Insect implements Serializable {
         this.scientificName = scientificName;
     }
 
-    public String getLifePeriod() {
-        return lifePeriod;
-    }
+    public String getDescription() { return description; }
 
-    public void setLifePeriod(String lifePeriod) {
-        this.lifePeriod = lifePeriod;
-    }
-
-    public Integer getId() { return id; }
-
-    public void setId(Integer id) { this.id = id; }
+    public void setDescription(String description) { this.description = description; }
 
     public String getPhotoPath() { return photoPath; }
 

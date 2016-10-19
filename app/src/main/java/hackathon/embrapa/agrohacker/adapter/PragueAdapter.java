@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -46,18 +47,15 @@ public class PragueAdapter extends BaseAdapter {
         View view = convertView;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        if(view == null){view = inflater.inflate(R.layout.activity_prague_list_item, parent, false);}
+        if(view == null){view = inflater.inflate(R.layout.activity_list_item, parent, false);}
 
-        TextView popularNameField = (TextView) view.findViewById(R.id.item_prague_name);
+        TextView popularNameField = (TextView) view.findViewById(R.id.item_name);
         popularNameField.setText(prague.getPopularName());
 
-        TextView cultureField = (TextView) view.findViewById(R.id.item_prague_culture);
-        cultureField.setText(prague.getCulture());
+        TextView scientificNameField = (TextView) view.findViewById(R.id.item_scientific_name);
+        scientificNameField.setText(prague.getScientificName());
 
-        TextView damageTypeField = (TextView) view.findViewById(R.id.item_prague_damage);
-        damageTypeField.setText(prague.getDamageType());
-
-        ImageView photoField = (ImageView) view.findViewById(R.id.prague_item_foto);
+        ImageView photoField = (ImageView) view.findViewById(R.id.item_foto);
         ImageLoading(prague, photoField);
 
         return view;

@@ -8,4 +8,6 @@
     <string name="inspection_form">Inspeção</string>
     <string name="open">Abrir</string>
     <string name="close">Fechar</string>
+    <string name="prague_show">Detalhes da praga</string>
+    <string name="predator_show">Detalhes do predator</string>
 </resources>

@@ -47,18 +47,15 @@ public class PredatorAdapter extends BaseAdapter {
         View view = convertView;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        if(view == null){view = inflater.inflate(R.layout.activity_predator_list_item, parent, false);}
+        if(view == null){view = inflater.inflate(R.layout.activity_list_item, parent, false);}
 
-        TextView popularNameField = (TextView) view.findViewById(R.id.item_predator_name);
+        TextView popularNameField = (TextView) view.findViewById(R.id.item_name);
         popularNameField.setText(predator.getPopularName());
 
-        TextView cultureField = (TextView) view.findViewById(R.id.item_predator_culture);
-        cultureField.setText(predator.getCulture());
+        TextView scientificNameField = (TextView) view.findViewById(R.id.item_scientific_name);
+        scientificNameField.setText(predator.getScientificName());
 
-        TextView lifePeriodField = (TextView) view.findViewById(R.id.item_predator_life);
-        lifePeriodField.setText(predator.getLifePeriod());
-
-        ImageView photoField = (ImageView) view.findViewById(R.id.predator_item_foto);
+        ImageView photoField = (ImageView) view.findViewById(R.id.item_foto);
         ImageLoading(predator, photoField);
 
         return view;
