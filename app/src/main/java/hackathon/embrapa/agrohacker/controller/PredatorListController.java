@@ -1,8 +1,10 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -38,6 +41,14 @@ public class PredatorListController extends AppCompatActivity {
         newPredatorButton();
 
         registerForContextMenu(predatorList);
+
+        // captureQuery
+        Intent searchIntent = getIntent();
+        if(Intent.ACTION_SEARCH.equals(searchIntent.getAction())) {
+            String query = searchIntent.getStringExtra(SearchManager.QUERY);
+            Toast.makeText(PredatorListController.this, query, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void toolbar() {
@@ -123,13 +134,26 @@ public class PredatorListController extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_back, menu);
+        inflater.inflate(R.menu.menu_list, menu);
+
+        // menuCaptureQuery
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+        switch(item.getItemId()) {
+            case R.id.menu_clean_history:
+                Toast.makeText(PredatorListController.this, "Historico de pesquisa limpado com sucesso!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_black_back:
+                finish();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

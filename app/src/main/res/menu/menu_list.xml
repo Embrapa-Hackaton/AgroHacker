@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_clean_history"
+        android:title="Limpar historico"
+        android:icon="@drawable/ic_clean"
+        app:showAsAction="withText" />
+
+    <item android:id="@+id/menu_black_back"
+        android:title="Voltar"
+        android:icon="@drawable/ic_black_back"
+        app:showAsAction="withText" />
+
+    <item android:id="@+id/menu_search"
+        android:title="Pesquisar"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
+</menu>
