@@ -11,12 +11,14 @@ import java.util.Date;
 
 
 public class Trap {
-    Date lastChange;
-    Integer duration;
-    String pheromone;
-    Marker trapMarker;
-    Circle trapRange;
-    String status;
+
+    private int id;
+    private Date lastChange;
+    private Integer duration;
+    private String pheromone;
+    private String status;
+    private Marker trapMarker;
+    private Circle trapRange;
 
     public Trap(Marker trapMarker, Circle trapRange, Date lastChange, int duration, String pheromone){
         setTrapRange(trapRange);
@@ -25,6 +27,12 @@ public class Trap {
         setPheromone(pheromone);
         setTrapMarker(trapMarker);
     }
+
+    public Trap() {}
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public Circle getTrapRange(){
         return trapRange;

@@ -1,20 +1,27 @@
 package hackathon.embrapa.agrohacker.model;
 
-public class Insect {
+import java.io.Serializable;
 
+public class Insect implements Serializable {
+
+    private Integer id;
     private String culture = "";
     private String scientificName = "";
-    private Integer lifePeriod;
+    private String lifePeriod;
     private String popularName = "";
-    private String group = "";
+    private String groups = "";
+    private String photoPath = "";
 
-    public Insect(String culture, String scientificName, String popularName, String group, int lifePeriod){
+
+    public Insect(String culture, String scientificName, String popularName, String groups, String lifePeriod){
         setCulture(culture);
         setScientificName(scientificName);
         setPopularName(popularName);
         setLifePeriod(lifePeriod);
-        setGroup(group);
+        setGroup(groups);
     }
+
+    public Insect() {}
 
     public String getCulture() {
         return culture;
@@ -25,11 +32,11 @@ public class Insect {
     }
 
     public String getGroup() {
-        return group;
+        return groups;
     }
 
     public void setGroup(String group) {
-        this.group = group;
+        this.groups = group;
     }
 
     public String getPopularName() {
@@ -48,14 +55,19 @@ public class Insect {
         this.scientificName = scientificName;
     }
 
-    public Integer getLifePeriod() {
+    public String getLifePeriod() {
         return lifePeriod;
     }
 
-    public void setLifePeriod(Integer lifePeriod) {
+    public void setLifePeriod(String lifePeriod) {
         this.lifePeriod = lifePeriod;
     }
 
+    public Integer getId() { return id; }
 
+    public void setId(Integer id) { this.id = id; }
 
+    public String getPhotoPath() { return photoPath; }
+
+    public void setPhotoPath(String photoPath) { this.photoPath = photoPath; }
 }

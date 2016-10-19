@@ -2,12 +2,14 @@ package hackathon.embrapa.agrohacker.controller;
 
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -19,18 +21,22 @@ public class TrapController {
 
     public void addTrap(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
 
-        MarkerOptions marker = new MarkerOptions()
-                .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW) )
-                .position(new LatLng(latLng.latitude,latLng.longitude));
-
-        mGoogleMap.addMarker(marker);
-
-       Circle trapRange = drawCircle(mGoogleMap, latLng);
+        Marker trapMarker = addTrapMarker(mGoogleMap, latLng);
+        Circle trapRange = drawCircle(mGoogleMap, latLng);
 
      //   Trap newTrap = new Trap(marker, trapRange, duration, pherormone);
 
      //   plot.setTrap(newTrap);
+    }
+
+    private Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){
+
+        MarkerOptions marker = new MarkerOptions()
+                .draggable(true)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .position(new LatLng(latLng.latitude,latLng.longitude));
+
+        return mGoogleMap.addMarker(marker);
     }
 
     private Circle drawCircle(GoogleMap mGoogleMap, LatLng latlng){
@@ -38,7 +44,7 @@ public class TrapController {
         CircleOptions circle = new CircleOptions()
                             .center(latlng)
                             .radius(250)
-                            .fillColor(Color.GRAY)
+                            .fillColor(0x660000EE)
                             .strokeWidth(4)
                             .strokeColor(Color.BLUE);
 
