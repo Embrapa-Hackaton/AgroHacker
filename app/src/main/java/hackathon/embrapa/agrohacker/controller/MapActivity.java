@@ -119,8 +119,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         break;
                     case R.id.menu_map_talhao:
                         Log.i("entrando aqui", "hue");
-                        Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
-                        //createPlot();
+                        Toast.makeText(MapActivity.this, "Selecione 4 pontos adjascentes no mapa",
+                                Toast.LENGTH_LONG).show();
+                        createPlot();
                         break;
                     case R.id.menu_map_trap:
                         if(plot != null) {
@@ -216,7 +217,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         googleApiClient.connect();
 
-        plotController.initialize3Plots(mGoogleMap);
+//        plotController.initialize3Plots(mGoogleMap);
     }
 
     public void createPlot() {

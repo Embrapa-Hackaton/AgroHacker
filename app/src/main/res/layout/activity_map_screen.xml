@@ -17,7 +17,7 @@
         <include android:id="@+id/include_toolbar"
                 layout="@layout/activity_toolbar_main" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -35,7 +35,21 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignWithParentIfMissing="true" />
 
-        </LinearLayout>
+            <Button
+                android:text="Ok"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="endAddingPlots"
+                android:id="@+id/concludebutton"
+                android:background="@color/colorPrimary"
+                android:elevation="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="18dp"/>
+
+        </RelativeLayout>
 
         <include
             android:id="@+id/include_toolbar_bottom"
@@ -55,5 +69,6 @@
         android:layout_gravity="start">
 
     </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>
