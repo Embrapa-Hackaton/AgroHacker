@@ -38,13 +38,8 @@
         <activity
             android:name=".controller.PragueListController"
             android:label="Pragas">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.default_searchable"
-                android:value=".controller.PragueListController" />
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity" />
         </activity>
         <activity
             android:name=".controller.PragueFormController"
@@ -53,17 +48,14 @@
         <activity
             android:name=".controller.PragueShowController"
             android:label="Praga">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.PragueListController" />
         </activity>
         <activity
             android:name=".controller.PredatorListController"
             android:label="Predadores Naturais">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.default_searchable"
-                android:value=".controller.PredatorListController" />
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity" />
         </activity>
         <activity
             android:name=".controller.PredatorFormController"
@@ -72,6 +64,8 @@
         <activity
             android:name=".controller.PredatorShowController"
             android:label="Predador Natural">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.PredatorListController" />
         </activity>
         <activity
             android:name=".controller.SplashScreenActivity"

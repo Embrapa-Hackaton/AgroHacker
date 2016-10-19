@@ -33,6 +33,8 @@ public class PragueShowController extends AppCompatActivity{
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.prague_show);
         getSupportActionBar().setIcon(R.drawable.ic_app);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void receivePragueData() {

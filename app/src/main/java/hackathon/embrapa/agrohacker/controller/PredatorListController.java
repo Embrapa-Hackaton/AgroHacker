@@ -42,13 +42,6 @@ public class PredatorListController extends AppCompatActivity {
 
         registerForContextMenu(predatorList);
 
-        // captureQuery
-        Intent searchIntent = getIntent();
-        if(Intent.ACTION_SEARCH.equals(searchIntent.getAction())) {
-            String query = searchIntent.getStringExtra(SearchManager.QUERY);
-            Toast.makeText(PredatorListController.this, query, Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     private void toolbar() {
@@ -56,6 +49,8 @@ public class PredatorListController extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.predator_list);
         getSupportActionBar().setIcon(R.drawable.ic_app);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void clickShowPredator() {
@@ -135,24 +130,17 @@ public class PredatorListController extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_list, menu);
-
-        // menuCaptureQuery
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.menu_clean_history:
-                Toast.makeText(PredatorListController.this, "Historico de pesquisa limpado com sucesso!", Toast.LENGTH_SHORT).show();
+            case R.id.menu_search:
+                Toast.makeText(PredatorListController.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.menu_black_back:
+            default:
                 finish();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
