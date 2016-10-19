@@ -7,7 +7,7 @@
     <item
         android:id="@+id/menu_map_inspect"
         android:title="Inspeção"
-        android:icon="@drawable/ic_add_praga"
+        android:icon="@drawable/ic_add_inspec"
         app:showAsAction="always" />
 
     <item

@@ -110,21 +110,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 switch (menuItem.getItemId()) {
                     case R.id.menu_map_fieldInspec:
-                        if(plot != null)
+                        if (plot != null) {
                             createFieldInspection();
-                        else {
+                        } else {
                             Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
                                     "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.menu_map_talhao:
                         Log.i("entrando aqui", "hue");
-                        createPlot();
+                        Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                        //createPlot();
                         break;
                     case R.id.menu_map_trap:
-                        if(plot != null)
-                            createTrap();
-                        else {
+                        if(plot != null) {
+                            Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                            //createTrap();
+                        } else {
                             Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
                                     "para adicionar uma Armadilha", Toast.LENGTH_SHORT).show();
                         }
@@ -141,7 +143,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(toggle.onOptionsItemSelected(item)) return true;
-        //menu(item);
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,9 +152,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.menu_prague:
                 Intent intentGoToPragueList = new Intent(MapActivity.this, PragueListController.class);
                 startActivity(intentGoToPragueList);
+                break;
             case R.id.menu_predator:
                 Intent intentGoToPredatorList = new Intent(MapActivity.this, PredatorListController.class);
                 startActivity(intentGoToPredatorList);
+                break;
             case R.id.menu_report:
                 Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
