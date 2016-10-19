@@ -32,8 +32,14 @@ public class PlotController {
 
     ArrayList<Polygon> mapPoligons = new ArrayList<Polygon>();
     Polygon shape;
+    Marker center;
 
     boolean drawedTheLast = false;
+
+
+    public void addPlot(Plot plot){
+        plots.add(plot);
+    }
 
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {
@@ -99,8 +105,8 @@ public class PlotController {
         shape = mGoogleMap.addPolygon(options);
         mapPoligons.add(shape);
 
-        LatLng center = findPolygonCenter((ArrayList<LatLng>) shape.getPoints());
-        mGoogleMap.addMarker(addPlotMarker(center));
+        center = mGoogleMap.addMarker(addPlotMarker(
+                findPolygonCenter((ArrayList<LatLng>) shape.getPoints())));
 
 
         drawedTheLast = true;
@@ -121,7 +127,6 @@ public class PlotController {
         drawedTheLast = false;
         drawedPerTime = 0;
     }
-
 
       public void initialize3Plots(GoogleMap mGoogleMap){
         Log.i("Entrou no method", "DAAm");

@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -186,11 +187,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         permitClickOnPolygon();
 
+
+        Intent intent = new Intent(MapActivity.this, PlotFormActivity.class);
+
+        startActivity(intent);
+
         mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 //Do nothing
-                plot = null;
             }
         });
 

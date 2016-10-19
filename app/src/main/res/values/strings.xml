@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AgroHacker</string>
+    <string name="plot_form_title">Informações sobre a cultura do talhão</string>
+    <string-array name="plot_culture_array">
+        <item>Milho</item>
+        <item>Soja</item>
+        <item>Algodão</item>
+        <item>Feijão</item>
+    </string-array>
+
 </resources>

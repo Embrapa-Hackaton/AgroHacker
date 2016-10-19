@@ -39,8 +39,8 @@ public class PlotFormActivity extends AppCompatActivity {
 
         setUpSpinner();
 
-        plantationDate = (EditText) findViewById(R.id.dataColheita_text_view);
-        harvestDate = (EditText) findViewById(R.id.dataPlantio_text_view);
+        plantationDate = (EditText) findViewById(R.id.plot_planting_date);
+        harvestDate = (EditText) findViewById(R.id.plot_harvesting_date);
 
         confirmButton = (Button) findViewById(R.id.confirmButton);
         cancelButton = (Button) findViewById(R.id.cancelbutton);
@@ -54,9 +54,10 @@ public class PlotFormActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void confirmAddingPlot(){
+    public void confirmAddingPlot(View view){
         Plot plot = new Plot();
         plot.setId(plotController.drawedPoligons+1);
+        plot.setPlatationCulture("Milho");
 
         DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
@@ -65,7 +66,7 @@ public class PlotFormActivity extends AppCompatActivity {
             plantationD = dateFormat.parse(plantationDate.getText().toString());
             plot.setPlantationStartDate(plantationD);
         }catch(ParseException parseException){
-            Toast.makeText(PlotFormActivity.this, "Impossivel converter data",
+            Toast.makeText(PlotFormActivity.this, "Impossivel converter data Plantio",
                     Toast.LENGTH_LONG).show();
         }
 
@@ -74,11 +75,13 @@ public class PlotFormActivity extends AppCompatActivity {
             harvestD = dateFormat.parse(plantationDate.getText().toString());
             plot.setHarvestDate(harvestD);
         }catch(ParseException parseException){
-            Toast.makeText(PlotFormActivity.this, "Impossivel converter data",
+            Toast.makeText(PlotFormActivity.this, "Impossivel converter data Colheita",
                     Toast.LENGTH_LONG).show();
         }
 
         plotController.addPlot(plot);
+        Toast.makeText(this, "Talhão adicionado com sucesso!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void cancelAddingPlot(){
@@ -88,6 +91,8 @@ public class PlotFormActivity extends AppCompatActivity {
         //Remove Last from map polygon
         plotController.mapPoligons.remove(plotController.mapPoligons.size()-1);
         plotController.markers.clear();
+        Toast.makeText(this, "adicão cancelada com sucesso!", Toast.LENGTH_SHORT).show();
+        finish();
 
     }
 
