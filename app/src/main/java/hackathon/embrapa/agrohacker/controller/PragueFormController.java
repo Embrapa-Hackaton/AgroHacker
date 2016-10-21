@@ -37,29 +37,20 @@ public class PragueFormController extends AppCompatActivity{
     private static final int SELECTED_PICTURE = 1;
     private PragueFormHelper helper;
     private String photoPath;
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prague_form);
 
-        toolbar();
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helper = new PragueFormHelper(this);
-
-        imageView = (ImageView) findViewById(R.id.prague_form_photo);
 
         receivePragueData();
 
         takePraguePhoto();
-    }
-
-    private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_prague_toolbar_form);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.prague_form);
-        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void receivePragueData() {
@@ -139,6 +130,8 @@ public class PragueFormController extends AppCompatActivity{
                 Toast.makeText(PragueFormController.this, "Praga " + prague.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
+            default:
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

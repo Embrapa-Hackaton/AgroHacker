@@ -23,20 +23,12 @@ public class PredatorShowController extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predator_details);
 
-        toolbar();
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helper = new PredatorShowHelper(this);
 
         receivePragueData();
-    }
-
-    private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_predator_toolbar_details);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.predator_show);
-        getSupportActionBar().setIcon(R.drawable.ic_app);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void receivePragueData() {

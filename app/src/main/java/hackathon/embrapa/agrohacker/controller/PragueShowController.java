@@ -21,20 +21,12 @@ public class PragueShowController extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prague_details);
 
-        toolbar();
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helper = new PragueShowHelper(this);
 
         receivePragueData();
-    }
-
-    private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_prague_toolbar_details);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.prague_show);
-        getSupportActionBar().setIcon(R.drawable.ic_app);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void receivePragueData() {

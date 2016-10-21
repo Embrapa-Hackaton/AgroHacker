@@ -32,7 +32,8 @@ public class PredatorListController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        toolbar();
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         predatorList = (ListView) findViewById(R.id.list_view);
 
@@ -42,15 +43,6 @@ public class PredatorListController extends AppCompatActivity {
 
         registerForContextMenu(predatorList);
 
-    }
-
-    private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_toolbar_list);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.predator_list);
-        getSupportActionBar().setIcon(R.drawable.ic_app);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void clickShowPredator() {

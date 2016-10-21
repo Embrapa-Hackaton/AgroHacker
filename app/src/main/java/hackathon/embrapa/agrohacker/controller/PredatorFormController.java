@@ -37,20 +37,14 @@ public class PredatorFormController extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predator_form);
 
-        toolbar();
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helper = new PredatorFormHelper(this);
 
         receivePredatorData();
 
         takePredatorPhoto();
-    }
-
-    private void toolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_predator_toolbar_form);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.predator_form);
-        getSupportActionBar().setIcon(R.drawable.ic_app);
     }
 
     private void receivePredatorData() {
@@ -130,6 +124,8 @@ public class PredatorFormController extends AppCompatActivity{
                 Toast.makeText(PredatorFormController.this, "Predador " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
+            default:
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

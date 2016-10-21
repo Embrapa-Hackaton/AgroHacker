@@ -22,7 +22,8 @@
 
         <activity
             android:name=".controller.MapActivity"
-            android:label="Mapa">
+            android:label="Mapa"
+            android:theme="@style/AppMapActivities">
         </activity>
         <activity
             android:name=".controller.InspectionFormController"
@@ -36,7 +37,9 @@
         </activity>
         <activity
             android:name=".controller.PragueFormController"
-            android:label="Praga">
+            android:label="Formulario">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.PragueListController" />
         </activity>
         <activity
             android:name=".controller.PragueShowController"
@@ -52,7 +55,9 @@
         </activity>
         <activity
             android:name=".controller.PredatorFormController"
-            android:label="Predador Natural">
+            android:label="Formulario">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.PredatorListController" />
         </activity>
         <activity
             android:name=".controller.PredatorShowController"

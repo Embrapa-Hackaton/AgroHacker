@@ -5,12 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/activity_toolbar_main"
-        android:id="@+id/include_toolbar_list" />
-
     <ListView
         android:id="@+id/list_view"
-        android:layout_below="@+id/include_toolbar_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
