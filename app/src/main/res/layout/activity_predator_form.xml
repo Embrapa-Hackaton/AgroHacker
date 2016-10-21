@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="325dp"
                 android:src="@drawable/insect"
+                android:onClick="getImageClick"
                 android:background="#00A8EC" />
 
             <Button

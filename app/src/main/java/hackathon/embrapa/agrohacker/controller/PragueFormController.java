@@ -2,9 +2,16 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,9 +33,11 @@ import hackathon.embrapa.agrohacker.model.Prague;
 
 public class PragueFormController extends AppCompatActivity{
 
-    public static final int CAMERA_CODE = 567;
+    private static final int CAMERA_CODE = 567;
+    private static final int SELECTED_PICTURE = 1;
     private PragueFormHelper helper;
     private String photoPath;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +47,8 @@ public class PragueFormController extends AppCompatActivity{
         toolbar();
 
         helper = new PragueFormHelper(this);
+
+        imageView = (ImageView) findViewById(R.id.prague_form_photo);
 
         receivePragueData();
 
@@ -58,6 +70,11 @@ public class PragueFormController extends AppCompatActivity{
         }
     }
 
+    public void getImageClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, SELECTED_PICTURE);
+    }
+
     private void takePraguePhoto() {
         Button buttonPhoto = (Button) findViewById(R.id.button_prague_form_photo);
         buttonPhoto.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +94,24 @@ public class PragueFormController extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK) {
-            if (requestCode == CAMERA_CODE) {
-                helper.imageLoading(photoPath);
-            }
+        switch (requestCode) {
+            case CAMERA_CODE:
+                if(resultCode == Activity.RESULT_OK) {
+                    helper.imageLoading(photoPath);
+                }
+                break;
+            case SELECTED_PICTURE:
+                if(resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    String[] projection = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(projection[0]);
+                    photoPath = cursor.getString(columnIndex);
+                    cursor.close();
+                    helper.imageLoading(photoPath);
+                }
+                break;
         }
     }
 
