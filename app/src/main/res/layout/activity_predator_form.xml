@@ -21,7 +21,7 @@
                 android:layout_height="325dp"
                 android:src="@drawable/insect"
                 android:onClick="getImageClick"
-                android:background="#00A8EC" />
+                android:background="@drawable/round_corner" />
 
             <Button
                 android:id="@+id/button_predator_form_photo"
