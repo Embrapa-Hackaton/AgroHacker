@@ -27,7 +27,6 @@ import hackathon.embrapa.agrohacker.model.Prague;
 public class PragueListController extends AppCompatActivity {
 
     private ListView pragueList;
-    private String query = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
