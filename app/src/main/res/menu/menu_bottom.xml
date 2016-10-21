@@ -5,7 +5,7 @@
     tools:context=".controller.MapActivity">
 
     <item
-        android:id="@+id/menu_map_inspect"
+        android:id="@+id/menu_map_fieldInspec"
         android:title="Inspeção"
         android:icon="@drawable/ic_add_inspec"
         app:showAsAction="always" />

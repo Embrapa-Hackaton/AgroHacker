@@ -23,7 +23,8 @@
                 android:id="@+id/item_show_prague_foto"
                 android:layout_width="match_parent"
                 android:layout_height="375dp"
-                android:src="@drawable/insect"/>
+                android:src="@drawable/insect"
+                android:background="@drawable/round_corner" />
 
             <TextView
                 android:id="@+id/item_show_prague_name"
