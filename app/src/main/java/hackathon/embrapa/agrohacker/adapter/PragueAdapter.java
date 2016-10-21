@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class PragueAdapter extends BaseAdapter {
         TextView scientificNameField = (TextView) view.findViewById(R.id.item_scientific_name);
         scientificNameField.setText(prague.getScientificName());
 
-        ImageView photoField = (ImageView) view.findViewById(R.id.item_foto);
+        ImageView photoField = (ImageView) view.findViewById(R.id.item_photo);
         ImageLoading(prague, photoField);
 
         return view;
@@ -65,7 +64,7 @@ public class PragueAdapter extends BaseAdapter {
         String photoPath = prague.getPhotoPath();
         if (photoPath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
             photoField.setImageBitmap(bitmapReduzido);
             photoField.setScaleType(ImageView.ScaleType.FIT_XY);
         }

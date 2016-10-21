@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:elevation="10dp">
+    android:layout_height="300dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/item_photo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/insect"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/item_foto"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/insect"/>
-        </FrameLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome popular"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingLeft="15dp" />
-
-            <TextView
-                android:id="@+id/item_scientific_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome cientifico"
-                android:textAlignment="center"
-                android:textSize="15sp"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="15dp"/>
-
-
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        android:alpha="0.3">
     </LinearLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_name"
+            android:text="Nome Popular"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_scientific_name"
+            android:text="Nome Científico"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>

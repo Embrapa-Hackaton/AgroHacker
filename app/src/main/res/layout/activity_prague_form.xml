@@ -16,12 +16,12 @@
         <RelativeLayout
             android:layout_below="@+id/include_prague_toolbar_form"
             android:layout_width="match_parent"
-            android:layout_height="225dp">
+            android:layout_height="350dp">
 
             <ImageView
                 android:id="@+id/prague_form_photo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="325dp"
                 android:src="@drawable/insect"
                 android:background="#00A8EC" />
 

@@ -14,7 +14,6 @@ import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
-import hackathon.embrapa.agrohacker.model.Prague;
 
 public class PredatorAdapter extends BaseAdapter {
 
@@ -55,7 +54,7 @@ public class PredatorAdapter extends BaseAdapter {
         TextView scientificNameField = (TextView) view.findViewById(R.id.item_scientific_name);
         scientificNameField.setText(predator.getScientificName());
 
-        ImageView photoField = (ImageView) view.findViewById(R.id.item_foto);
+        ImageView photoField = (ImageView) view.findViewById(R.id.item_photo);
         ImageLoading(predator, photoField);
 
         return view;
@@ -65,7 +64,7 @@ public class PredatorAdapter extends BaseAdapter {
         String photoPath = predator.getPhotoPath();
         if (photoPath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
             photoField.setImageBitmap(bitmapReduzido);
             photoField.setScaleType(ImageView.ScaleType.FIT_XY);
         }
