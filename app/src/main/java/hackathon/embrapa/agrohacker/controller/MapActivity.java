@@ -7,17 +7,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -40,21 +41,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
     GoogleMap mGoogleMap;
     GoogleApiClient googleApiClient;
     private GoogleApiClient client;
     PlotController plotController = new PlotController();
     TrapController trapController = new TrapController();
+    ActionBarDrawerToggle toggle;
     Marker userLocationMarker;
     Plot plot = new Plot();
     Button endingAdding;
@@ -64,8 +62,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map_screen);
 
-        setContentView(R.layout.map_screen);
+        toolbar();
+        bottomToolbar();
+
+        menuDrawer();
+
         if (googleServicesAvailabe()) {
             Toast.makeText(this, "Connecting application", Toast.LENGTH_LONG).show();
             initializeMap();
@@ -78,38 +81,101 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_map, menu);
-        return super.onCreateOptionsMenu(menu);
+    private void menuDrawer() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void toolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.include_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setSubtitle(R.string.app_subtitle);
+        getSupportActionBar().setIcon(R.drawable.ic_app);
+    }
+
+    private void bottomToolbar() {
+        Toolbar mToolbarBottom = (Toolbar) findViewById(R.id.include_toolbar_bottom);
+        mToolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = null;
+
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_map_fieldInspec:
+                        if (plot != null) {
+                            createFieldInspection();
+                        } else {
+                            Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
+                                    "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.menu_map_talhao:
+                        Log.i("entrando aqui", "hue");
+                        Toast.makeText(MapActivity.this, "Selecione 4 pontos adjascentes no mapa",
+                                Toast.LENGTH_LONG).show();
+                        createPlot();
+                        break;
+                    case R.id.menu_map_trap:
+                        if(plot != null) {
+                            Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                            //createTrap();
+                        } else {
+                            Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
+                                    "para adicionar uma Armadilha", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+
+                //startActivity(intent);
+                return true;
+            }
+        });
+        mToolbarBottom.inflateMenu(R.menu.menu_bottom);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(toggle.onOptionsItemSelected(item)) return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_map_talhao:
-                Log.i("entrando aqui", "hue");
-                createPlot();
+            case R.id.menu_prague:
+                Intent intentGoToPragueList = new Intent(MapActivity.this, PragueListController.class);
+                startActivity(intentGoToPragueList);
                 break;
-            case R.id.menu_map_fieldInspec:
-                if(plot != null)
-                    createFieldInspection();
-                else {
-                    Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
-                            "para adicionar uma inspeção", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.menu_predator:
+                Intent intentGoToPredatorList = new Intent(MapActivity.this, PredatorListController.class);
+                startActivity(intentGoToPredatorList);
                 break;
-            case R.id.menu_map_trap:
-                if(plot != null)
-                    createTrap();
-                else {
-                    Toast.makeText(MapActivity.this, "Você deve selecionar um talhão " +
-                            "para adicionar uma Armadilha", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.menu_report:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_info:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_about:
+                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_exit:
+                finish();
                 break;
         }
-        return super.onOptionsItemSelected(item);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+
+        return false;
     }
 
     //Checking services

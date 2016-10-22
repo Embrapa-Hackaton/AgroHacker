@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/group_menu_map">
+    <item android:id="@+id/menu_prague"
+        android:title="Pragas"
+        android:icon="@drawable/ic_app" />
 
-        <item android:id="@+id/menu_notifications"
-              android:title="Notificações"/>
-        <item android:id="@+id/menu_nearBy"
-              android:title="Arredores" />
-        <item android:id="@+id/menu_speciesList"
-              android:title="Lista de espécies" />
-        <item android:id="@+id/menu_info"
-              android:title="Info" />
-        <item android:id="@+id/menu_about"
-              android:title="Sobre" />
-    </group>
+    <item android:id="@+id/menu_predator"
+        android:title="Predadores"
+        android:icon="@drawable/ic_app" />
 
-    <item
-        android:id="@+id/menu_map_talhao"
-        android:title="Talhão"
-        android:icon="@drawable/ic_talhao"
-        app:showAsAction="always" />
+    <item android:id="@+id/menu_report"
+        android:title="Relatorio"
+        android:icon="@drawable/ic_report" />
 
-    <item
-        android:id="@+id/menu_map_trap"
-        android:title="Armadilha"
-        android:icon="@drawable/ic_armadilha"
-        app:showAsAction="always" />
+    <item android:id="@+id/menu_info"
+        android:title="Informaçoes"
+        android:icon="@drawable/ic_info" />
 
-    <item
-        android:id="@+id/menu_map_fieldInspec"
-        android:title="Inspecao"
-        android:icon="@drawable/ic_add_inspec"
-        app:showAsAction="always" />
+    <item android:id="@+id/menu_about"
+        android:title="Sobre"
+        android:icon="@drawable/ic_about" />
+
+    <item android:id="@+id/menu_exit"
+        android:title="Sair"
+        android:icon="@drawable/ic_exit" />
 
 </menu>

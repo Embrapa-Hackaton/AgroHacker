@@ -3,6 +3,13 @@ package hackathon.embrapa.agrohacker.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,18 +53,15 @@ public class PragueAdapter extends BaseAdapter {
         View view = convertView;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        if(view == null){view = inflater.inflate(R.layout.activity_prague_list_item, parent, false);}
+        if(view == null){view = inflater.inflate(R.layout.activity_list_item, parent, false);}
 
-        TextView popularNameField = (TextView) view.findViewById(R.id.item_prague_name);
+        TextView popularNameField = (TextView) view.findViewById(R.id.item_name);
         popularNameField.setText(prague.getPopularName());
 
-        TextView cultureField = (TextView) view.findViewById(R.id.item_prague_culture);
-        cultureField.setText(prague.getCulture());
+        TextView scientificNameField = (TextView) view.findViewById(R.id.item_scientific_name);
+        scientificNameField.setText(prague.getScientificName());
 
-        TextView damageTypeField = (TextView) view.findViewById(R.id.item_prague_damage);
-        damageTypeField.setText(prague.getDamageType());
-
-        ImageView photoField = (ImageView) view.findViewById(R.id.prague_item_foto);
+        ImageView photoField = (ImageView) view.findViewById(R.id.item_photo);
         ImageLoading(prague, photoField);
 
         return view;
@@ -68,8 +72,42 @@ public class PragueAdapter extends BaseAdapter {
         if (photoPath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
             Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            bitmapReduzido = roundCorner(bitmapReduzido, 10);
             photoField.setImageBitmap(bitmapReduzido);
             photoField.setScaleType(ImageView.ScaleType.FIT_XY);
         }
+    }
+
+    public static Bitmap roundCorner(Bitmap src, float round) {
+        // image size
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        // create bitmap output
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        // set canvas for painting
+        Canvas canvas = new Canvas(result);
+        canvas.drawARGB(0, 0, 0, 0);
+
+        // config paint
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.BLACK);
+
+        // config rectangle for embedding
+        final Rect rect = new Rect(0, 0, width, height);
+        final RectF rectF = new RectF(rect);
+
+        // draw rect to canvas
+        canvas.drawRoundRect(rectF, round, round, paint);
+
+        // create Xfer mode
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        // draw source image to canvas
+        canvas.drawBitmap(src, rect, rect, paint);
+
+        // return final image
+        return result;
     }
 }

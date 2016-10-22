@@ -2,15 +2,19 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -22,14 +26,19 @@ import hackathon.embrapa.agrohacker.model.NaturalPredator;
 
 public class PredatorFormController extends AppCompatActivity{
 
-    public static final int CAMERA_CODE = 567;
+    private static final int CAMERA_CODE = 567;
+    private static final int SELECTED_PICTURE = 1;
     private PredatorFormHelper helper;
     private String photoPath;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predator_form);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         helper = new PredatorFormHelper(this);
 
@@ -44,6 +53,11 @@ public class PredatorFormController extends AppCompatActivity{
         if (predator != null) {
             helper.fillForm(predator);
         }
+    }
+
+    public void getImageClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, SELECTED_PICTURE);
     }
 
     private void takePredatorPhoto() {
@@ -65,10 +79,24 @@ public class PredatorFormController extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK) {
-            if (requestCode == CAMERA_CODE) {
-                helper.imageLoading(photoPath);
-            }
+        switch (requestCode) {
+            case CAMERA_CODE:
+                if(resultCode == Activity.RESULT_OK) {
+                    helper.imageLoading(photoPath);
+                }
+                break;
+            case SELECTED_PICTURE:
+                if(resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    String[] projection = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(projection[0]);
+                    photoPath = cursor.getString(columnIndex);
+                    cursor.close();
+                    helper.imageLoading(photoPath);
+                }
+                break;
         }
     }
 
@@ -93,9 +121,11 @@ public class PredatorFormController extends AppCompatActivity{
                 }
 
                 dao.close();
-                Toast.makeText(PredatorFormController.this, "Aluno " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PredatorFormController.this, "Predador " + predator.getPopularName() + " salvo!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
+            default:
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

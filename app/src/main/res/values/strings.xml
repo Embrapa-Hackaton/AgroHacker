@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">AgroHacker</string>
+    <string name="app_subtitle">Manejo Integrado de Pragas</string>
+    <string name="prague_form">Praga</string>
+    <string name="predator_form">Predador</string>
+    <string name="prague_list">Lista de pragas</string>
+    <string name="predator_list">Lista de predadores</string>
+    <string name="inspection_form">Inspeção</string>
+    <string name="open">Abrir</string>
+    <string name="close">Fechar</string>
+    <string name="prague_show">Detalhes da praga</string>
+    <string name="predator_show">Detalhes do predator</string>
+    <string name="searchable">Pesquisar</string>
     <string name="plot_form_title">Informações sobre a cultura do talhão</string>
     <string-array name="plot_culture_array">
         <item>Milho</item>
@@ -7,5 +18,4 @@
         <item>Algodão</item>
         <item>Feijão</item>
     </string-array>
-
 </resources>

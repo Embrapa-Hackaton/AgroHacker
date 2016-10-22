@@ -124,7 +124,52 @@ public class PlotController {
         drawedPerTime = 0;
     }
 
-    private MarkerOptions addPlotMarker(LatLng latLng){
+
+//      public void initialize3Plots(GoogleMap mGoogleMap){
+//        Log.i("Entrou no method", "DAAm");
+//        Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
+//                .add(new LatLng(0, 0), new LatLng(0, -25), new LatLng(3, -50), new LatLng(0, 0))
+//                .clickable(true)
+//                .strokeColor(Color.RED)
+//                .fillColor(Color.GRAY));
+//
+//        Log.i("CRIOU 1", "COROLHO");
+//
+//        Polygon polygon2 = mGoogleMap.addPolygon(new PolygonOptions()
+//                .add(new LatLng(0, 0), new LatLng(0, 10), new LatLng(2, 5), new LatLng(44, 12))
+//                .strokeColor(Color.RED)
+//                .clickable(true)
+//                .fillColor(Color.BLUE));
+//
+//        Log.i("CRIOU 2", "COROLHO");
+//
+//        Polygon polygon3 = mGoogleMap.addPolygon(new PolygonOptions()
+//                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
+//                .strokeColor(Color.RED)
+//                .clickable(true)
+//                .fillColor(Color.GREEN));
+//
+//        Log.i("CRIOU 3", "COROLHO");
+//
+//        Log.i("drawedPoligons", drawedPoligons+"");
+//        Plot plot1 = new Plot(drawedPoligons+1,polygon1,"Milho");
+//        drawedPoligons+=1;
+//        Plot plot2 = new Plot(drawedPoligons+1,polygon2,"Milho");
+//        drawedPoligons+=1;
+//        Plot plot3 = new Plot(drawedPoligons+1,polygon3,"Milho");
+//        drawedPoligons+=1;
+//
+//        Log.i("drawedPoligons", drawedPoligons+"");
+//
+//        plots.add(plot1);
+//        plots.add(plot2);
+//        plots.add(plot3);
+//
+//        Log.i("Adicionou sá porra", "HUE");
+//
+//    }
+
+    public MarkerOptions addPlotMarker(LatLng latLng){
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)

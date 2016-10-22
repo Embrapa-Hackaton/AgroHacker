@@ -11,15 +11,17 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_below="@+id/include_predator_toolbar_form"
             android:layout_width="match_parent"
-            android:layout_height="225dp">
+            android:layout_height="350dp">
 
             <ImageView
                 android:id="@+id/predator_form_photo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="325dp"
                 android:src="@drawable/insect"
-                android:background="#00A8EC" />
+                android:onClick="getImageClick"
+                android:background="@drawable/round_corner" />
 
             <Button
                 android:id="@+id/button_predator_form_photo"
@@ -45,18 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Cultura"
-            android:id="@+id/predator_culture_form"
+        <EditText android:hint="Descrição"
+            android:id="@+id/predator_description_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Período de vida"
-            android:id="@+id/predator_life_period_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText android:hint="Grupo"
-            android:id="@+id/predator_group_form"
+        <EditText android:hint="Importancia/Atuação"
+            android:id="@+id/predator_importance_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

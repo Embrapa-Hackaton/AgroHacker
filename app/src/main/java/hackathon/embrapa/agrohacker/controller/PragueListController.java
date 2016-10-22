@@ -1,8 +1,11 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
@@ -27,15 +31,19 @@ public class PragueListController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_prague);
+        setContentView(R.layout.activity_list);
 
-        pragueList = (ListView) findViewById(R.id.prague_list);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        pragueList = (ListView) findViewById(R.id.list_view);
 
         clickShowPrague();
 
         newPragueButton();
 
         registerForContextMenu(pragueList);
+
     }
 
     private void clickShowPrague() {
@@ -43,15 +51,15 @@ public class PragueListController extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 Prague prague = (Prague) pragueList.getItemAtPosition(position);
-                Intent intentGoToForm = new Intent(PragueListController.this, PragueFormController.class); //mudar isso
-                intentGoToForm.putExtra("pragueKey", prague);
-                startActivity(intentGoToForm);
+                Intent intent = new Intent(PragueListController.this, PragueShowController.class);
+                intent.putExtra("pragueKey", prague);
+                startActivity(intent);
             }
         });
     }
 
     private void newPragueButton() {
-        Button newPrague = (Button) findViewById(R.id.new_prague_button);
+        Button newPrague = (Button) findViewById(R.id.new_item_button);
         newPrague.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +88,21 @@ public class PragueListController extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Prague prague = (Prague) pragueList.getItemAtPosition(info.position);
 
+        menuEdit(menu, prague);
         menuDelete(menu, prague);
+    }
+
+    private void menuEdit(ContextMenu menu, final Prague prague) {
+        MenuItem edit = menu.add("Editar");
+        edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intentGoToForm = new Intent(PragueListController.this, PragueFormController.class);
+                intentGoToForm.putExtra("pragueKey", prague);
+                startActivity(intentGoToForm);
+                return false;
+            }
+        });
     }
 
     private void menuDelete(ContextMenu menu, final Prague prague) {
@@ -106,7 +128,14 @@ public class PragueListController extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+        switch(item.getItemId()) {
+            case R.id.menu_search:
+                Toast.makeText(PragueListController.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

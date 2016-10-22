@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,13 @@ public class PragueDAO extends DAO {
 
     private ContentValues getPragueData(Prague prague) {
         ContentValues data = new ContentValues();
-        data.put("culture", prague.getCulture());
-        data.put("scientificName", prague.getScientificName());
-        data.put("lifePeriod", prague.getLifePeriod());
         data.put("popularName", prague.getPopularName());
-        data.put("groups", prague.getGroup());
+        data.put("scientificName", prague.getScientificName());
+        data.put("description", prague.getDescription());
+        data.put("bioecology", prague.getBioecology());
+        data.put("damage", prague.getDamage());
+        data.put("lifeCicleStage", prague.getLifeCycleStage());
         data.put("photoPath", prague.getPhotoPath());
-        data.put("atackPeriod", prague.getAtackPeriod());
-        data.put("damageType", prague.getDamageType());
         return data;
     }
 
@@ -42,14 +42,13 @@ public class PragueDAO extends DAO {
         while(line.moveToNext()) {
             Prague prague = new Prague();
             prague.setId(line.getInt(line.getColumnIndex("id")));
-            prague.setCulture(line.getString(line.getColumnIndex("culture")));
-            prague.setScientificName(line.getString(line.getColumnIndex("scientificName")));
-            prague.setLifePeriod(line.getString(line.getColumnIndex("lifePeriod")));
             prague.setPopularName(line.getString(line.getColumnIndex("popularName")));
-            prague.setGroup(line.getString(line.getColumnIndex("groups")));
+            prague.setScientificName(line.getString(line.getColumnIndex("scientificName")));
+            prague.setDescription(line.getString(line.getColumnIndex("description")));
+            prague.setBioecology(line.getString(line.getColumnIndex("bioecology")));
+            prague.setDamage(line.getString(line.getColumnIndex("damage")));
+            prague.setLifeCycleStage(line.getString(line.getColumnIndex("lifeCicleStage")));
             prague.setPhotoPath(line.getString(line.getColumnIndex("photoPath")));
-            prague.setAtackPeriod(line.getString(line.getColumnIndex("atackPeriod")));
-            prague.setDamageType(line.getString(line.getColumnIndex("damageType")));
             pragues.add(prague);
         }
         line.close();

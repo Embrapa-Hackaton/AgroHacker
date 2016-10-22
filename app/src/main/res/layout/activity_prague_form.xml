@@ -11,15 +11,17 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_below="@+id/include_prague_toolbar_form"
             android:layout_width="match_parent"
-            android:layout_height="225dp">
+            android:layout_height="350dp">
 
             <ImageView
                 android:id="@+id/prague_form_photo"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="325dp"
                 android:src="@drawable/insect"
-                android:background="#00A8EC" />
+                android:onClick="getImageClick"
+                android:background="@drawable/round_corner" />
 
             <Button
                 android:id="@+id/button_prague_form_photo"
@@ -45,28 +47,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Cultura"
-            android:id="@+id/prague_culture_form"
+        <EditText android:hint="Descrição"
+            android:id="@+id/prague_description_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Período de ataque"
-            android:id="@+id/prague_atack_period_form"
+        <EditText android:hint="Bioecologia"
+            android:id="@+id/prague_bioecology_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Período de vida"
-            android:id="@+id/prague_life_period_form"
+        <EditText android:hint="Dano"
+            android:id="@+id/prague_damage_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText android:hint="Tipo de dano"
-            android:id="@+id/prague_damage_type_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText android:hint="Grupo"
-            android:id="@+id/prague_group_form"
+        <EditText android:hint="Estagio do ciclo de vida"
+            android:id="@+id/prague_life_cycle_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
