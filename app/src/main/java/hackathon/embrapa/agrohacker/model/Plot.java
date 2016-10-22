@@ -23,22 +23,13 @@ public class Plot {
     private ArrayList<Trap> traps = new ArrayList<Trap>();
     private ArrayList<FieldInspection> fieldInspections = new ArrayList<FieldInspection>();
 
-/*
-    public Plot(int index, Polygon shape, String platationCulture, Date plantationStartDate, Date harvestDate){
-        setIndex(index);
+    public Plot(int id, Polygon shape, String platationCulture, Date plantationStartDate, Date harvestDate){
+        setId(id);
         setShape(shape);
         setPlatationCulture(platationCulture);
         setPlantationStage("Plantação");
         setPlantationStartDate(plantationStartDate);
         setHarvestDate(harvestDate);
-        setStatus("UKNOWN");
-    }*/
-
-    public Plot(int id, Polygon shape, String platationCulture){
-        setId(id);
-        setShape(shape);
-        setPlatationCulture(platationCulture);
-        setPlantationStage("Plantação");
         setStatus("UKNOWN");
     }
 

@@ -3,11 +3,8 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -15,9 +12,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
@@ -25,26 +22,38 @@ public class PlotController {
 
     ArrayList<Plot> plots = new ArrayList<Plot>();
 
-    ArrayList<Marker> markers = new ArrayList<Marker>();
-    final static int POLYGON_MAX_NUMBERS = 4;
-    public int drawedPoligons = 0;
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
+    private final static int POLYGON_MAX_NUMBERS = 4;
     public int drawedPerTime = 0;
 
-    ArrayList<Polygon> mapPoligons = new ArrayList<Polygon>();
+    ArrayList<Polygon> plotPoligons = new ArrayList<Polygon>();
     Polygon shape;
     Marker center;
 
     boolean drawedTheLast = false;
 
 
-    public void addPlot(Plot plot){
-        plots.add(plot);
+    public void addPlot(String culture, Date plantationDate, Date harvestDate){
+
+        Log.i("plots : ", plots.size()+"");
+
+        Plot plot = new Plot(plotPoligons.size(),shape, culture, plantationDate, harvestDate);
+        plot.setPlotMarker(center);
+
+        try {
+
+            plots.add(plot);
+            Log.i("plots : ", plots.size()+"");
+        }catch (Exception exception){
+
+            Log.i("Nao cadastrou good : ", "Daam");
+        }
     }
 
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {
         int i;
-        for (i = 0; i < plots.size(); i++) {
+        for (i = 0; i < plotPoligons.size(); i++) {
             Log.i("still", "SEARCHING");
             if (plots.get(i).getShape().equals(shape))
                 break;
@@ -52,7 +61,6 @@ public class PlotController {
         Log.i("Found the polygon", "contais index"+ i);
         return plots.get(i);
     }
-
 
     //Poligon Creation
 
@@ -72,19 +80,6 @@ public class PlotController {
         }
     }
 
-    /*
-    private void drawLine(GoogleMap mGoogleMap, Marker first, Marker second){
-
-        PolylineOptions polyline = new PolylineOptions()
-                .add(first.getPosition())
-                .add(second.getPosition())
-                .color(Color.GRAY)
-                .width(3);
-
-        lines.add(mGoogleMap.addPolyline(polyline));
-    }*/
-
-
     private void drawPoligon(GoogleMap mGoogleMap, Context context){
 
         PolygonOptions options = new PolygonOptions()
@@ -99,11 +94,12 @@ public class PlotController {
             markers.get(i).remove();
         }
 
-        drawedPoligons++;
         drawedPerTime++;
 
         shape = mGoogleMap.addPolygon(options);
-        mapPoligons.add(shape);
+        plotPoligons.add(shape);
+
+        Toast.makeText(context, "Quantidade de poligonos: "+ plotPoligons.size()+"", Toast.LENGTH_SHORT).show();
 
         center = mGoogleMap.addMarker(addPlotMarker(
                 findPolygonCenter((ArrayList<LatLng>) shape.getPoints())));
@@ -128,51 +124,7 @@ public class PlotController {
         drawedPerTime = 0;
     }
 
-      public void initialize3Plots(GoogleMap mGoogleMap){
-        Log.i("Entrou no method", "DAAm");
-        Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, -25), new LatLng(3, -50), new LatLng(0, 0))
-                .clickable(true)
-                .strokeColor(Color.RED)
-                .fillColor(Color.GRAY));
-
-        Log.i("CRIOU 1", "COROLHO");
-
-        Polygon polygon2 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 10), new LatLng(2, 5), new LatLng(44, 12))
-                .strokeColor(Color.RED)
-                .clickable(true)
-                .fillColor(Color.BLUE));
-
-        Log.i("CRIOU 2", "COROLHO");
-
-        Polygon polygon3 = mGoogleMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-                .strokeColor(Color.RED)
-                .clickable(true)
-                .fillColor(Color.GREEN));
-
-        Log.i("CRIOU 3", "COROLHO");
-
-        Log.i("drawedPoligons", drawedPoligons+"");
-        Plot plot1 = new Plot(drawedPoligons+1,polygon1,"Milho");
-        drawedPoligons+=1;
-        Plot plot2 = new Plot(drawedPoligons+1,polygon2,"Milho");
-        drawedPoligons+=1;
-        Plot plot3 = new Plot(drawedPoligons+1,polygon3,"Milho");
-        drawedPoligons+=1;
-
-        Log.i("drawedPoligons", drawedPoligons+"");
-
-        plots.add(plot1);
-        plots.add(plot2);
-        plots.add(plot3);
-
-        Log.i("Adicionou sá porra", "HUE");
-
-    }
-
-    public MarkerOptions addPlotMarker(LatLng latLng){
+    private MarkerOptions addPlotMarker(LatLng latLng){
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
@@ -182,7 +134,7 @@ public class PlotController {
         return marker;
     }
 
-    public LatLng findPolygonCenter(ArrayList<LatLng> points) {
+    private LatLng findPolygonCenter(ArrayList<LatLng> points) {
 
         double latitude = 0.0;
         double longitude = 0.0;
@@ -195,9 +147,7 @@ public class PlotController {
         latitude = latitude/ points.size();
         longitude = longitude/ points.size();
 
-        LatLng center =  new LatLng(latitude, longitude);
-
-        return center;
+        return new LatLng(latitude, longitude);
     }
 
 }

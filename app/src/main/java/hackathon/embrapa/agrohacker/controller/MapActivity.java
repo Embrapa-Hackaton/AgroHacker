@@ -151,7 +151,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         googleApiClient.connect();
 
-        plotController.initialize3Plots(mGoogleMap);
     }
 
     public void createPlot() {
@@ -234,7 +233,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onConnected(Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(20000);
+        locationRequest.setInterval(50000);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
