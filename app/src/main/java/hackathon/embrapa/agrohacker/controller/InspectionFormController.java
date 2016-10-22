@@ -14,16 +14,17 @@ public class InspectionFormController extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inspection_form);
-        toolbar();
+    //    setContentView(R.layout.activity_inspection_form);
+   //     toolbar();
     }
 
+    /*
     private void toolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.include_inspection_toolbar_form);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.inspection_form);
         getSupportActionBar().setIcon(R.drawable.ic_app);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
