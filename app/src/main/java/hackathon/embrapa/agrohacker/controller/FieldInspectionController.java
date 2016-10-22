@@ -1,5 +1,7 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -7,6 +9,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import hackathon.embrapa.agrohacker.model.FieldInspection;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
@@ -20,10 +24,14 @@ public class FieldInspectionController {
     public void addFieldInspection(GoogleMap mGoogleMap, Plot plot, LatLng latLng){
         Marker fieldInspectionMarker = addFieldInspectionMarker(mGoogleMap, latLng);
 
-      //  FieldInspection fieldInspection = new FieldInspection(todaysDate,"Seu Chico",fieldInspectionMarker)
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        FieldInspection fieldInspection = new FieldInspection(date,"Seu Chico",fieldInspectionMarker);
       //  setInspectionPragues(fieldInspection);
       //  setInspectionNaturalPredat(fieldInspection);
-      //  plot.setFieldInspections(fieldInspection);
+        plot.setFieldInspections(fieldInspection);
+        Log.i("Inspeção adicionada", plot.getFieldInspections().size()+"");
     }
 
 
@@ -31,7 +39,7 @@ public class FieldInspectionController {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
         return mGoogleMap.addMarker(marker);

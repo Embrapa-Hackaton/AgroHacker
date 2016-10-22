@@ -1,6 +1,7 @@
 package hackathon.embrapa.agrohacker.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import hackathon.embrapa.agrohacker.model.Plot;
 
@@ -35,14 +37,10 @@ public class PlotController {
 
     public void addPlot(String culture, Date plantationDate, Date harvestDate){
 
-        Log.i("plots : ", plots.size()+"");
-
-        Plot plot = new Plot(plotPoligons.size(),shape, culture, plantationDate, harvestDate);
-        plot.setPlotMarker(center);
+        createPlot(plotPoligons.get(plotPoligons.size()-1), culture);
 
         try {
-
-            plots.add(plot);
+      //      plots.add(plot);
             Log.i("plots : ", plots.size()+"");
         }catch (Exception exception){
 
@@ -53,7 +51,7 @@ public class PlotController {
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {
         int i;
-        for (i = 0; i < plotPoligons.size(); i++) {
+        for (i = 0; i < plots.size(); i++) {
             Log.i("still", "SEARCHING");
             if (plots.get(i).getShape().equals(shape))
                 break;
@@ -84,9 +82,9 @@ public class PlotController {
 
         PolygonOptions options = new PolygonOptions()
                 .fillColor(0x660000FF)
-                .strokeWidth(4)
+                .strokeWidth(5)
                 .clickable(true)
-                .strokeColor(Color.BLUE);
+                .strokeColor(0x996D1B);
 
 
         for(int i = 0; i < POLYGON_MAX_NUMBERS; i++){
@@ -109,7 +107,7 @@ public class PlotController {
 
         if (drawedTheLast) {
 
-            Toast.makeText(context, "Talhão adicionado, clique em OK para salvar",
+            Toast.makeText(context, "Talhão adicionado",
                     Toast.LENGTH_LONG).show();
 
 
@@ -122,52 +120,25 @@ public class PlotController {
         }
         drawedTheLast = false;
         drawedPerTime = 0;
+
+        createPlot(plotPoligons.get(plotPoligons.size()-1), "milho");
+
+        //Classe PlotFormActivity deve ser lançada daqui.
+
     }
 
 
-//      public void initialize3Plots(GoogleMap mGoogleMap){
-//        Log.i("Entrou no method", "DAAm");
-//        Polygon polygon1 = mGoogleMap.addPolygon(new PolygonOptions()
-//                .add(new LatLng(0, 0), new LatLng(0, -25), new LatLng(3, -50), new LatLng(0, 0))
-//                .clickable(true)
-//                .strokeColor(Color.RED)
-//                .fillColor(Color.GRAY));
-//
-//        Log.i("CRIOU 1", "COROLHO");
-//
-//        Polygon polygon2 = mGoogleMap.addPolygon(new PolygonOptions()
-//                .add(new LatLng(0, 0), new LatLng(0, 10), new LatLng(2, 5), new LatLng(44, 12))
-//                .strokeColor(Color.RED)
-//                .clickable(true)
-//                .fillColor(Color.BLUE));
-//
-//        Log.i("CRIOU 2", "COROLHO");
-//
-//        Polygon polygon3 = mGoogleMap.addPolygon(new PolygonOptions()
-//                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-//                .strokeColor(Color.RED)
-//                .clickable(true)
-//                .fillColor(Color.GREEN));
-//
-//        Log.i("CRIOU 3", "COROLHO");
-//
-//        Log.i("drawedPoligons", drawedPoligons+"");
-//        Plot plot1 = new Plot(drawedPoligons+1,polygon1,"Milho");
-//        drawedPoligons+=1;
-//        Plot plot2 = new Plot(drawedPoligons+1,polygon2,"Milho");
-//        drawedPoligons+=1;
-//        Plot plot3 = new Plot(drawedPoligons+1,polygon3,"Milho");
-//        drawedPoligons+=1;
-//
-//        Log.i("drawedPoligons", drawedPoligons+"");
-//
-//        plots.add(plot1);
-//        plots.add(plot2);
-//        plots.add(plot3);
-//
-//        Log.i("Adicionou sá porra", "HUE");
-//
-//    }
+      public void createPlot(Polygon polygon, String culture){
+
+        Plot plot = new Plot(plots.size(), polygon, culture);
+        plot.setPlotMarker(center);
+        plots.add(plot);
+
+        Log.i("Adicionou sá porra", "HUE");
+
+        Log.i("tamanho", plots.size()+"");
+
+    }
 
     public MarkerOptions addPlotMarker(LatLng latLng){
 
@@ -193,6 +164,51 @@ public class PlotController {
         longitude = longitude/ points.size();
 
         return new LatLng(latitude, longitude);
+    }
+
+    public Plot checkIfPositionIsInsideAPlot(LatLng latLng){
+
+        for(int i = 0; i < plotPoligons.size(); i++){
+            if(checkPointIsInsideAPlot((ArrayList<LatLng>) plotPoligons.get(i).getPoints(), latLng))
+               return findPlotbyShape(plotPoligons.get(i));
+        }
+
+        return null;
+
+    }
+
+
+    public boolean checkPointIsInsideAPlot(ArrayList<LatLng> vertices, LatLng latlng){
+        int intersectCount = 0;
+        for (int j = 0; j < vertices.size() - 1; j++) {
+            if (checkCastIntersect(latlng, vertices.get(j), vertices.get(j + 1))) {
+                intersectCount++;
+            }
+        }
+
+        return ((intersectCount % 2) == 1); // odd = inside, even = outside;
+    }
+
+    private boolean checkCastIntersect(LatLng tap, LatLng vertA, LatLng vertB) {
+
+        double aY = vertA.latitude;
+        double bY = vertB.latitude;
+        double aX = vertA.longitude;
+        double bX = vertB.longitude;
+        double pY = tap.latitude;
+        double pX = tap.longitude;
+
+        if ((aY > pY && bY > pY) || (aY < pY && bY < pY)
+                || (aX < pX && bX < pX)) {
+            return false; // a and b can't both be above or below pt.y, and a or
+            // b must be east of pt.x
+        }
+
+        double m = (aY - bY) / (aX - bX);
+        double bee = (-aX) * m + aY;
+        double x = (pY - bee) / m;
+
+        return x > pX;
     }
 
 }
