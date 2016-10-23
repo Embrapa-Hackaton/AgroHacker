@@ -34,30 +34,19 @@ public class PlotController {
 
     boolean drawedTheLast = false;
 
-
-    public void addPlot(String culture, Date plantationDate, Date harvestDate){
-
-        createPlot(plotPoligons.get(plotPoligons.size()-1), culture);
-
-        try {
-      //      plots.add(plot);
-            Log.i("plots : ", plots.size()+"");
-        }catch (Exception exception){
-
-            Log.i("Nao cadastrou good : ", "Daam");
-        }
-    }
-
     //Find Plot
     public Plot findPlotbyShape(Polygon shape) {
         int i;
         for (i = 0; i < plots.size(); i++) {
             Log.i("still", "SEARCHING");
-            if (plots.get(i).getShape().equals(shape))
-                break;
+            if (plots.get(i).getShape().equals(shape)) {
+
+                Log.i("searching: ", "" + i);
+                Log.i("Found the polygon", "contais index" + i);
+                return plots.get(i);
+            }
         }
-        Log.i("Found the polygon", "contais index"+ i);
-        return plots.get(i);
+        return null;
     }
 
     //Poligon Creation
@@ -121,9 +110,7 @@ public class PlotController {
         drawedTheLast = false;
         drawedPerTime = 0;
 
-        createPlot(plotPoligons.get(plotPoligons.size()-1), "milho");
-
-        //Classe PlotFormActivity deve ser lançada daqui.
+        createPlot(shape, "Milho");
 
     }
 
@@ -131,7 +118,11 @@ public class PlotController {
       public void createPlot(Polygon polygon, String culture){
 
         Plot plot = new Plot(plots.size(), polygon, culture);
-        plot.setPlotMarker(center);
+          center.setTitle("Talhão "+(plots.size()+1));
+          center.setSnippet("Cultura: "+ culture+"\nPlantio: 02/34/1234\n"
+                            +"Colheita: 02/34/1234\nStatus:"+plot.getStatus());
+          Log.i("Quero v: ", center.getSnippet());
+          plot.setPlotMarker(center);
         plots.add(plot);
 
         Log.i("Adicionou sá porra", "HUE");

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
@@ -41,6 +42,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.model.Plot;
@@ -114,7 +118,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             createFieldInspection();
                         break;
                     case R.id.menu_map_talhao:
-                        Log.i("entrando aqui", "hue");
                         Toast.makeText(MapActivity.this, "Selecione 4 pontos no mapa",
                                 Toast.LENGTH_LONG).show();
                         createPlot();
@@ -196,6 +199,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+       /* mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                View view = getLayoutInflater().inflate(R.layout.plot_info_window, null);
+
+                TextView tvTalhao = (TextView) view.findViewById(R.id.tv_index);
+                TextView tvInfo = (TextView) view.findViewById(R.id.tv_culture);
+
+                LatLng latLng = marker.getPosition();
+
+                tvTalhao.setText(marker.getTitle());
+
+                tvInfo.setText(marker.getSnippet());
+
+                return view;
+            }
+        });*/
 
         permitClickOnPolygon();
 
@@ -349,17 +376,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onPolygonClick(Polygon polygon) {
 
+                Plot localPlot = new Plot();
+
                 endingAdding.setVisibility(View.VISIBLE);
 
                 findViewById(R.id.menu_map_talhao).setVisibility(View.INVISIBLE);
 
-                plot.setShape(polygon);
-                plot = plotController.findPlotbyShape(polygon);
+                localPlot = plotController.findPlotbyShape(polygon);
 
-                Log.i("Found plot", plot.getId() + "");
+                Log.i("Found plot", localPlot.getId() + "");
 
-                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(plot.getPlotMarker().getPosition(), 10);
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(localPlot.getPlotMarker().getPosition(), 17);
                 mGoogleMap.animateCamera(update);
+
+                plot = localPlot;
             }
         });
     }

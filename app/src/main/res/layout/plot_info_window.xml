@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
@@ -19,37 +19,16 @@
             android:id="@+id/tv_index"
             android:layout_width="121dp"
             android:layout_height="wrap_content"
-            android:text="Talhão"
+            android:text=""
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:background="000000"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tv_culture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textAlignment="center"
-            android:text= "Cultura" />
-
-        <TextView
-            android:id="@+id/tv_dataPlatio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Plantio" />
-
-        <TextView
-            android:id="@+id/tv_dataCultivo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Colheita" />
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status" />
+            android:text= "" />
 
     </LinearLayout>
 
