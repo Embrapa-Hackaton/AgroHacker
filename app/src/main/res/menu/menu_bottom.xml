@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".controller.MapActivity">
+
+    <item
+        android:id="@+id/menu_map_fieldInspec"
+        android:title="Inspeção"
+        android:icon="@drawable/ic_add_inspec"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_map_talhao"
+        android:title="Talhão"
+        android:icon="@drawable/ic_talhao"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_map_trap"
+        android:title="Armadilha"
+        android:icon="@drawable/ic_armadilha"
+        app:showAsAction="always" />
+
+</menu>
