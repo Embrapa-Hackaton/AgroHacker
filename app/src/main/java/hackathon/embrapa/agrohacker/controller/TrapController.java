@@ -1,8 +1,10 @@
 package hackathon.embrapa.agrohacker.controller;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -30,10 +32,14 @@ public class TrapController {
         //   plot.setTrap(newTrap);
     }
 
-    public void addTrapOnMap(GoogleMap mGoogleMap, LatLng latLng){
+    public void addTrapOnMap(GoogleMap mGoogleMap, LatLng latLng, View mapView){
 
         trapMarker = addTrapMarker(mGoogleMap, latLng);
         trapRange = drawCircle(mGoogleMap, latLng);
+
+        Intent intent = new Intent();
+        intent.setClass(mapView.getContext(), TrapFormController.class);
+        mapView.getContext().startActivity(intent);
     }
 
     private Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){

@@ -255,8 +255,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng latLng) {
-                if(plotController.drawedPerTime == 0)
-                    plotController.setPoligonMarker(latLng, mGoogleMap, MapActivity.this);
+                if(plotController.drawedPerTime == 0){
+                    View mapView = findViewById(R.id.activity_map);
+
+                    plotController.setPoligonMarker(latLng, mGoogleMap, MapActivity.this, mapView);
+                }
             }
         });
     }
@@ -294,7 +297,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onMapClick(LatLng latLng) {
                     if (trapController.checkTrapIsInsidePlot(latLng, points)) {
-                        trapController.addTrapOnMap(mGoogleMap, latLng);
+                        trapController.addTrapOnMap(mGoogleMap, latLng, findViewById(R.id.activity_map));
                         permitClickOnPolygon();
                     } else {
                         Toast.makeText(MapActivity.this, "Ponto fora do talhão",

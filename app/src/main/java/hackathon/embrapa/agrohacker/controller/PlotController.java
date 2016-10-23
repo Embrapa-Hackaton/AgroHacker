@@ -3,7 +3,9 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.model.Plot;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class PlotController {
 
@@ -51,7 +55,7 @@ public class PlotController {
 
     //Poligon Creation
 
-    public void setPoligonMarker(LatLng latLng, GoogleMap mGoogleMap, Context context) {
+    public void setPoligonMarker(LatLng latLng, GoogleMap mGoogleMap, Context context, View view) {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
@@ -62,12 +66,12 @@ public class PlotController {
 
 
         if(markers.size() == POLYGON_MAX_NUMBERS){
-            drawPoligon(mGoogleMap, context);
+            drawPoligon(mGoogleMap, context, view);
             markers.clear();
         }
     }
 
-    private void drawPoligon(GoogleMap mGoogleMap, Context context){
+    private void drawPoligon(GoogleMap mGoogleMap, Context context, View mapView){
 
         PolygonOptions options = new PolygonOptions()
                 .fillColor(0x660000FF)
@@ -112,6 +116,10 @@ public class PlotController {
 
         createPlot(shape, "Milho");
 
+
+        Intent intent = new Intent();
+        intent.setClass(mapView.getContext(), PlotFormActivity.class);
+        mapView.getContext().startActivity(intent);
     }
 
 
