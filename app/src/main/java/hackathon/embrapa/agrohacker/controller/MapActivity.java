@@ -294,7 +294,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onMapClick(LatLng latLng) {
                     if (trapController.checkTrapIsInsidePlot(latLng, points)) {
-                        trapController.addTrap(mGoogleMap, latLng, plot);
+                        trapController.addTrapOnMap(mGoogleMap, latLng);
                         permitClickOnPolygon();
                     } else {
                         Toast.makeText(MapActivity.this, "Ponto fora do talhão",

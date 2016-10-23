@@ -13,20 +13,27 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import hackathon.embrapa.agrohacker.model.Plot;
+import hackathon.embrapa.agrohacker.model.Trap;
 
 
 public class TrapController {
 
-    public void addTrap(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
+    Marker trapMarker;
+    Circle trapRange;
 
-        Marker trapMarker = addTrapMarker(mGoogleMap, latLng);
-        Circle trapRange = drawCircle(mGoogleMap, latLng);
+    public void createTrap(String pherormone, int duration, Date lastChange){
+        Trap newTrap = new Trap(trapMarker, trapRange, lastChange, duration, pherormone);
 
-     //   Trap newTrap = new Trap(marker, trapRange, duration, pherormone);
+        //   plot.setTrap(newTrap);
+    }
 
-     //   plot.setTrap(newTrap);
+    public void addTrapOnMap(GoogleMap mGoogleMap, LatLng latLng){
+
+        trapMarker = addTrapMarker(mGoogleMap, latLng);
+        trapRange = drawCircle(mGoogleMap, latLng);
     }
 
     private Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){
