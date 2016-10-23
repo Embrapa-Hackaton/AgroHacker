@@ -20,6 +20,7 @@ public class FieldInspection {
         setRealization(date);
         setInspectorName(inspectorName);
         setMarker(marker);
+        setStatus("URGENTE");
     }
 
     public FieldInspection(){

@@ -23,22 +23,20 @@ public class Plot {
     private ArrayList<Trap> traps = new ArrayList<Trap>();
     private ArrayList<FieldInspection> fieldInspections = new ArrayList<FieldInspection>();
 
-/*
-    public Plot(int index, Polygon shape, String platationCulture, Date plantationStartDate, Date harvestDate){
-        setIndex(index);
+    public Plot(int id, Polygon shape, String platationCulture, Date plantationStartDate, Date harvestDate){
+        setId(id);
         setShape(shape);
         setPlatationCulture(platationCulture);
         setPlantationStage("Plantação");
         setPlantationStartDate(plantationStartDate);
         setHarvestDate(harvestDate);
         setStatus("UKNOWN");
-    }*/
+    }
 
-    public Plot(int id, Polygon shape, String platationCulture){
+    public Plot(int id, Polygon shape, String platationCulture) {
         setId(id);
         setShape(shape);
         setPlatationCulture(platationCulture);
-        setPlantationStage("Plantação");
         setStatus("UKNOWN");
     }
 
@@ -137,11 +135,11 @@ public class Plot {
                 newStatus = "URGENTE";
                 break;
             }
-
+/*
             if(traps.get(i).getStatus().equals("URGENTE")){
                 newStatus = "ALARMANTE";
                 break;
-            }
+            }*/
 
             else
                 newStatus = "TRANQUILO"; // E FAVORAVEL
@@ -163,20 +161,21 @@ public class Plot {
             case "URGENTE" :
                 plotMarker.setIcon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                shape.setFillColor(Color.RED);
-                shape.setStrokeWidth(6);
+                shape.setFillColor(0x66fd172f);
+                shape.setStrokeWidth(4);
                 break;
             case "ALARMANTE" :
                 shape.setFillColor(Color.YELLOW);
                 plotMarker.setIcon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-                shape.setStrokeWidth(5);
+                shape.setFillColor(0xfaf41b);
+                shape.setStrokeWidth(3);
                 break;
             case "TRANQUILO" :
                 plotMarker.setIcon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                shape.setFillColor(Color.GREEN);
-                shape.setStrokeWidth(4);
+                shape.setFillColor(0x33ef1d);
+                shape.setStrokeWidth(2);
                 break;
         }
     }

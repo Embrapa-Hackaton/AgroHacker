@@ -1,8 +1,11 @@
 package hackathon.embrapa.agrohacker.controller;
 
+
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.net.ParseException;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,15 +14,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import hackathon.embrapa.agrohacker.R;
-import hackathon.embrapa.agrohacker.model.Plot;
 
 public class PlotFormActivity extends AppCompatActivity {
 
@@ -30,6 +36,11 @@ public class PlotFormActivity extends AppCompatActivity {
     PlotController plotController = new PlotController();
     Button confirmButton;
     Button cancelButton;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
@@ -44,6 +55,8 @@ public class PlotFormActivity extends AppCompatActivity {
 
         confirmButton = (Button) findViewById(R.id.confirmButton);
         cancelButton = (Button) findViewById(R.id.cancelbutton);
+
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void setUpSpinner() {
@@ -54,49 +67,37 @@ public class PlotFormActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void confirmAddingPlot(View view){
-        Plot plot = new Plot();
-        plot.setId(plotController.drawedPoligons+1);
-        plot.setPlatationCulture("Milho");
+    public void confirmAddingPlot(View view) {
 
         DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
-        Date plantationD;
+        Date plantationD = null;
+        Date harvestD = null;
+
         try {
             plantationD = dateFormat.parse(plantationDate.getText().toString());
-            plot.setPlantationStartDate(plantationD);
-        }catch(ParseException parseException){
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
             Toast.makeText(PlotFormActivity.this, "Impossivel converter data Plantio",
                     Toast.LENGTH_LONG).show();
         }
-
-        Date harvestD;
         try {
             harvestD = dateFormat.parse(plantationDate.getText().toString());
-            plot.setHarvestDate(harvestD);
-        }catch(ParseException parseException){
+        }catch(Exception exception){
             Toast.makeText(PlotFormActivity.this, "Impossivel converter data Colheita",
                     Toast.LENGTH_LONG).show();
         }
-
-        plotController.addPlot(plot);
-        Toast.makeText(this, "Talhão adicionado com sucesso!", Toast.LENGTH_SHORT).show();
-        finish();
+        if (plantationD != null || harvestD != null) {
+           // plotController.addPlot("milho", plantationD, harvestD);
+            finish();
+        }
     }
 
-    public void cancelAddingPlot(){
-        plotController.center.remove();
-        plotController.shape.remove();
-
-        //Remove Last from map polygon
-        plotController.mapPoligons.remove(plotController.mapPoligons.size()-1);
-        plotController.markers.clear();
-        Toast.makeText(this, "adicão cancelada com sucesso!", Toast.LENGTH_SHORT).show();
-        finish();
+    public void cancelAddingPlot() {
 
     }
 
-    private void setUpEditTextPlantation(){
+    private void setUpEditTextPlantation() {
         final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -132,4 +133,39 @@ public class PlotFormActivity extends AppCompatActivity {
         plantationDate.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("PlotForm Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }

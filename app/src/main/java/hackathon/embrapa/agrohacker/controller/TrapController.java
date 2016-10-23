@@ -33,7 +33,7 @@ public class TrapController {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE) )
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
         return mGoogleMap.addMarker(marker);
@@ -44,9 +44,8 @@ public class TrapController {
         CircleOptions circle = new CircleOptions()
                             .center(latlng)
                             .radius(250)
-                            .fillColor(0x660000EE)
                             .strokeWidth(4)
-                            .strokeColor(Color.BLUE);
+                            .strokeColor(Color.BLACK);
 
         return mGoogleMap.addCircle(circle);
     }
