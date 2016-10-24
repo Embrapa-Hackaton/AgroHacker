@@ -90,7 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="dd/mm/aaaa"
-            android:id="@+id/trap_last_change"/>
+            android:id="@+id/trap_last_change"
+            android:inputType="date"/>
 
     </LinearLayout>
 

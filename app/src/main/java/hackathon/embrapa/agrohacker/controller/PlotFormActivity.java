@@ -94,7 +94,7 @@ public class PlotFormActivity extends AppCompatActivity {
     }
 
     public void cancelAddingPlot() {
-
+        finish();
     }
 
     private void setUpEditTextPlantation() {

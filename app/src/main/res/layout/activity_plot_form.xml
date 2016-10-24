@@ -62,7 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="dd/mm/aaaa"
-            android:id="@+id/plot_planting_date"/>
+            android:id="@+id/plot_planting_date"
+            android:inputType="date"/>
 
     </LinearLayout>
 
@@ -87,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="dd/mm/aaaa"
-            android:id="@+id/plot_harvesting_date"/>
+            android:id="@+id/plot_harvesting_date"
+            android:inputType="date"/>
 
     </LinearLayout>
 
