@@ -152,6 +152,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intentGoToPredatorList);
                 break;
             case R.id.menu_report:
+                Intent intentReportActivity = new Intent(MapActivity.this, NotificationsActivity.class);
+                startActivity(intentReportActivity);
                 Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_info:
@@ -200,29 +202,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-       /* mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-
-                View view = getLayoutInflater().inflate(R.layout.plot_info_window, null);
-
-                TextView tvTalhao = (TextView) view.findViewById(R.id.tv_index);
-                TextView tvInfo = (TextView) view.findViewById(R.id.tv_culture);
-
-                LatLng latLng = marker.getPosition();
-
-                tvTalhao.setText(marker.getTitle());
-
-                tvInfo.setText(marker.getSnippet());
-
-                return view;
-            }
-        });*/
+        setInfoWindows();
 
         permitClickOnPolygon();
 
@@ -234,6 +214,40 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         googleApiClient.connect();
 
+    }
+
+    private void setInfoWindows() {
+
+            mGoogleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                if(marker.getTitle().contains("Talhão") ||
+                        marker.getTitle().contains("Armadilha") ||
+                                marker.getTitle().contains("Inspeção")){
+
+                    View view = getLayoutInflater().inflate(R.layout.plot_info_window, null);
+
+                    TextView tvTalhao = (TextView) view.findViewById(R.id.tv_index);
+                    TextView tvInfo = (TextView) view.findViewById(R.id.tv_culture);
+
+                    LatLng latLng = marker.getPosition();
+
+                    tvTalhao.setText(marker.getTitle());
+
+                    tvInfo.setText(marker.getSnippet());
+
+                    return view;
+                }
+
+                return null;
+            }
+        });
     }
 
     public void createPlot() {
@@ -319,7 +333,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(plot!=null){
             Toast.makeText(MapActivity.this, "Uma nova inspeção será adicionada na sua localização",
                     Toast.LENGTH_LONG).show();
-            fieldInspectionController.addFieldInspection(mGoogleMap, plot, userLocationMarker.getPosition());
+
+            View mapView = findViewById(R.id.activity_map);
+
+            fieldInspectionController.addFieldInspection(mGoogleMap, plot, userLocationMarker.getPosition(),mapView);
         }else
             Toast.makeText(MapActivity.this, "Você não está dentro de nenhum talhão",
                     Toast.LENGTH_LONG).show();

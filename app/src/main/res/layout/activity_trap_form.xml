@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ferormônio"
-            android:id="@+id/culture_text_view"
+            android:id="@+id/pherormone_text_view"
             android:layout_marginRight="5dp"
             android:textSize="17dp"/>
 
@@ -105,7 +105,7 @@
             android:text="OK"
             android:layout_width="64dp"
             android:layout_height="match_parent"
-            android:id="@+id/confirmButton"
+            android:id="@+id/confirmTrapButton"
             android:onClick="confirmAddingTrap"
             android:background="@color/colorPrimary"/>
 
@@ -113,7 +113,7 @@
             android:text="Cancelar"
             android:layout_width="75dp"
             android:layout_height="match_parent"
-            android:id="@+id/cancelbutton"
+            android:id="@+id/cancelTrapButton"
             android:onClick="cancelAddingTrap"
             android:background="@color/colorPrimaryDark"
             android:layout_marginLeft="20dp"/>

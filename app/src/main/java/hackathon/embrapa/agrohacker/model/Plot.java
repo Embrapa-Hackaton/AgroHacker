@@ -1,6 +1,7 @@
 package hackathon.embrapa.agrohacker.model;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
@@ -123,6 +124,7 @@ public class Plot {
 
     public void setTrap(Trap trap) {
         this.traps.add(trap);
+        Log.i("Adicionou: ",traps.size()+"");
     }
 
 

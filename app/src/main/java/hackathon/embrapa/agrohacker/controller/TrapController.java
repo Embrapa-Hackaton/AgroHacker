@@ -23,13 +23,13 @@ import hackathon.embrapa.agrohacker.model.Trap;
 
 public class TrapController {
 
+    PlotController plotController;
     Marker trapMarker;
     Circle trapRange;
 
     public void createTrap(String pherormone, int duration, Date lastChange){
         Trap newTrap = new Trap(trapMarker, trapRange, lastChange, duration, pherormone);
-
-        //   plot.setTrap(newTrap);
+        plotController.setTrapOnPlot(newTrap);
     }
 
     public void addTrapOnMap(GoogleMap mGoogleMap, LatLng latLng, View mapView){
@@ -46,6 +46,7 @@ public class TrapController {
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
+                .title("Armadilha")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 

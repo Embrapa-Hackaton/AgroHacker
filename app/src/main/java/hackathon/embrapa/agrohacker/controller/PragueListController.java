@@ -26,7 +26,7 @@ import hackathon.embrapa.agrohacker.model.Prague;
 
 public class PragueListController extends AppCompatActivity {
 
-    private ListView pragueList;
+    public ListView pragueList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -88,7 +88,7 @@ public class PlotFormActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
         if (plantationD != null || harvestD != null) {
-           // plotController.addPlot("milho", plantationD, harvestD);
+
             finish();
         }
     }

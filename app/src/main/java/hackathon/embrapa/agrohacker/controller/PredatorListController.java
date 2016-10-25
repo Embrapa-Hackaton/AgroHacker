@@ -25,7 +25,7 @@ import hackathon.embrapa.agrohacker.model.NaturalPredator;
 
 public class PredatorListController extends AppCompatActivity {
 
-    private ListView predatorList;
+    public ListView predatorList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

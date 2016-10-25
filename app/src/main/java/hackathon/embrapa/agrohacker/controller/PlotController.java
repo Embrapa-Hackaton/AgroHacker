@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.model.Plot;
+import hackathon.embrapa.agrohacker.model.Trap;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
 
@@ -208,6 +209,18 @@ public class PlotController {
         double x = (pY - bee) / m;
 
         return x > pX;
+    }
+
+    public void setTrapOnPlot(Trap newTrap) {
+
+        for(int i = 0; i < plotPoligons.size(); i++){
+            //Find polygon that contais the trap
+            if(checkPointIsInsideAPlot((ArrayList<LatLng>) plotPoligons.get(i).getPoints(),
+                                newTrap.getTrapMarker().getPosition())){
+                //Find plot that has that polygons and add trap
+                findPlotbyShape(plotPoligons.get(i)).setTrap(newTrap);
+            }
+        }
     }
 
 }

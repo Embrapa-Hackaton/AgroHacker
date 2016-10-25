@@ -1,6 +1,8 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -21,24 +23,31 @@ public class FieldInspectionController {
     public ArrayList<Prague> foundedpragues;
     public ArrayList<NaturalPredator> foundedPredators;
 
-    public void addFieldInspection(GoogleMap mGoogleMap, Plot plot, LatLng latLng){
-        Marker fieldInspectionMarker = addFieldInspectionMarker(mGoogleMap, latLng);
+    public void addFieldInspection(GoogleMap mGoogleMap, Plot plot, LatLng latLng, View mapView){
+        Marker fieldInspectionMarker = addFieldInspectionMarker(mGoogleMap, latLng, plot);
 
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
 
+        Log.i("Data: ", date.toString());
+
+        Intent intent = new Intent();
+        intent.setClass(mapView.getContext(), InspectionFormController.class);
+        mapView.getContext().startActivity(intent);
+        /*
         FieldInspection fieldInspection = new FieldInspection(date,"Seu Chico",fieldInspectionMarker);
       //  setInspectionPragues(fieldInspection);
-      //  setInspectionNaturalPredat(fieldInspection);
-        plot.setFieldInspections(fieldInspection);
-        Log.i("Inspeção adicionada", plot.getFieldInspections().size()+"");
+      //  setInspectionNaturalPredat(fieldInspection);*/
+      //  plot.setFieldInspections(fieldInspection);
+      //  Log.i("Inspeção adicionada", plot.getFieldInspections().size()+"");
     }
 
 
-    private Marker addFieldInspectionMarker(GoogleMap mGoogleMap, LatLng latLng){
+    private Marker addFieldInspectionMarker(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
+                .title("Inspeção"+ (plot.getFieldInspections().size()+1)+"")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
