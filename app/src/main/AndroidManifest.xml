@@ -31,7 +31,7 @@
             android:theme="@style/AppMapActivities">
         </activity>
         <activity
-            android:name=".controller.InspectionFormController"
+            android:name=".controller.InspectionFormActivity"
             android:label="Inspeção">
         </activity>
         <activity

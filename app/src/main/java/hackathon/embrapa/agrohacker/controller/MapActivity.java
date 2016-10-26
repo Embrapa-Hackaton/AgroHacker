@@ -237,7 +237,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public View getInfoContents(Marker marker) {
 
-                if(marker.getTitle().contains("Talhão") ||
+                if(marker.getTitle().contains("Tal") ||
                         marker.getTitle().contains("Armadilha") ||
                                 marker.getTitle().contains("Inspeção")){
 
@@ -516,7 +516,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     plot.setPlotMarker(mGoogleMap.addMarker(plotController.addPlotMarker(
                         plotController.findPolygonCenter((ArrayList<LatLng>) plot.getShape().getPoints()))));
 
-                    plot.getPlotMarker().setTitle("Talhao "+(plots.size()+1));
+                    plot.getPlotMarker().setTitle("Talhao");
 
                     plotController.plotPoligons.add(plot.getShape());
                     plotController.addPlot(plot);

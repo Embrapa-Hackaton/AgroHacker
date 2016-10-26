@@ -17,7 +17,9 @@ import hackathon.embrapa.agrohacker.model.Prague;
 public class ChoicePragueActivity extends AppCompatActivity {
 
     PragueDAO pragueDAO = new PragueDAO(this);
-    InspectionFormController inspectionFormController = new InspectionFormController();
+    InspectionFormActivity inspectionFormActivity = new InspectionFormActivity();
+    InspectionPragueListViewController inspectionPragueListViewController =
+            new InspectionPragueListViewController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class ChoicePragueActivity extends AppCompatActivity {
         praguesOnDBLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                inspectionFormController.setPragues(pragues.get(position));
+                inspectionPragueListViewController.setPragues(pragues.get(position));
                 getIntent().putExtra("pragues",pragues.get(position).toString() );
                 ChoicePragueActivity.super.onBackPressed();
             }

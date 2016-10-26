@@ -3,8 +3,6 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,15 +18,15 @@ import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
 import hackathon.embrapa.agrohacker.model.Prague;
 
-public class InspectionFormController extends AppCompatActivity {
+public class InspectionFormActivity extends AppCompatActivity {
 
     Button confirmButton;
     Button cancelButton;
     Button addPragueButton;
     Button addPredatorButton;
 
-    ArrayList<Prague> pragues = new ArrayList<Prague>();
-    ArrayList<NaturalPredator> predators = new ArrayList<NaturalPredator>();
+    InspectionPragueListViewController inspectionPragueListViewController;
+    InspectionPredatorListViewController inspectionPredatorListViewController;
 
     ArrayAdapter<NaturalPredator> predatorsAdapter;
     ArrayAdapter<Prague> praguesAdapter;
@@ -44,38 +42,25 @@ public class InspectionFormController extends AppCompatActivity {
         pragueList = (ListView) findViewById(R.id.lv_pragas);
         predatorList = (ListView) findViewById(R.id.lv_predadores);
 
-        predatorsAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, predators);
-        predatorList.setAdapter(predatorsAdapter);
-
-
-        praguesAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, pragues);
-        pragueList.setAdapter(praguesAdapter);
-
         confirmButton = (Button) findViewById(R.id.buttonConfirmFieldInspec);
         cancelButton = (Button) findViewById(R.id.buttonCancelFieldInspec);
         addPragueButton = (Button) findViewById(R.id.buttonAddPrague);
         addPredatorButton = (Button) findViewById(R.id.buttonAddPredator);
     }
 
-    public void setNaturalPredators(NaturalPredator naturalPredator) {
-        predators.add(naturalPredator);
-    }
 
-    public void setPragues(Prague prague) {
-        pragues.add(prague);
-    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        predatorsAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_list_item_1, inspectionPredatorListViewController.predators);
+        predatorList.setAdapter(predatorsAdapter);
 
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        Intent intent = getIntent();
-//        Prague prague = new Prague();
-//        prague.setPopularName(intent.getStringExtra("pragues"));
-//        pragues.add(prague);
-//        Log.i("Quantidade de pragas",pragues.size()+"");
-//    }
+
+        praguesAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_list_item_1, inspectionPragueListViewController.pragues);
+        pragueList.setAdapter(praguesAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,7 +73,7 @@ public class InspectionFormController extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulary_ok:
-                Toast.makeText(InspectionFormController.this, "Botão clicado!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InspectionFormActivity.this, "Botão clicado!", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }
@@ -96,12 +81,12 @@ public class InspectionFormController extends AppCompatActivity {
     }
 
     public void addPrague(View view){
-        Intent intent = new Intent(InspectionFormController.this, ChoicePragueActivity.class);
+        Intent intent = new Intent(InspectionFormActivity.this, ChoicePragueActivity.class);
         startActivity(intent);
     }
 
     public void addPredator(View view) {
-        Intent intent = new Intent(InspectionFormController.this, ChoicePredatorActivity.class);
+        Intent intent = new Intent(InspectionFormActivity.this, ChoicePredatorActivity.class);
         startActivity(intent);
     }
 

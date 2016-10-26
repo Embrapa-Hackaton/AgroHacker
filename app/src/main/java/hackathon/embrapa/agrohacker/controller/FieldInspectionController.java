@@ -32,7 +32,7 @@ public class FieldInspectionController {
         Log.i("Data: ", date.toString());
 
         Intent intent = new Intent();
-        intent.setClass(mapView.getContext(), InspectionFormController.class);
+        intent.setClass(mapView.getContext(), InspectionFormActivity.class);
         mapView.getContext().startActivity(intent);
         /*
         FieldInspection fieldInspection = new FieldInspection(date,"Seu Chico",fieldInspectionMarker);

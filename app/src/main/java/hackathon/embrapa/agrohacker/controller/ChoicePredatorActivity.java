@@ -10,16 +10,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.R;
-import hackathon.embrapa.agrohacker.adapter.PredatorAdapter;
 import hackathon.embrapa.agrohacker.dao.NaturalPredatorDAO;
-import hackathon.embrapa.agrohacker.dao.PragueDAO;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
-import hackathon.embrapa.agrohacker.model.Prague;
 
 public class ChoicePredatorActivity extends AppCompatActivity {
 
     NaturalPredatorDAO predatorDAO = new NaturalPredatorDAO(this);
-    InspectionFormController inspectionFormController = new InspectionFormController();
+    InspectionFormActivity inspectionFormActivity = new InspectionFormActivity();
+    InspectionPredatorListViewController inspectionPredatorListViewController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class ChoicePredatorActivity extends AppCompatActivity {
         predatorsOnDBLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                inspectionFormController.setNaturalPredators(naturalPredators.get(position));
+                inspectionPredatorListViewController.setNaturalPredators(naturalPredators.get(position));
                 getIntent().putExtra("predators", naturalPredators.get(position).toString());
                 ChoicePredatorActivity.super.onBackPressed();
             }
