@@ -28,8 +28,18 @@ public class TrapController {
     Circle trapRange;
 
     public void createTrap(String pherormone, int duration, Date lastChange){
-        Trap newTrap = new Trap(trapMarker, trapRange, lastChange, duration, pherormone);
-        plotController.setTrapOnPlot(newTrap);
+        Log.i("Chegou aqui", "createTrap. TrapCon.");
+        try {
+            Log.i("Latlng: ", trapMarker.getPosition().toString());
+            Log.i("range: ", trapRange.getRadius()+"");
+            Log.i("Last change: ", lastChange.toString());
+            Log.i("duration: ", duration+"");
+            Log.i("pherormone: ", pherormone);
+            Trap newTrap = new Trap(trapMarker, trapRange, lastChange, duration, pherormone);
+            plotController.setTrapOnPlot(newTrap);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     public void addTrapOnMap(GoogleMap mGoogleMap, LatLng latLng, View mapView){

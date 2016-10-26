@@ -32,7 +32,7 @@ public class TrapFormController extends AppCompatActivity {
     Button cancelButton;
     EditText lastChange;
     EditText duration;
-    TrapController trapController;
+    TrapController trapController = new TrapController();
 
     private GoogleApiClient client;
 
@@ -89,6 +89,8 @@ public class TrapFormController extends AppCompatActivity {
 
         if (lastChangeDate!= null || (durationI != 0)) {
             Log.i("Obtaining correct info","trap form controller");
+            Log.i("Date: "+lastChangeDate.toString(),"");
+            Log.i("Duration: ", durationI+"");
             trapController.createTrap("hahsh", durationI, lastChangeDate);
             finish();
         }
