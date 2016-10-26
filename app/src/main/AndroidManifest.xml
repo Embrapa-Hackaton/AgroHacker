@@ -93,6 +93,8 @@
         </activity>
         <activity android:name=".controller.TrapFormController">
         </activity>
+        <activity android:name=".controller.ChoicePragueActivity"/>
+        <activity android:name=".controller.ChoicePredatorActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -111,8 +113,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
-        <activity android:name=".controller.ChoicePredatorActivity">
-        </activity>
     </application>
 
 </manifest>

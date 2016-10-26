@@ -33,7 +33,8 @@ public class ChoicePragueActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 inspectionFormController.setPragues(pragues.get(position));
-                finish();
+                getIntent().putExtra("pragues",pragues.get(position).toString() );
+                ChoicePragueActivity.super.onBackPressed();
             }
         });
     }

@@ -48,12 +48,12 @@
             android:text="Predadores"
             android:textAlignment="center"
             android:textColor="@color/white"
+            tools:background="@color/colorPrimary"
             android:textSize="30dp"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/textView4"
-            tools:background="@color/colorPrimary"/>
+            android:id="@+id/textView4"/>
 
         <ListView
             android:layout_width="match_parent"

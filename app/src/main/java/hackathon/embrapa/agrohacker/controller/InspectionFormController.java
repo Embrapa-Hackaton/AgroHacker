@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,9 +27,11 @@ public class InspectionFormController extends AppCompatActivity {
     Button addPragueButton;
     Button addPredatorButton;
 
-
     ArrayList<Prague> pragues = new ArrayList<Prague>();
     ArrayList<NaturalPredator> predators = new ArrayList<NaturalPredator>();
+
+    ArrayAdapter<NaturalPredator> predatorsAdapter;
+    ArrayAdapter<Prague> praguesAdapter;
 
     ListView pragueList;
     ListView predatorList;
@@ -41,6 +44,15 @@ public class InspectionFormController extends AppCompatActivity {
         pragueList = (ListView) findViewById(R.id.lv_pragas);
         predatorList = (ListView) findViewById(R.id.lv_predadores);
 
+        predatorsAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_list_item_1, predators);
+        predatorList.setAdapter(predatorsAdapter);
+
+
+        praguesAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_list_item_1, pragues);
+        pragueList.setAdapter(praguesAdapter);
+
         confirmButton = (Button) findViewById(R.id.buttonConfirmFieldInspec);
         cancelButton = (Button) findViewById(R.id.buttonCancelFieldInspec);
         addPragueButton = (Button) findViewById(R.id.buttonAddPrague);
@@ -49,18 +61,21 @@ public class InspectionFormController extends AppCompatActivity {
 
     public void setNaturalPredators(NaturalPredator naturalPredator) {
         predators.add(naturalPredator);
-        ArrayAdapter<NaturalPredator> predatorsAdapter = new ArrayAdapter<NaturalPredator>
-                (this, android.R.layout.simple_list_item_1, predators);
-        predatorList.setAdapter(predatorsAdapter);
     }
 
     public void setPragues(Prague prague) {
         pragues.add(prague);
-        ArrayAdapter<Prague> praguesAdapter = new ArrayAdapter<Prague>
-                (this, android.R.layout.simple_list_item_1, pragues);
-        pragueList.setAdapter(praguesAdapter);
     }
 
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        Intent intent = getIntent();
+//        Prague prague = new Prague();
+//        prague.setPopularName(intent.getStringExtra("pragues"));
+//        pragues.add(prague);
+//        Log.i("Quantidade de pragas",pragues.size()+"");
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,8 +100,9 @@ public class InspectionFormController extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addPredator(View view){
-        Toast.makeText(this, "Em construção", Toast.LENGTH_SHORT).show();
+    public void addPredator(View view) {
+        Intent intent = new Intent(InspectionFormController.this, ChoicePredatorActivity.class);
+        startActivity(intent);
     }
 
     public void confirmInspection(View view){

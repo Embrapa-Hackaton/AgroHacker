@@ -81,7 +81,7 @@ public class PlotController {
                 .strokeColor(0x996D1B);
 
 
-        for(int i = 0; i < POLYGON_MAX_NUMBERS; i++){
+        for(int i = 0; i < POLYGON_MAX_NUMBERS; i++) {
             options.add(markers.get(i).getPosition());
             markers.get(i).remove();
         }
