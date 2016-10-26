@@ -23,17 +23,22 @@ public class FieldInspectionController {
     public ArrayList<Prague> foundedpragues;
     public ArrayList<NaturalPredator> foundedPredators;
 
+    MarkerOptions lastMarker;
+
     public void addFieldInspection(GoogleMap mGoogleMap, Plot plot, LatLng latLng, View mapView){
-        Marker fieldInspectionMarker = addFieldInspectionMarker(mGoogleMap, latLng, plot);
+
+
+        Intent intent = new Intent();
+        intent.setClass(mapView.getContext(), InspectionFormActivity.class);
+        mapView.getContext().startActivity(intent);
+
+        lastMarker = createFieldInspectionMarker(latLng, plot);
 
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
 
         Log.i("Data: ", date.toString());
 
-        Intent intent = new Intent();
-        intent.setClass(mapView.getContext(), InspectionFormActivity.class);
-        mapView.getContext().startActivity(intent);
         /*
         FieldInspection fieldInspection = new FieldInspection(date,"Seu Chico",fieldInspectionMarker);
       //  setInspectionPragues(fieldInspection);
@@ -42,14 +47,24 @@ public class FieldInspectionController {
       //  Log.i("Inspeção adicionada", plot.getFieldInspections().size()+"");
     }
 
-
-    private Marker addFieldInspectionMarker(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
-
+    private MarkerOptions createFieldInspectionMarker(LatLng latLng, Plot plot){
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
                 .title("Inspeção"+ (plot.getFieldInspections().size()+1)+"")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
+
+        return marker;
+    }
+
+
+    private Marker addFieldInspectionMarker(GoogleMap mGoogleMap, LatLng latLng, Plot plot){
+        MarkerOptions marker = new MarkerOptions()
+                .draggable(true)
+                .title("Inspeção"+ (plot.getFieldInspections().size()+1)+"")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE) )
+                .position(new LatLng(latLng.latitude,latLng.longitude));
+
 
         return mGoogleMap.addMarker(marker);
     }

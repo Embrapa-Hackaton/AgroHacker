@@ -212,6 +212,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mGoogleMap.clear();
 
+        plotController.plots.clear();
+
         drawPlots();
 
         setInfoWindows();
