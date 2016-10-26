@@ -17,17 +17,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.model.Prague;
 
 public class PragueAdapter extends BaseAdapter {
 
-    private final List<Prague> pragues;
+    private final ArrayList<Prague> pragues;
     private final Context context;
 
-    public PragueAdapter(Context context, List<Prague> pragues) {
+    public PragueAdapter(Context context, ArrayList<Prague> pragues) {
         this.context = context;
         this.pragues = pragues;
     }

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import hackathon.embrapa.agrohacker.helper.PopulatePragueList;
+import hackathon.embrapa.agrohacker.helper.PopulatePredatorList;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
 
 public class NaturalPredatorDAO extends DAO {
@@ -24,6 +26,12 @@ public class NaturalPredatorDAO extends DAO {
         return data;
     }
 
+    public void populatePredatorList() {
+        PopulatePredatorList predators = new PopulatePredatorList();
+        SQLiteDatabase db = getWritableDatabase();
+        predators.populatePredatorData(db);
+    }
+
     public void insertPredator(NaturalPredator predator) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues data = getPredatorData(predator);
@@ -34,7 +42,7 @@ public class NaturalPredatorDAO extends DAO {
         String sql = "SELECT * FROM Predator;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor line = db.rawQuery(sql, null);
-        List<NaturalPredator> predators = new ArrayList<NaturalPredator>();
+        ArrayList<NaturalPredator> predators = new ArrayList<>();
         while(line.moveToNext()) {
             NaturalPredator predator = new NaturalPredator();
             predator.setId(line.getInt(line.getColumnIndex("id")));

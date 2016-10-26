@@ -21,6 +21,7 @@ import java.util.List;
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.adapter.PredatorAdapter;
 import hackathon.embrapa.agrohacker.dao.NaturalPredatorDAO;
+import hackathon.embrapa.agrohacker.dao.PragueDAO;
 import hackathon.embrapa.agrohacker.model.NaturalPredator;
 
 public class PredatorListController extends AppCompatActivity {
@@ -130,6 +131,11 @@ public class PredatorListController extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.menu_search:
                 Toast.makeText(PredatorListController.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_populate:
+                NaturalPredatorDAO dao = new NaturalPredatorDAO(this);
+                dao.populatePredatorList();
+                LoadingList();
                 break;
             default:
                 finish();

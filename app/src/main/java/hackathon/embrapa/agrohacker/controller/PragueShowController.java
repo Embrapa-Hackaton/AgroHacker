@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.helper.PragueShowHelper;

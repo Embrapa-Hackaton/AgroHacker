@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 //import android.support.v4.view.GravityCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -174,8 +175,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 break;
         }
 
-  //      DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-  //      if(drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
 
         return false;
     }

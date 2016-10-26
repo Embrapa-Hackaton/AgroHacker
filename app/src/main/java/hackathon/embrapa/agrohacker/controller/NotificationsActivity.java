@@ -2,7 +2,6 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,7 +16,7 @@ public class NotificationsActivity extends ListActivity {
 
     PlotController plotcontroller = new PlotController();
 
-    ArrayList<String> listItems=new ArrayList<String>();
+    ArrayList<String> listItems = new ArrayList<String>();
 
     ArrayAdapter<String> adapter;
 
@@ -27,11 +26,11 @@ public class NotificationsActivity extends ListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.activty_notifications);
+        setContentView(R.layout.activity_notifications);
 
         updateButton = (Button) findViewById(R.id.updateButton);
 
-        adapter=new ArrayAdapter<>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         setListAdapter(adapter);
