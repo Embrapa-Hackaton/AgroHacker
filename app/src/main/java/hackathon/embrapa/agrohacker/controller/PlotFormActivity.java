@@ -24,8 +24,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Queue;
 
 import hackathon.embrapa.agrohacker.R;
+import hackathon.embrapa.agrohacker.dao.PlotDAO;
+import hackathon.embrapa.agrohacker.model.Plot;
 
 public class PlotFormActivity extends AppCompatActivity {
 
@@ -34,6 +37,7 @@ public class PlotFormActivity extends AppCompatActivity {
     private EditText plantationDate;
     private EditText harvestDate;
     PlotController plotController = new PlotController();
+    PlotDAO plotDAO = new PlotDAO(this);
     Button confirmButton;
     Button cancelButton;
     /**
@@ -83,14 +87,26 @@ public class PlotFormActivity extends AppCompatActivity {
         }
         try {
             harvestD = dateFormat.parse(plantationDate.getText().toString());
-        }catch(Exception exception){
+        } catch (Exception exception) {
             Toast.makeText(PlotFormActivity.this, "Impossivel converter data Colheita",
                     Toast.LENGTH_LONG).show();
         }
         if (plantationD != null || harvestD != null) {
-           // plotController.addPlot("milho", plantationD, harvestD);
+            // plotController.addPlot("milho", plantationD, harvestD);
+//            Plot plot = new Plot();
+//            plot.setPlantationStartDate(plantationDate.getText().toString());
+//            plot.setHarvestDate(harvestDate.getText().toString());
+//            plot.setPlatationCulture(spinner.getSelectedItem().toString());
+
+            getIntent().putExtra("plantationDate", plantationDate.getText().toString());
+            getIntent().putExtra("harvestDate", harvestDate.getText().toString());
+            getIntent().putExtra("culture", spinner.getSelectedItem().toString());
+
             finish();
         }
+
+
+//        plotDAO.insertPlot(plot);
     }
 
     public void cancelAddingPlot() {

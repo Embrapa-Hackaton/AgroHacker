@@ -3,10 +3,11 @@ package hackathon.embrapa.agrohacker.model;
 
 import com.google.android.gms.maps.model.Marker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FieldInspection {
+public class FieldInspection implements Serializable {
 
     private int id;
     private Date realization;

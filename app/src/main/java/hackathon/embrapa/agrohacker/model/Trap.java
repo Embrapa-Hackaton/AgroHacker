@@ -7,10 +7,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Trap {
+public class Trap implements Serializable {
 
     private int id;
     private Date lastChange;
