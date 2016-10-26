@@ -21,10 +21,18 @@ public class PlotDAO extends DAO {
     private ContentValues getPlotData(Plot plot) {
         ContentValues data = new ContentValues();
         data.put("plantationStage", plot.getPlantationStage());
-        data.put("plantationStartDate", plot.getPlantationStartDate().toString());
-        data.put("harvestDate", plot.getHarvestDate().toString());
+        data.put("plantationStartDate", plot.getPlantationStartDate());
+        data.put("harvestDate", plot.getHarvestDate());
         data.put("platationCulture", plot.getPlatationCulture());
         data.put("status", plot.getStatus());
+        data.put("latitude1", plot.getLat1());
+        data.put("longitude1", plot.getLon1());
+        data.put("latitude2", plot.getLat2());
+        data.put("longitude2", plot.getLon2());
+        data.put("latitude3", plot.getLat3());
+        data.put("longitude3", plot.getLon3());
+        data.put("latitude4", plot.getLat4());
+        data.put("longitude4", plot.getLon4());
         return data;
     }
 
@@ -43,10 +51,18 @@ public class PlotDAO extends DAO {
             Plot plot = new Plot();
             plot.setId((int) line.getLong(line.getColumnIndex("id")));
             plot.setPlantationStage(line.getString(line.getColumnIndex("plantationStage")));
-            plot.setPlantationStartDate(Date.valueOf(line.getString(line.getColumnIndex("plantationStartDate"))));
-            plot.setHarvestDate(Date.valueOf(line.getString(line.getColumnIndex("harvestDate"))));
+            plot.setPlantationStartDate(line.getString(line.getColumnIndex("plantationStartDate")));
+            plot.setHarvestDate(line.getString(line.getColumnIndex("harvestDate")));
             plot.setPlatationCulture(line.getString(line.getColumnIndex("platationCulture")));
             plot.setStatus(line.getString(line.getColumnIndex("status")));
+            plot.setLat1(line.getDouble(line.getColumnIndex("latitude1")));
+            plot.setLon1(line.getDouble(line.getColumnIndex("longitude1")));
+            plot.setLat2(line.getDouble(line.getColumnIndex("latitude2")));
+            plot.setLon2(line.getDouble(line.getColumnIndex("longitude2")));
+            plot.setLat3(line.getDouble(line.getColumnIndex("latitude3")));
+            plot.setLon3(line.getDouble(line.getColumnIndex("longitude3")));
+            plot.setLat4(line.getDouble(line.getColumnIndex("latitude4")));
+            plot.setLon4(line.getDouble(line.getColumnIndex("longitude4")));
             plots.add(plot);
         }
         line.close();

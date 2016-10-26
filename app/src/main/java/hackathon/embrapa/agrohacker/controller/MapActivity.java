@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
@@ -42,12 +43,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import hackathon.embrapa.agrohacker.dao.PlotDAO;
 import hackathon.embrapa.agrohacker.model.Plot;
+
+import static android.R.attr.shape;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,6 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     Button endingAdding;
     LocationRequest locationRequest;
     ArrayList<LatLng> points = new ArrayList<LatLng>();
+    PlotDAO plotDAO = new PlotDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +208,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mGoogleMap.clear();
+
+        drawPlots();
 
         setInfoWindows();
 
@@ -297,6 +307,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        Intent intent = getIntent();
+        ArrayList<Plot> plots = plotController.returnPlots();
+        plot = plots.get(plots.size() - 1);
+        plot.setPlantationStartDate(intent.getStringExtra("platationDate"));
+        plot.setPlantationStartDate(intent.getStringExtra("harvestDate"));
+        plot.setPlantationStartDate(intent.getStringExtra("culture"));
+
+        plotDAO.insertPlot(plot);
     }
 
     public void createTrap() {
@@ -446,6 +464,67 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         client.connect();
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+//        try{
+//            List<Plot> plots= plotDAO.showPlots();
+//            if(!plots.isEmpty()){
+//                for (int i = 0; i < plots.size(); i++) {
+//                    Plot plot = plots.get(i);
+//                    Polygon polygon = mGoogleMap.addPolygon(new PolygonOptions()
+//                            .add(new LatLng(plot.getLat1(), plot.getLon1()),
+//                                    new LatLng(plot.getLat2(), plot.getLon2()),
+//                                    new LatLng(plot.getLat3(), plot.getLon3()),
+//                                    new LatLng(plot.getLat4(), plot.getLon4()))
+//                            .strokeColor(0x996D1B)
+//                            .fillColor(0x660000FF));
+//
+//                    plotController.createPlot(polygon, plot.getPlatationCulture());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        drawPlots();
+    }
+
+    private void drawPlots() {
+        List<Plot> plots = plotDAO.showPlots();
+        Log.i("numero de plots", "tem " + plots.size() + " plots");
+        try {
+            if (!plots.isEmpty()) {
+                for (int i = 0; i < plots.size(); i++) {
+                    Plot plot;
+                    plot = plots.get(i);
+
+                    PolygonOptions polygon = new PolygonOptions();
+                    polygon.fillColor(0x660000FF)
+                            .strokeWidth(5)
+                            .clickable(true)
+                            .strokeColor(0x996D1B);
+                    polygon.add(new LatLng(plot.getLat1(), plot.getLon1()));
+                    polygon.add(new LatLng(plot.getLat2(), plot.getLon2()));
+                    polygon.add(new LatLng(plot.getLat3(), plot.getLon3()));
+                    polygon.add(new LatLng(plot.getLat4(), plot.getLon4()));
+
+                    plot.setShape(mGoogleMap.addPolygon(polygon));
+                    plot.setPlotMarker(mGoogleMap.addMarker(plotController.addPlotMarker(
+                        plotController.findPolygonCenter((ArrayList<LatLng>) plot.getShape().getPoints()))));
+
+                    plot.getPlotMarker().setTitle("Talhao "+(plots.size()+1));
+
+                    plotController.plotPoligons.add(plot.getShape());
+                    plotController.addPlot(plot);
+                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

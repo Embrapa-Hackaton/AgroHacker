@@ -7,16 +7,17 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polygon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Plot {
+public class Plot implements Serializable {
 
     private Integer id;
     private String plantationStage = "";
-    private Date plantationStartDate;
-    private Date harvestDate;
+    private String plantationStartDate;
+    private String harvestDate;
     private String platationCulture = "";
     private String status = "";
     private Polygon shape;
@@ -24,7 +25,16 @@ public class Plot {
     private ArrayList<Trap> traps = new ArrayList<Trap>();
     private ArrayList<FieldInspection> fieldInspections = new ArrayList<FieldInspection>();
 
-    public Plot(int id, Polygon shape, String platationCulture, Date plantationStartDate, Date harvestDate){
+    private Double lat1;
+    private Double lon1;
+    private Double lat2;
+    private Double lon2;
+    private Double lat3;
+    private Double lon3;
+    private Double lat4;
+    private Double lon4;
+
+    public Plot(int id, Polygon shape, String platationCulture, String plantationStartDate, String harvestDate){
         setId(id);
         setShape(shape);
         setPlatationCulture(platationCulture);
@@ -33,6 +43,7 @@ public class Plot {
         setHarvestDate(harvestDate);
         setStatus("UKNOWN");
     }
+
 
     public Plot(int id, Polygon shape, String platationCulture) {
         setId(id);
@@ -89,19 +100,19 @@ public class Plot {
         return status;
     }
 
-    public Date getPlantationStartDate() {
+    public String getPlantationStartDate() {
         return plantationStartDate;
     }
 
-    public void setPlantationStartDate(Date plantationStartDate) {
+    public void setPlantationStartDate(String plantationStartDate) {
         this.plantationStartDate = plantationStartDate;
     }
 
-    public Date getHarvestDate() {
+    public String getHarvestDate() {
         return harvestDate;
     }
 
-    public void setHarvestDate(Date harvestDate) {
+    public void setHarvestDate(String harvestDate) {
         this.harvestDate = harvestDate;
     }
 
@@ -127,8 +138,6 @@ public class Plot {
         Log.i("Adicionou: ",traps.size()+"");
     }
 
-
-
     private void calculateStatus(String status){
         String newStatus = "";
         for (int i = 0; i < fieldInspections.size(); i++){
@@ -148,6 +157,8 @@ public class Plot {
         }
         checkStatus(status, newStatus);
     }
+
+
 
     private void checkStatus(String oldStatus, String newStatus){
         if(!oldStatus.equals(newStatus)){
@@ -180,6 +191,70 @@ public class Plot {
                 shape.setStrokeWidth(2);
                 break;
         }
+    }
+
+    public Double getLat1() {
+        return lat1;
+    }
+
+    public void setLat1(Double lat1) {
+        this.lat1 = lat1;
+    }
+
+    public Double getLon1() {
+        return lon1;
+    }
+
+    public void setLon1(Double lon1) {
+        this.lon1 = lon1;
+    }
+
+    public Double getLat2() {
+        return lat2;
+    }
+
+    public void setLat2(Double lat2) {
+        this.lat2 = lat2;
+    }
+
+    public Double getLon2() {
+        return lon2;
+    }
+
+    public void setLon2(Double lon2) {
+        this.lon2 = lon2;
+    }
+
+    public Double getLat3() {
+        return lat3;
+    }
+
+    public void setLat3(Double lat3) {
+        this.lat3 = lat3;
+    }
+
+    public Double getLon3() {
+        return lon3;
+    }
+
+    public void setLon3(Double lon3) {
+        this.lon3 = lon3;
+    }
+
+    public Double getLat4() {
+        return lat4;
+    }
+
+    public void setLat4(Double lat4) {
+        this.lat4 = lat4;
+    }
+
+    public Double getLon4() {
+        return lon4;
+    }
+
+    public void setLon4(Double lon4) {
+        this.lon4 = lon4;
     }
 
 }

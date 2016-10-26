@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,9 +18,13 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
 
+import hackathon.embrapa.agrohacker.dao.PlotDAO;
 import hackathon.embrapa.agrohacker.model.Plot;
 import hackathon.embrapa.agrohacker.model.Trap;
 
@@ -44,6 +49,7 @@ public class PlotController {
         int i;
         for (i = 0; i < plots.size(); i++) {
             Log.i("still", "SEARCHING");
+            Log.i("Plots size", plots.size()+"");
             if (plots.get(i).getShape().equals(shape)) {
 
                 Log.i("searching: ", "" + i);
@@ -63,8 +69,7 @@ public class PlotController {
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW) )
                 .position(new LatLng(latLng.latitude,latLng.longitude));
 
-        markers.add(mGoogleMap.addMarker(marker));
-
+         markers.add(mGoogleMap.addMarker(marker));
 
         if(markers.size() == POLYGON_MAX_NUMBERS){
             drawPoligon(mGoogleMap, context, view);
@@ -119,6 +124,7 @@ public class PlotController {
 
 
         Intent intent = new Intent();
+//        intent.putExtra("plot", plots.get(plots.size()-1));
         intent.setClass(mapView.getContext(), PlotFormActivity.class);
         mapView.getContext().startActivity(intent);
     }
@@ -132,13 +138,23 @@ public class PlotController {
                             +"Colheita: 02/34/1234\nStatus:"+plot.getStatus());
           Log.i("Quero v: ", center.getSnippet());
           plot.setPlotMarker(center);
-        plots.add(plot);
 
-        Log.i("Adicionou sá porra", "HUE");
+          ArrayList<LatLng> latLngs = new ArrayList<LatLng>(plot.getShape().getPoints());
 
-        Log.i("tamanho", plots.size()+"");
+          plot.setLat1(latLngs.get(0).latitude);
+          plot.setLon1(latLngs.get(0).longitude);
+          plot.setLat2(latLngs.get(1).latitude);
+          plot.setLon2(latLngs.get(1).longitude);
+          plot.setLat3(latLngs.get(2).latitude);
+          plot.setLon3(latLngs.get(2).longitude);
+          plot.setLat4(latLngs.get(3).latitude);
+          plot.setLon4(latLngs.get(3).longitude);
 
-    }
+          plots.add(plot);
+          Log.i("Adicionou sá porra", "HUE");
+
+          Log.i("tamanho", plots.size()+"");
+      }
 
     public MarkerOptions addPlotMarker(LatLng latLng){
 
@@ -150,7 +166,7 @@ public class PlotController {
         return marker;
     }
 
-    private LatLng findPolygonCenter(ArrayList<LatLng> points) {
+    public LatLng findPolygonCenter(ArrayList<LatLng> points) {
 
         double latitude = 0.0;
         double longitude = 0.0;
@@ -168,15 +184,13 @@ public class PlotController {
 
     public Plot checkIfPositionIsInsideAPlot(LatLng latLng){
 
-        for(int i = 0; i < plotPoligons.size(); i++){
-            if(checkPointIsInsideAPlot((ArrayList<LatLng>) plotPoligons.get(i).getPoints(), latLng))
-               return findPlotbyShape(plotPoligons.get(i));
+        for(int i = 0; i < plots.size(); i++){
+            if(checkPointIsInsideAPlot((ArrayList<LatLng>) plots.get(i).getShape().getPoints(), latLng))
+               return plots.get(i);
         }
 
         return null;
-
     }
-
 
     public boolean checkPointIsInsideAPlot(ArrayList<LatLng> vertices, LatLng latlng){
         int intersectCount = 0;
@@ -223,4 +237,15 @@ public class PlotController {
         }
     }
 
+    public void addPlot(Plot plot) {
+        plots.add(plot);
+    }
+
+    public ArrayList<Plot> returnPlots() {
+        return plots;
+    }
+
+    public void addPlotToArrayList(Plot plot) {
+        plots.add(plot);
+    }
 }
