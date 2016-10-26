@@ -168,7 +168,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_about:
-                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                Intent intentAboutActivity = new Intent(MapActivity.this, AboutActivity.class);
+                startActivity(intentAboutActivity);
                 break;
             case R.id.menu_exit:
                 finish();
