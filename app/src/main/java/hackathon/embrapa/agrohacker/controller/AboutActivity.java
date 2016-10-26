@@ -1,41 +1,22 @@
 package hackathon.embrapa.agrohacker.controller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import hackathon.embrapa.agrohacker.R;
-import hackathon.embrapa.agrohacker.helper.PragueShowHelper;
-import hackathon.embrapa.agrohacker.model.Prague;
 
-public class PragueShowController extends AppCompatActivity{
-
-    private PragueShowHelper helper;
+public class AboutActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prague_details);
+        setContentView(R.layout.activity_about);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        helper = new PragueShowHelper(this);
-
-        receivePragueData();
-    }
-
-    private void receivePragueData() {
-        Intent intent = getIntent();
-        Prague prague = (Prague) intent.getSerializableExtra("pragueKey");
-        if (prague != null) {
-            helper.fillForm(prague);
-        }
     }
 
     @Override
@@ -50,5 +31,4 @@ public class PragueShowController extends AppCompatActivity{
         finish();
         return super.onOptionsItemSelected(item);
     }
-
 }

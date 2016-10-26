@@ -1,11 +1,8 @@
 package hackathon.embrapa.agrohacker.controller;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.adapter.PragueAdapter;
@@ -77,7 +73,7 @@ public class PragueListController extends AppCompatActivity {
 
     private void LoadingList() {
         PragueDAO dao = new PragueDAO(this);
-        List<Prague> pragues = dao.showPragues();
+        ArrayList<Prague> pragues = dao.showPragues();
         dao.close();
         PragueAdapter adapter = new PragueAdapter(this, pragues);
         pragueList.setAdapter(adapter);
@@ -131,6 +127,11 @@ public class PragueListController extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.menu_search:
                 Toast.makeText(PragueListController.this, "Em construção", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_populate:
+                PragueDAO dao = new PragueDAO(this);
+                dao.populatePragueList();
+                LoadingList();
                 break;
             default:
                 finish();

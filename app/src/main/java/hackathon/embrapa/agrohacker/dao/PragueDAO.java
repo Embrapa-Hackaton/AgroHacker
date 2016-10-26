@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
+import hackathon.embrapa.agrohacker.helper.PopulatePragueList;
 import hackathon.embrapa.agrohacker.model.Prague;
 
 public class PragueDAO extends DAO {
@@ -28,17 +27,23 @@ public class PragueDAO extends DAO {
         return data;
     }
 
+    public void populatePragueList() {
+        PopulatePragueList pragues = new PopulatePragueList();
+        SQLiteDatabase db = getWritableDatabase();
+        pragues.populatePragueData(db);
+    }
+
     public void insertPrague(Prague prague) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues data = getPragueData(prague);
         db.insert("Prague", null, data);
     }
 
-    public List<Prague> showPragues() {
+    public ArrayList<Prague> showPragues() {
         String sql = "SELECT * FROM Prague;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor line = db.rawQuery(sql, null);
-        List<Prague> pragues = new ArrayList<Prague>();
+        ArrayList<Prague> pragues = new ArrayList<>();
         while(line.moveToNext()) {
             Prague prague = new Prague();
             prague.setId(line.getInt(line.getColumnIndex("id")));

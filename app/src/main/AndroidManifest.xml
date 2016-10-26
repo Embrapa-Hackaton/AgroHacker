@@ -95,6 +95,13 @@
         </activity>
         <activity android:name=".controller.ChoicePragueActivity"/>
         <activity android:name=".controller.ChoicePredatorActivity"/>
+        <activity
+            android:name=".controller.AboutActivity"
+            android:label="Sobre">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity"/>
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

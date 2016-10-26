@@ -4,10 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import hackathon.embrapa.agrohacker.helper.PopulatePragueList;
+
 public class DAO extends SQLiteOpenHelper{
 
     public DAO(Context context) {
-        super(context, "AgroHackerNewTableAgain", null, 1);
+        super(context, "AgroHackerNewTableAgain", null, 2);
     }
 
     private String sql = "";
@@ -45,6 +47,7 @@ public class DAO extends SQLiteOpenHelper{
                 "latitude4 REAL, " +
                 "longitude4 REAL);";
         db.execSQL(sql);
+
     }
 
     @Override
@@ -59,4 +62,9 @@ public class DAO extends SQLiteOpenHelper{
                 db.execSQL(sql);
         }
     }
+
+    public SQLiteDatabase getDatabase() {
+        return this.getWritableDatabase();
+    }
 }
+
