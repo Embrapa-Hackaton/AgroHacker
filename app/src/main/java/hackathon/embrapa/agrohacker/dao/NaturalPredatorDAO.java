@@ -38,7 +38,7 @@ public class NaturalPredatorDAO extends DAO {
         db.insert("Predator", null, data);
     }
 
-    public List<NaturalPredator> showPredators() {
+    public ArrayList<NaturalPredator> showPredators() {
         String sql = "SELECT * FROM Predator;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor line = db.rawQuery(sql, null);

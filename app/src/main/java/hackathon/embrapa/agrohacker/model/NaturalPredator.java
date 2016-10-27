@@ -26,4 +26,9 @@ public class NaturalPredator extends Insect{
     }
 
     public void setFeedingPragues(ArrayList<String> feedingPragues) { this.feedingPragues = feedingPragues; }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getPopularName();
+    }
 }
