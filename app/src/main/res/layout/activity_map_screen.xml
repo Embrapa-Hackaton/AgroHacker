@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="endAddingPlots"
                 android:id="@+id/concludebutton"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/round_corner_button_map"
                 android:elevation="24dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -59,10 +59,8 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
-        android:layout_marginTop="55dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginBottom="55dp"
         app:menu="@menu/menu_map"
         app:headerLayout="@layout/activity_nav_header"
         app:itemBackground="@drawable/pressed_gray"
