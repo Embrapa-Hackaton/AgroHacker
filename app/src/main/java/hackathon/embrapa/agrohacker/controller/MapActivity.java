@@ -160,9 +160,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intentGoToPredatorList);
                 break;
             case R.id.menu_report:
-                Intent intentReportActivity = new Intent(MapActivity.this, NotificationsActivity.class);
+                Intent intentReportActivity = new Intent(MapActivity.this, NotificationActivity.class);
                 startActivity(intentReportActivity);
-                Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_info:
                 Toast.makeText(MapActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
