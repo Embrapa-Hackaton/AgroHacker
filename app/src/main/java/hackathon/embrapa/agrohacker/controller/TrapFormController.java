@@ -1,7 +1,9 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,12 +18,15 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.security.spec.ECField;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import hackathon.embrapa.agrohacker.R;
+import hackathon.embrapa.agrohacker.dao.TrapDAO;
+import hackathon.embrapa.agrohacker.model.Trap;
 
 public class TrapFormController extends AppCompatActivity {
 
@@ -33,6 +38,7 @@ public class TrapFormController extends AppCompatActivity {
     EditText lastChange;
     EditText duration;
     TrapController trapController = new TrapController();
+    TrapDAO trapDAO = new TrapDAO(this);
 
     private GoogleApiClient client;
 
@@ -68,7 +74,7 @@ public class TrapFormController extends AppCompatActivity {
 
         DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
-        Date lastChangeDate = null;
+        String lastChangeDate = null;
         int durationI = 0;
 
         try{
@@ -80,8 +86,8 @@ public class TrapFormController extends AppCompatActivity {
         }
 
         try {
-            lastChangeDate = dateFormat.parse(lastChange.getText().toString());
-        } catch (ParseException e) {
+            lastChangeDate = lastChange.getText().toString();
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(TrapFormController.this, "Impossivel converter data de mudança",
                     Toast.LENGTH_LONG).show();
@@ -91,7 +97,21 @@ public class TrapFormController extends AppCompatActivity {
             Log.i("Obtaining correct info","trap form controller");
             Log.i("Date: "+lastChangeDate.toString(),"");
             Log.i("Duration: ", durationI+"");
-            trapController.createTrap("hahsh", durationI, lastChangeDate);
+            trapController.createTrap("hahsh", durationI, lastChangeDate, this);
+
+            Trap trap = new Trap();
+            trap.setDuration(Integer.valueOf(duration.getText().toString()));
+            trap.setLastChange(lastChange.getText().toString());
+            trap.setPheromone(spinner.getSelectedItem().toString());
+
+            Intent intent = getIntent();
+            double doubles[] = intent.getDoubleArrayExtra("points");
+
+            trap.setLatitude(doubles[0]);
+            trap.setLongitude(doubles[1]);
+
+            trapDAO.insertTrap(trap);
+
             finish();
         }
     }

@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,13 +27,20 @@ public class TrapDAO extends DAO {
         data.put("duration", trap.getDuration().toString());
         data.put("pheromone", trap.getPheromone());;
         data.put("status", trap.getStatus());
+        data.put("latitude", trap.getLatitude());
+        data.put("longitude", trap.getLongitude());
         return data;
     }
 
     public void insertTrap(Trap trap) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues data = getTrapData(trap);
-        db.insert("Trap", null, data);
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues data = getTrapData(trap);
+            Log.i("trap no banco", trap.getLatitude() +" "+ trap.getLongitude());
+            db.insert("Trap", null, data);
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Trap> showTraps() {
@@ -43,9 +52,11 @@ public class TrapDAO extends DAO {
             Trap trap = new Trap();
             trap.setId((int) line.getLong(line.getColumnIndex("id")));
             trap.setPheromone(line.getString(line.getColumnIndex("pheromone")));
-            trap.setLastChange(Date.valueOf(line.getString(line.getColumnIndex("lastChange"))));
+            trap.setLastChange(line.getString(line.getColumnIndex("lastChange")));
             trap.setDuration(Integer.valueOf(line.getString(line.getColumnIndex("duration"))));
             trap.setStatus(line.getString(line.getColumnIndex("status")));
+            trap.setLatitude(line.getDouble(line.getColumnIndex("latitude")));
+            trap.setLongitude(line.getDouble(line.getColumnIndex("longitude")));
             traps.add(trap);
         }
         line.close();

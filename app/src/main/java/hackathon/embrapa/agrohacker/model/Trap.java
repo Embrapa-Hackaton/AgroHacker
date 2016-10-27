@@ -14,14 +14,17 @@ import java.util.Date;
 public class Trap implements Serializable {
 
     private int id;
-    private Date lastChange;
+    private String lastChange;
     private Integer duration;
     private String pheromone;
     private String status;
     private Marker trapMarker;
     private Circle trapRange;
+    private Double longitude;
+    private Double latitude;
 
-    public Trap(Marker trapMarker, Circle trapRange, Date lastChange, int duration, String pheromone){
+
+    public Trap(Marker trapMarker, Circle trapRange, String lastChange, int duration, String pheromone){
         setTrapRange(trapRange);
         setLastChange(lastChange);
         setDuration(duration);
@@ -43,11 +46,11 @@ public class Trap implements Serializable {
         this.trapRange = trapRange;
     }
 
-    public Date getLastChange() {
+    public String getLastChange() {
         return lastChange;
     }
 
-    public void setLastChange(Date lastChange) {
+    public void setLastChange(String lastChange) {
         this.lastChange = lastChange;
     }
 
@@ -81,5 +84,20 @@ public class Trap implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

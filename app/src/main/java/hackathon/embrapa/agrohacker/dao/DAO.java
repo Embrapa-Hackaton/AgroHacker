@@ -9,7 +9,7 @@ import hackathon.embrapa.agrohacker.helper.PopulatePragueList;
 public class DAO extends SQLiteOpenHelper{
 
     public DAO(Context context) {
-        super(context, "AgroHackerNewTableAgain", null, 2);
+        super(context, "AgroHackerNewTableAgain", null, 6);
     }
 
     private String sql = "";
@@ -47,6 +47,14 @@ public class DAO extends SQLiteOpenHelper{
                 "latitude4 REAL, " +
                 "longitude4 REAL);";
         db.execSQL(sql);
+        sql = "CREATE TABLE Trap (id INTEGER PRIMARY KEY, " +
+                "lastChange TEXT, " +
+                "duration INTEGER, " +
+                "pheromone TEXT, " +
+                "status TEXT, " +
+                "latitude REAL, " +
+                "longitude REAL);";
+        db.execSQL(sql);
 
     }
 
@@ -57,9 +65,7 @@ public class DAO extends SQLiteOpenHelper{
                 sql = "CREATE TABLE Inspection (id INTEGER PRIMARY KEY, realization DATE, inspectorName TEXT," +
                         "status TEXT);";
                 db.execSQL(sql);
-                sql = "CREATE TABLE Trap (id INTEGER PRIMARY KEY, lastChange DATE, duration INTEGER," +
-                        "pheromone TEXT, status TEXT);";
-                db.execSQL(sql);
+
         }
     }
 

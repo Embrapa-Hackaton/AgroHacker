@@ -1,6 +1,7 @@
 package hackathon.embrapa.agrohacker.controller;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hackathon.embrapa.agrohacker.dao.TrapDAO;
 import hackathon.embrapa.agrohacker.model.Plot;
 import hackathon.embrapa.agrohacker.model.Trap;
 
@@ -27,7 +29,7 @@ public class TrapController {
     Marker trapMarker;
     Circle trapRange;
 
-    public void createTrap(String pherormone, int duration, Date lastChange){
+    public void createTrap(String pherormone, int duration, String lastChange, Context context){
         Log.i("Chegou aqui", "createTrap. TrapCon.");
         try {
             Log.i("Latlng: ", trapMarker.getPosition().toString());
@@ -36,6 +38,8 @@ public class TrapController {
             Log.i("duration: ", duration+"");
             Log.i("pherormone: ", pherormone);
             Trap newTrap = new Trap(trapMarker, trapRange, lastChange, duration, pherormone);
+            newTrap.setLatitude(newTrap.getTrapMarker().getPosition().latitude);
+            newTrap.setLongitude(newTrap.getTrapMarker().getPosition().longitude);
             plotController.setTrapOnPlot(newTrap);
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -47,12 +51,15 @@ public class TrapController {
         trapMarker = addTrapMarker(mGoogleMap, latLng);
         trapRange = drawCircle(mGoogleMap, latLng);
 
+        double doubles[] = {latLng.latitude, latLng.longitude};
+
         Intent intent = new Intent();
+        intent.putExtra("points", doubles);
         intent.setClass(mapView.getContext(), TrapFormController.class);
         mapView.getContext().startActivity(intent);
     }
 
-    private Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){
+    public Marker addTrapMarker(GoogleMap mGoogleMap, LatLng latLng){
 
         MarkerOptions marker = new MarkerOptions()
                 .draggable(true)
@@ -63,7 +70,7 @@ public class TrapController {
         return mGoogleMap.addMarker(marker);
     }
 
-    private Circle drawCircle(GoogleMap mGoogleMap, LatLng latlng){
+    public Circle drawCircle(GoogleMap mGoogleMap, LatLng latlng){
 
         CircleOptions circle = new CircleOptions()
                             .center(latlng)
