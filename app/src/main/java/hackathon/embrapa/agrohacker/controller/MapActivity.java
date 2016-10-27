@@ -52,7 +52,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.dao.PlotDAO;
+import hackathon.embrapa.agrohacker.dao.TrapDAO;
 import hackathon.embrapa.agrohacker.model.Plot;
+import hackathon.embrapa.agrohacker.model.Trap;
 
 import static android.R.attr.shape;
 
@@ -71,6 +73,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LocationRequest locationRequest;
     ArrayList<LatLng> points = new ArrayList<LatLng>();
     PlotDAO plotDAO = new PlotDAO(this);
+    TrapDAO trapDAO = new TrapDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,6 +218,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         plotController.plots.clear();
 
         drawPlots();
+        setTraps();
 
         setInfoWindows();
 
@@ -311,14 +315,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        Intent intent = getIntent();
-        ArrayList<Plot> plots = plotController.returnPlots();
-        plot = plots.get(plots.size() - 1);
-        plot.setPlantationStartDate(intent.getStringExtra("platationDate"));
-        plot.setPlantationStartDate(intent.getStringExtra("harvestDate"));
-        plot.setPlantationStartDate(intent.getStringExtra("culture"));
-
-        plotDAO.insertPlot(plot);
+//        Intent intent = getIntent();
+//        ArrayList<Plot> plots = plotController.returnPlots();
+//        plot = plots.get(plots.size() - 1);
+//        plot.setPlantationStartDate(intent.getStringExtra("platationDate"));
+//        plot.setPlantationStartDate(intent.getStringExtra("harvestDate"));
+//        plot.setPlantationStartDate(intent.getStringExtra("culture"));
+//
+//        plotDAO.insertPlot(plot);
     }
 
     public void createTrap() {
@@ -410,7 +414,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         userLocationMarker  =  mGoogleMap.addMarker(marker);
     }
 
-
     public void permitClickOnPolygon(){
 
         mGoogleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
@@ -445,6 +448,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+
     @Override
     public void onConnectionSuspended(int i) {
 
@@ -473,28 +477,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onResume() {
         super.onResume();
-
-//        try{
-//            List<Plot> plots= plotDAO.showPlots();
-//            if(!plots.isEmpty()){
-//                for (int i = 0; i < plots.size(); i++) {
-//                    Plot plot = plots.get(i);
-//                    Polygon polygon = mGoogleMap.addPolygon(new PolygonOptions()
-//                            .add(new LatLng(plot.getLat1(), plot.getLon1()),
-//                                    new LatLng(plot.getLat2(), plot.getLon2()),
-//                                    new LatLng(plot.getLat3(), plot.getLon3()),
-//                                    new LatLng(plot.getLat4(), plot.getLon4()))
-//                            .strokeColor(0x996D1B)
-//                            .fillColor(0x660000FF));
-//
-//                    plotController.createPlot(polygon, plot.getPlatationCulture());
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-//        drawPlots();
     }
 
     private void drawPlots() {
@@ -524,6 +506,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     plotController.plotPoligons.add(plot.getShape());
                     plotController.addPlot(plot);
+                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setTraps() {
+        List<Trap> traps = trapDAO.showTraps();
+        Log.i("Número de traps", "tem " + traps.size() + " traps");
+        try {
+            if (!traps.isEmpty()){
+                for (int i = 0; i < traps.size(); i++) {
+                    Trap trap = traps.get(i);
+
+                    Log.i("Trap points:", trap.getLatitude() + " " + trap.getLongitude());
+                    trapController.addTrapMarker(mGoogleMap, new LatLng(trap.getLatitude(),
+                            trap.getLongitude()));
+                    trapController.drawCircle(mGoogleMap, new LatLng(trap.getLatitude(),
+                            trap.getLongitude()));
                 }
             }
         } catch (NullPointerException e) {

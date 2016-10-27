@@ -2,9 +2,6 @@ package hackathon.embrapa.agrohacker.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,17 +15,9 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Queue;
 
-import hackathon.embrapa.agrohacker.dao.PlotDAO;
 import hackathon.embrapa.agrohacker.model.Plot;
 import hackathon.embrapa.agrohacker.model.Trap;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class PlotController {
 
@@ -85,6 +74,16 @@ public class PlotController {
                 .clickable(true)
                 .strokeColor(0x996D1B);
 
+        Intent intent = new Intent();
+        double doubles[] = {markers.get(0).getPosition().latitude,
+                markers.get(0).getPosition().longitude,
+                markers.get(1).getPosition().latitude,
+                markers.get(1).getPosition().longitude,
+                markers.get(2).getPosition().latitude,
+                markers.get(2).getPosition().longitude,
+                markers.get(3).getPosition().latitude,
+                markers.get(3).getPosition().longitude};
+        intent.putExtra("points", doubles);
 
         for(int i = 0; i < POLYGON_MAX_NUMBERS; i++) {
             options.add(markers.get(i).getPosition());
@@ -123,7 +122,6 @@ public class PlotController {
         createPlot(shape, "Milho");
 
 
-        Intent intent = new Intent();
 //        intent.putExtra("plot", plots.get(plots.size()-1));
         intent.setClass(mapView.getContext(), PlotFormActivity.class);
         mapView.getContext().startActivity(intent);

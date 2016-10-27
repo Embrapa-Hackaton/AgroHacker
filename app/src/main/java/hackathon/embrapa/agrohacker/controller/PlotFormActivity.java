@@ -2,6 +2,7 @@ package hackathon.embrapa.agrohacker.controller;
 
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,14 +95,29 @@ public class PlotFormActivity extends AppCompatActivity {
         if (plantationD != null || harvestD != null) {
 
             // plotController.addPlot("milho", plantationD, harvestD);
-//            Plot plot = new Plot();
-//            plot.setPlantationStartDate(plantationDate.getText().toString());
-//            plot.setHarvestDate(harvestDate.getText().toString());
-//            plot.setPlatationCulture(spinner.getSelectedItem().toString());
+            Plot plot = new Plot();
+            plot.setPlantationStartDate(plantationDate.getText().toString());
+            plot.setHarvestDate(harvestDate.getText().toString());
+            plot.setPlatationCulture(spinner.getSelectedItem().toString());
 
-            getIntent().putExtra("plantationDate", plantationDate.getText().toString());
-            getIntent().putExtra("harvestDate", harvestDate.getText().toString());
-            getIntent().putExtra("culture", spinner.getSelectedItem().toString());
+            Intent intent = getIntent();
+            double doubles[] = intent.getDoubleArrayExtra("points");
+
+            plot.setLat1(doubles[0]);
+            plot.setLon1(doubles[1]);
+            plot.setLat2(doubles[2]);
+            plot.setLon2(doubles[3]);
+            plot.setLat3(doubles[4]);
+            plot.setLon3(doubles[5]);
+            plot.setLat4(doubles[6]);
+            plot.setLon4(doubles[7]);
+
+            plotDAO.insertPlot(plot);
+
+//            getIntent().putExtra("plantationDate", plantationDate.getText().toString());
+//            getIntent().putExtra("harvestDate", harvestDate.getText().toString());
+//            getIntent().putExtra("culture", spinner.getSelectedItem().toString());
+
             finish();
         }
 
