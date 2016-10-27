@@ -33,6 +33,21 @@
         <activity
             android:name=".controller.InspectionFormActivity"
             android:label="Inspeção">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity"/>
+        </activity>
+        <activity
+            android:name=".controller.ChoicePragueActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.InspectionFormActivity"/>
+        </activity>
+        <activity
+            android:name=".controller.ChoicePredatorActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.InspectionFormActivity"/>
         </activity>
         <activity
             android:name=".controller.PragueListController"
@@ -89,12 +104,18 @@
             android:name=".controller.NotificationsActivity"
             android:label="Notifications">
         </activity>
-        <activity android:name=".controller.PlotFormActivity">
+        <activity
+            android:name=".controller.PlotFormActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity"/>
         </activity>
-        <activity android:name=".controller.TrapFormController">
+        <activity
+            android:name=".controller.TrapFormController">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.MapActivity"/>
         </activity>
-        <activity android:name=".controller.ChoicePragueActivity"/>
-        <activity android:name=".controller.ChoicePredatorActivity"/>
         <activity
             android:name=".controller.AboutActivity"
             android:label="Sobre">

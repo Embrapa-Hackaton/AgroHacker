@@ -18,8 +18,6 @@ import hackathon.embrapa.agrohacker.R;
 
 public class InspectionFormActivity extends AppCompatActivity {
 
-    Button confirmButton;
-    Button cancelButton;
     Button addPragueButton;
     Button addPredatorButton;
     ArrayList<String> pragues = new ArrayList<>();
@@ -34,11 +32,12 @@ public class InspectionFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspection_form);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         pragueList = (ListView) findViewById(R.id.lv_pragas);
         predatorList = (ListView) findViewById(R.id.lv_predadores);
 
-        confirmButton = (Button) findViewById(R.id.buttonConfirmFieldInspec);
-        cancelButton = (Button) findViewById(R.id.buttonCancelFieldInspec);
         addPragueButton = (Button) findViewById(R.id.buttonAddPrague);
         addPredatorButton = (Button) findViewById(R.id.buttonAddPredator);
 
@@ -55,7 +54,7 @@ public class InspectionFormActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String prague = (String) intent.getSerializableExtra("pragueKeyInspection");
         //pragues.add(prague);
-        Toast.makeText(this, prague, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, prague, Toast.LENGTH_SHORT).show();
         //praguesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pragues);
         //pragueList.setAdapter(praguesAdapter);
     }
@@ -64,21 +63,9 @@ public class InspectionFormActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String predator = (String) intent.getSerializableExtra("predatorKeyInspection");
         //predators.add(predator);
-        Toast.makeText(this, predator, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, predator, Toast.LENGTH_SHORT).show();
         //predatorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, predators);
         //predatorList.setAdapter(predatorsAdapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_back, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     public void addPrague(View view){
@@ -91,11 +78,26 @@ public class InspectionFormActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void confirmInspection(View view){
+    public void confirmInspection(){
         Toast.makeText(this, "Em construção", Toast.LENGTH_SHORT).show();
     }
 
-    public void cancelInspection(View view){
-        finish();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_formulary, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_formulary_ok:
+                confirmInspection();
+                break;
+            default:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

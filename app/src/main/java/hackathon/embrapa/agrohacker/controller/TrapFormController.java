@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,8 +36,6 @@ public class TrapFormController extends AppCompatActivity {
 
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
-    Button confirmButton;
-    Button cancelButton;
     EditText lastChange;
     EditText duration;
     TrapController trapController = new TrapController();
@@ -48,14 +49,13 @@ public class TrapFormController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trap_form);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setUpSpinner();
 
         lastChange = (EditText) findViewById(R.id.trap_last_change);
         duration = (EditText) findViewById(R.id.duration_edit_Text);
-
-        confirmButton = (Button) findViewById(R.id.confirmTrapButton);
-        cancelButton = (Button) findViewById(R.id.cancelTrapButton);
-
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -68,7 +68,7 @@ public class TrapFormController extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void confirmAddingTrap(View view){
+    public void confirmAddingTrap(){
 
         Log.i("Entering here", "I hope");
 
@@ -150,5 +150,24 @@ public class TrapFormController extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_formulary, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_formulary_ok:
+                confirmAddingTrap();
+                break;
+            default:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

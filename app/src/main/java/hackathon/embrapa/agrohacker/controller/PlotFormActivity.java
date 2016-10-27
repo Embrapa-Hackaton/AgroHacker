@@ -7,6 +7,9 @@ import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,11 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Queue;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.dao.PlotDAO;
-import hackathon.embrapa.agrohacker.model.Plot;
 
 public class PlotFormActivity extends AppCompatActivity {
 
@@ -53,13 +54,13 @@ public class PlotFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot_form);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setUpSpinner();
 
         plantationDate = (EditText) findViewById(R.id.plot_planting_date);
         harvestDate = (EditText) findViewById(R.id.plot_harvesting_date);
-
-        confirmButton = (Button) findViewById(R.id.confirmButton);
-        cancelButton = (Button) findViewById(R.id.cancelbutton);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -72,7 +73,7 @@ public class PlotFormActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void confirmAddingPlot(View view) {
+    public void confirmAddingPlot() {
 
         DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
@@ -123,10 +124,6 @@ public class PlotFormActivity extends AppCompatActivity {
 
 
 //        plotDAO.insertPlot(plot);
-    }
-
-    public void cancelAddingPlot() {
-        finish();
     }
 
     private void setUpEditTextPlantation() {
@@ -199,5 +196,24 @@ public class PlotFormActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_formulary, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_formulary_ok:
+                confirmAddingPlot();
+                break;
+            default:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

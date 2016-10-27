@@ -16,7 +16,7 @@
         android:textAlignment="center"
         android:textSize="28dp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -46,7 +46,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,32 +91,6 @@
             android:hint="dd/mm/aaaa"
             android:id="@+id/plot_harvesting_date"
             android:inputType="date"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_weight="0.00">
-
-    <Button
-        android:text="OK"
-        android:layout_width="64dp"
-        android:layout_height="match_parent"
-        android:id="@+id/confirmButton"
-        android:onClick="confirmAddingPlot"
-        android:background="@color/colorPrimary"/>
-
-    <Button
-        android:text="Cancelar"
-        android:layout_width="75dp"
-        android:layout_height="match_parent"
-        android:id="@+id/cancelbutton"
-        android:onClick="cancelAddingPlot"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
 
