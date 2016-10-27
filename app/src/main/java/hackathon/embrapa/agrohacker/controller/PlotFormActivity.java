@@ -31,6 +31,7 @@ import java.util.Locale;
 
 import hackathon.embrapa.agrohacker.R;
 import hackathon.embrapa.agrohacker.dao.PlotDAO;
+import hackathon.embrapa.agrohacker.model.Plot;
 
 public class PlotFormActivity extends AppCompatActivity {
 

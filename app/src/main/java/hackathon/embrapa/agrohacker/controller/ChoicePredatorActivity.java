@@ -51,10 +51,8 @@ public class ChoicePredatorActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 NaturalPredator predator = (NaturalPredator) predatorList.getItemAtPosition(position);
-                //Intent intent = new Intent(ChoicePredatorActivity.this, InspectionFormActivity.class);
-                //intent.putExtra("predatorKeyInspection", predator.toString());
-                //startActivity(intent);
-                Toast.makeText(ChoicePredatorActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                intent.putExtra("predator", predator.getPopularName());
                 finish();
             }
         });

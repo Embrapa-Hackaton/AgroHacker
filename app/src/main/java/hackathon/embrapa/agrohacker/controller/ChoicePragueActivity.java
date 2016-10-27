@@ -52,10 +52,8 @@ public class ChoicePragueActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
                 Prague prague = (Prague) pragueList.getItemAtPosition(position);
-                //Intent intent = new Intent(ChoicePragueActivity.this, InspectionFormActivity.class);
-                //intent.putExtra("pragueKeyInspection", prague.toString());
-                //startActivity(intent);
-                Toast.makeText(ChoicePragueActivity.this, "Em construção", Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                intent.putExtra("praga", prague.getPopularName());
                 finish();
             }
         });

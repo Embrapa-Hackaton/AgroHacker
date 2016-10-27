@@ -57,7 +57,7 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:textAlignment="center"
-                android:text="Agrohacker é um aplicativo que possibilite o produtor gerenciar seus inspetores, dados de inspeção, armadilhas e visualizar as pragas em seu talhão e nos talhões vizinhos. O aplicativo também proverá um espaço para aprender mais sobre as boas e más espécies que impactam na plantação. E será usado para ambos, produtor e inspetor da plantação em um trabalho conjunto."/>
+                android:text="Agrohacker é um aplicativo que possibilita ao produtor gerenciar seus inspetores, dados de inspeção, armadilhas e visualizar as pragas em seu talhão e nos talhões vizinhos. O aplicativo também proverá um espaço para aprender mais sobre as boas e más espécies que impactam na plantação. E será usado para ambos, produtor e inspetor da plantação em um trabalho conjunto."/>
 
             <TextView
                 android:layout_width="wrap_content"

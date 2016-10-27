@@ -3,6 +3,7 @@ package hackathon.embrapa.agrohacker.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +41,6 @@ public class InspectionFormActivity extends AppCompatActivity {
 
         addPragueButton = (Button) findViewById(R.id.buttonAddPrague);
         addPredatorButton = (Button) findViewById(R.id.buttonAddPredator);
-
     }
 
     @Override
@@ -48,24 +48,26 @@ public class InspectionFormActivity extends AppCompatActivity {
         super.onResume();
         receivePragueData();
         receivePredatorData();
+
+        Log.i("Tamanho praga", pragues.size()+"");
+        Log.i("Tamanho predador", predators.size()+"");
+
+        praguesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pragues);
+        predatorsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, predators);
     }
 
     private void receivePragueData() {
         Intent intent = getIntent();
-        String prague = (String) intent.getSerializableExtra("pragueKeyInspection");
-        //pragues.add(prague);
-        //Toast.makeText(this, prague, Toast.LENGTH_SHORT).show();
-        //praguesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pragues);
-        //pragueList.setAdapter(praguesAdapter);
+        String prague = intent.getStringExtra("praga");
+        Log.i("nomePraga", prague);
+        pragues.add(prague);
     }
 
     private void receivePredatorData() {
         Intent intent = getIntent();
-        String predator = (String) intent.getSerializableExtra("predatorKeyInspection");
-        //predators.add(predator);
-        //Toast.makeText(this, predator, Toast.LENGTH_SHORT).show();
-        //predatorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, predators);
-        //predatorList.setAdapter(predatorsAdapter);
+        String predator = intent.getStringExtra("predator");
+        Log.i("NomePredador", predator);
+        predators.add(predator);
     }
 
     public void addPrague(View view){
@@ -79,7 +81,7 @@ public class InspectionFormActivity extends AppCompatActivity {
     }
 
     public void confirmInspection(){
-        Toast.makeText(this, "Em construção", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
