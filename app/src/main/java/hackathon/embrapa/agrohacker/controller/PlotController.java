@@ -227,11 +227,13 @@ public class PlotController {
 
     public void setTrapOnPlot(Trap newTrap) {
 
+        Log.i("Chegando aqui", "setTrapOnPlot");
         for(int i = 0; i < plotPoligons.size(); i++){
             //Find polygon that contais the trap
             if(checkPointIsInsideAPlot((ArrayList<LatLng>) plotPoligons.get(i).getPoints(),
                                 newTrap.getTrapMarker().getPosition())){
                 //Find plot that has that polygons and add trap
+                Log.i("Achou o talhao", "vai add a armadilha");
                 findPlotbyShape(plotPoligons.get(i)).setTrap(newTrap);
             }
         }
