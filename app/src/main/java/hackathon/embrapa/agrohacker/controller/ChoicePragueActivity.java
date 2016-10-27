@@ -1,5 +1,6 @@
 package hackathon.embrapa.agrohacker.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,28 +17,40 @@ import hackathon.embrapa.agrohacker.model.Prague;
 
 public class ChoicePragueActivity extends AppCompatActivity {
 
-    PragueDAO pragueDAO = new PragueDAO(this);
-    InspectionFormActivity inspectionFormActivity = new InspectionFormActivity();
-    InspectionPragueListViewController inspectionPragueListViewController =
-            new InspectionPragueListViewController();
+    public ListView pragueList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choice_prague);
+        setContentView(R.layout.activity_choice);
 
-        ListView praguesOnDBLV = (ListView) findViewById(R.id.lv_pragues_DB);
-        final ArrayList<Prague> pragues = (ArrayList<Prague>) pragueDAO.showPragues();
+        pragueList = (ListView) findViewById(R.id.list_view_DB);
+
+        LoadingList();
+
+        clickAddPrague();
+
+    }
+
+    private void LoadingList() {
+        PragueDAO dao = new PragueDAO(this);
+        ArrayList<Prague> pragues = dao.showPragues();
+        dao.close();
         ArrayAdapter<Prague> arrayAdapter = new ArrayAdapter<Prague>(this, android.R.layout.simple_list_item_1, pragues);
-        praguesOnDBLV.setAdapter(arrayAdapter);
+        pragueList.setAdapter(arrayAdapter);
+    }
 
-        praguesOnDBLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void clickAddPrague() {
+        pragueList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                inspectionPragueListViewController.setPragues(pragues.get(position));
-                getIntent().putExtra("pragues",pragues.get(position).toString() );
-                ChoicePragueActivity.super.onBackPressed();
+            public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
+                Prague prague = (Prague) pragueList.getItemAtPosition(position);
+                Intent intent = new Intent(ChoicePragueActivity.this, InspectionFormActivity.class);
+                intent.putExtra("pragueKeyInspection", prague.toString());
+                startActivity(intent);
+                finish();
             }
         });
     }
+
 }

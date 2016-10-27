@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hackathon.embrapa.agrohacker.R;
@@ -77,7 +78,7 @@ public class PredatorListController extends AppCompatActivity {
 
     private void LoadingList() {
         NaturalPredatorDAO dao = new NaturalPredatorDAO(this);
-        List<NaturalPredator> predators = dao.showPredators();
+        ArrayList<NaturalPredator> predators = dao.showPredators();
         dao.close();
         PredatorAdapter adapter = new PredatorAdapter(this, predators);
         predatorList.setAdapter(adapter);

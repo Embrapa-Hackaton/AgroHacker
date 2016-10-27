@@ -21,7 +21,7 @@
             android:id="@+id/textView2"
             android:layout_height="60dp"/>
 
-        <EditText android:hint="Nome"
+        <EditText android:hint="Nome do Inspetor"
                   android:layout_below="@+id/include_inspection_toolbar_form"
                   android:id="@+id/formulary_name"
                   android:layout_width="match_parent"
@@ -33,6 +33,7 @@
             android:textColor="@color/white"
             android:textSize="30dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/textView3"
@@ -40,62 +41,71 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="200dp"
             android:id="@+id/lv_pragas">
         </ListView>
+
+        <Button
+            android:text="Adicionar Praga"
+            android:onClick="addPrague"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAddPrague"/>
 
         <TextView
             android:text="Predadores"
             android:textAlignment="center"
             android:textColor="@color/white"
-            tools:background="@color/colorPrimary"
             android:textSize="30dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/textView4"/>
+            android:id="@+id/textView4"
+            android:background="@color/colorPrimary"/>
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="200dp"
             android:id="@+id/lv_predadores"/>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Button
+            android:text="Adicionar Predador"
+            android:onClick="addPredator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAddPredator"/>
 
-            <Button
-                android:text="Adicionar Praga"
-                android:onClick="addPrague"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal" >
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonAddPrague"/>
+                android:layout_height="match_parent">
+                <Button
+                    android:text="Confirmar"
+                    android:onClick="confirmInspection"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonConfirmFieldInspec"
+                    android:background="@drawable/round_corner_button"
+                    android:layout_margin="5dp"
+                    android:layout_alignParentLeft="true"/>
 
-            <Button
-                android:text="Adicionar Predador"
-                android:onClick="addPredator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonAddPredator"/>
-
-            <Button
-                android:text="Confirmar"
-                android:onClick="confirmInspection"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonConfirmFieldInspec"
-                android:background="@color/colorPrimary"/>
-
-            <Button
-                android:text="Cancelar"
-                android:onClick="cancelInspection"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonCancelFieldInspec"
-                android:background="@color/colorPrimaryDark"/>
+                <Button
+                    android:text="Cancelar"
+                    android:onClick="cancelInspection"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonCancelFieldInspec"
+                    android:background="@drawable/round_corner_button"
+                    android:layout_margin="5dp"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

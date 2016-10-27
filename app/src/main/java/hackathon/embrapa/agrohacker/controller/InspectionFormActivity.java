@@ -15,27 +15,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import hackathon.embrapa.agrohacker.R;
-import hackathon.embrapa.agrohacker.model.NaturalPredator;
-import hackathon.embrapa.agrohacker.model.Prague;
 
 public class InspectionFormActivity extends AppCompatActivity {
-
-    FieldInspectionController fieldInspectionController;
 
     Button confirmButton;
     Button cancelButton;
     Button addPragueButton;
     Button addPredatorButton;
-
-    ArrayList<Prague> initialPragues = new ArrayList<>();
-    ArrayList<NaturalPredator> initialPredators = new ArrayList<>();
-
-    InspectionPragueListViewController inspectionPragueListViewController;
-    InspectionPredatorListViewController inspectionPredatorListViewController;
-
-    ArrayAdapter<NaturalPredator> predatorsAdapter;
-    ArrayAdapter<Prague> praguesAdapter;
-
+    ArrayList<String> pragues = new ArrayList<>();
+    ArrayList<String> predators = new ArrayList<>();
+    ArrayAdapter<String> predatorsAdapter;
+    ArrayAdapter<String> praguesAdapter;
     ListView pragueList;
     ListView predatorList;
 
@@ -47,49 +37,47 @@ public class InspectionFormActivity extends AppCompatActivity {
         pragueList = (ListView) findViewById(R.id.lv_pragas);
         predatorList = (ListView) findViewById(R.id.lv_predadores);
 
-        predatorsAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, initialPredators);
-        predatorList.setAdapter(predatorsAdapter);
-
-        praguesAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, initialPragues);
-        pragueList.setAdapter(praguesAdapter);
-
         confirmButton = (Button) findViewById(R.id.buttonConfirmFieldInspec);
         cancelButton = (Button) findViewById(R.id.buttonCancelFieldInspec);
         addPragueButton = (Button) findViewById(R.id.buttonAddPrague);
         addPredatorButton = (Button) findViewById(R.id.buttonAddPredator);
+
     }
 
-/*
     @Override
     public void onResume(){
         super.onResume();
-        predatorsAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, inspectionPredatorListViewController.predators);
-        predatorList.setAdapter(predatorsAdapter);
+        receivePragueData();
+        receivePredatorData();
+    }
 
+    private void receivePragueData() {
+        Intent intent = getIntent();
+        String prague = (String) intent.getSerializableExtra("pragueKeyInspection");
+        //pragues.add(prague);
+        Toast.makeText(this, prague, Toast.LENGTH_SHORT).show();
+        //praguesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pragues);
+        //pragueList.setAdapter(praguesAdapter);
+    }
 
-        praguesAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, inspectionPragueListViewController.pragues);
-        pragueList.setAdapter(praguesAdapter);
-    }*/
+    private void receivePredatorData() {
+        Intent intent = getIntent();
+        String predator = (String) intent.getSerializableExtra("predatorKeyInspection");
+        //predators.add(predator);
+        Toast.makeText(this, predator, Toast.LENGTH_SHORT).show();
+        //predatorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, predators);
+        //predatorList.setAdapter(predatorsAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_formulary, menu);
+        inflater.inflate(R.menu.menu_back, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_formulary_ok:
-                Toast.makeText(InspectionFormActivity.this, "Botão clicado!", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
